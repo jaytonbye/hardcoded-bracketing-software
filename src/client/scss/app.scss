@@ -1,0 +1,41 @@
+$theme-colors: (
+  "primary": #ff7824,
+  "secondary": rgb(0, 0, 0),
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.gradeOf3 {
+  background-color: lightgreen;
+}
+
+.gradeOf2 {
+  background-color: orange;
+}
+
+.gradeOf1 {
+  background-color: yellow;
+}
+
+.gradeOfIncorrect {
+  background-color: red;
+}
+
+.notGradeable {
+  background-color: black;
+}
+
+.buttonThatLooksLikeALink {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+td {
+  white-space: pre-line;
+}
