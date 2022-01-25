@@ -10,17 +10,17 @@ export interface IUser {
   tenant?: string;
 }
 
-// for table personal_info
-export interface IPerson {
-  id: number;
-  first_name: string;
-  last_name: string;
-  notes: string;
-  user_id: number;
-  date_created: Date;
-}
-
 export interface mysqlResponse {
   affectedRows: number;
   insertId: number;
+}
+
+//This interface is my first in the bracketing software, lets see if I use it.
+export interface IEvent {
+  id: number;
+  created_by_user: number;
+  name_of_event: string;
+  date_of_event: Date;
+  location_of_event: string;
+  created_at: Date;
 }

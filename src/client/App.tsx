@@ -7,6 +7,7 @@ import CreateAccount from "./CreateAccount";
 import PasswordResetLandingPage from "./PasswordResetLandingPage";
 import ShowAllLogins from "./ShowAllLogins";
 import LoggedIn from "./LoggedIn";
+import EventsPage from "./EventsPage";
 
 const App = (props: AppProps) => {
   return (
@@ -26,6 +27,9 @@ const App = (props: AppProps) => {
           <Route exact path="/homepage">
             <LoggedIn />
           </Route>
+          <Route exact path="/events/:event">
+            <EventsPage />
+          </Route>
           <Route path="/passwordResetLandingPage/:encryptedIdInUrl">
             <PasswordResetLandingPage />
           </Route>
@@ -35,7 +39,7 @@ const App = (props: AppProps) => {
 
           <Route path="*">
             <h1>404 not found error, you probably went to the wrong page...</h1>
-            <a href="/WrestlersView">Go back to the homepage!</a>
+            <a href="/homepage">Go back to the homepage!</a>
           </Route>
         </Switch>
       </BrowserRouter>
