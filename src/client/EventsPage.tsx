@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { IEvent } from "../types";
+import MatsForEvent from "./MatsForEvent";
 
 export default function EventsPage() {
   let { event } = useParams<any>();
@@ -21,6 +22,7 @@ export default function EventsPage() {
       {eventLoaded && (
         <h2>This is the page for {eventInfo[0].name_of_event}</h2>
       )}
+      <MatsForEvent eventID={event} />
     </>
   );
 }
