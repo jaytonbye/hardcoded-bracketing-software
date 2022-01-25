@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 export default function EventsPage() {
-  const [navigateToEvent, setNavigateToEvent] = React.useState("homepage");
+  const [navigateToEvent, setNavigateToEvent] = React.useState(2);
   const [allEvents, setAllEvents] = React.useState([]);
 
   const onEventChange = (event: any) => {

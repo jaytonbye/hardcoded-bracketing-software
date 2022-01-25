@@ -1,6 +1,7 @@
 import * as mysql from "mysql";
 import users from "./users";
 import events from "./events";
+import divisions from "./divisions";
 import successful_logins from "./successful_logins";
 
 import config from "../config";
@@ -26,5 +27,6 @@ export const Query = (query: string, values?: Array<string | number>) => {
 export default {
   users,
   events,
+  divisions,
   successful_logins,
 };

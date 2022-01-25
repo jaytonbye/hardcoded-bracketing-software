@@ -25,7 +25,7 @@ export default function NavigationBar() {
   let goToAdminPage = () => {
     history.push("/admin");
   };
-  let goToHome = () => "/LoggedIn";
+  let goToHome = () => "/homepage";
 
   return (
     <>
