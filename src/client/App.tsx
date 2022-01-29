@@ -9,6 +9,7 @@ import ShowAllLogins from "./ShowAllLogins";
 import LoggedIn from "./LoggedIn";
 import EventsPage from "./EventsPage";
 import Admin from "./Admin";
+import EventAdminPage from "./EventAdminPage";
 
 const App = (props: AppProps) => {
   return (
@@ -32,6 +33,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/events/:event">
             <EventsPage />
+          </Route>
+          <Route exact path="/eventAdmin/:event">
+            <EventAdminPage />
           </Route>
           <Route path="/passwordResetLandingPage/:encryptedIdInUrl">
             <PasswordResetLandingPage />
