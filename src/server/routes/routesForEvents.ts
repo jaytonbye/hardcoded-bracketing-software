@@ -18,23 +18,20 @@ router.get("/:id?", async (req, res) => {
   }
 });
 
-// router.post("/", async (req, res) => {
-//   try {
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let role = req.body.role;
-//     let real_email = req.body.real_email;
-//     let tenant = req.body.tenant;
+router.post("/", async (req, res) => {
+  try {
+    let userID = req.body.userID;
+    let name = req.body.name;
+    let date = req.body.date;
+    let location = req.body.location;
 
-//     res.json(
-//       await db.users.createUser({ email, password, role, real_email, tenant })
-//     );
-//   } catch (error) {
-//     console.log(req.body);
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
+    res.json(await db.events.createEvent(userID, name, date, location));
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 // router.put("/", hasValidAdminToken, async (req, res) => {
 //   try {

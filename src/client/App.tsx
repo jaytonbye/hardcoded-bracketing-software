@@ -8,6 +8,7 @@ import PasswordResetLandingPage from "./PasswordResetLandingPage";
 import ShowAllLogins from "./ShowAllLogins";
 import LoggedIn from "./LoggedIn";
 import EventsPage from "./EventsPage";
+import Admin from "./Admin";
 
 const App = (props: AppProps) => {
   return (
@@ -17,7 +18,9 @@ const App = (props: AppProps) => {
           <Route exact path="/">
             <Home />
           </Route>
-
+          <Route exact path="/admin">
+            <Admin />
+          </Route>
           <Route exact path="/login">
             <Login />
           </Route>
