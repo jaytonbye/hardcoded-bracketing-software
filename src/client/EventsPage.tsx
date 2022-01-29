@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { IEvent } from "../types";
 import MatsForEvent from "./MatsForEvent";
 import SelectDivisionComponent from "./SelectDivisionComponent";
 import NavigationBar from "./NavigationBar";
 
 export default function EventsPage() {
   let { event } = useParams<any>();
+
   const [eventInfo, setEventinfo] = React.useState([]);
   const [eventLoaded, setEventLoaded] = React.useState(false);
 

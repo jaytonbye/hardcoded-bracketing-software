@@ -34,7 +34,7 @@ const App = (props: AppProps) => {
           <Route exact path="/events/:event">
             <EventsPage />
           </Route>
-          <Route exact path="/eventAdmin/:event">
+          <Route exact path="/eventAdmin/:eventID">
             <EventAdminPage />
           </Route>
           <Route path="/passwordResetLandingPage/:encryptedIdInUrl">

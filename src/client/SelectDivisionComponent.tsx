@@ -16,7 +16,6 @@ export default function SelectDivisionComponent(props: any) {
   };
 
   React.useEffect(() => {
-    console.log(props.eventID);
     fetch(`/api/divisions/divisionsByEventId/${props.eventID}`)
       .then((res) => res.json())
       .then((results) => {

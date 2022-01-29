@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AddDivisionComponent() {
+export default function AddDivisionComponent(props: any) {
   const [name, setName] = React.useState();
   const [age, setAge] = React.useState();
   const [weightClass, setWeightClass] = React.useState();
@@ -18,7 +18,8 @@ export default function AddDivisionComponent() {
   let submitDivision = () => {
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID"));
-    let eventID = 6;
+    let eventID = props.eventID;
+    console.log(eventID);
     const requestOptions = {
       method: "POST",
       headers: {
@@ -49,7 +50,7 @@ export default function AddDivisionComponent() {
       <input type="text" onChange={onNameChange} />
       <label>Age: </label>
       <input type="number" onChange={onAgeChange} />
-      <label>Location: </label>
+      <label>Weight Class: </label>
       <input type="text" onChange={onWeightClassChange} />
       <button onClick={submitDivision} className="btn btn-primary ml-2 mt-2">
         Submit Division
