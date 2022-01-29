@@ -23,8 +23,18 @@ VALUES (?,?,?,?);
   );
 };
 
+const deleteEvent = async (eventID: number) => {
+  Query(`DELETE FROM events WHERE id=?`, [eventID]);
+};
+
+const deleteCorrespondingDivisions = async (eventID: number) => {
+  return Query("DELETE FROM divisions WHERE event_id=?", [eventID]);
+};
+
 export default {
   allEvents,
   singleEvent,
   createEvent,
+  deleteEvent,
+  deleteCorrespondingDivisions,
 };

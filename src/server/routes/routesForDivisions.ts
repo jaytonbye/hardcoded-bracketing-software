@@ -31,23 +31,29 @@ router.get("/:id?", async (req, res) => {
   }
 });
 
-// router.post("/", async (req, res) => {
-//   try {
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let role = req.body.role;
-//     let real_email = req.body.real_email;
-//     let tenant = req.body.tenant;
+router.post("/", async (req, res) => {
+  try {
+    let userID = req.body.userID;
+    let eventID = req.body.eventID;
+    let name = req.body.name;
+    let age = req.body.age;
+    let weight_class = req.body.weigh_class;
 
-//     res.json(
-//       await db.users.createUser({ email, password, role, real_email, tenant })
-//     );
-//   } catch (error) {
-//     console.log(req.body);
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
+    res.json(
+      await db.divisions.createDivision(
+        userID,
+        eventID,
+        name,
+        age,
+        weight_class
+      )
+    );
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 // router.put("/", hasValidAdminToken, async (req, res) => {
 //   try {

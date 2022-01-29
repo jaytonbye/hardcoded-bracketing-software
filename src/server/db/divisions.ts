@@ -12,8 +12,25 @@ const singleDivision = async (id: number) => {
   return Query(`Select * from divisions WHERE id=?;`, [id]);
 };
 
+const createDivision = async (
+  userID: number,
+  eventID: number,
+  name: string,
+  age: number,
+  weight_class: string
+) => {
+  return Query(
+    `
+    INSERT INTO divisions (created_by_user, event_id, name_of_division, age, weight_class)
+VALUES (?, ?, ?, ?,?);
+    `,
+    [userID, eventID, name, age, weight_class]
+  );
+};
+
 export default {
   allDivisions,
   allDivisionsForSingleEvent,
   singleDivision,
+  createDivision,
 };

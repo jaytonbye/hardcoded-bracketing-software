@@ -43,17 +43,18 @@ router.post("/", async (req, res) => {
 //   }
 // });
 
-// router.delete("/:id", hasValidAdminToken, async (req, res) => {
-//   let id = Number(req.params.id);
-//   try {
-//     await db.users.deleteUser(id);
-//     res.json(
-//       "hopefully deleted users after deleting corresponding personal_info and grades"
-//     );
-//   } catch (error) {
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
+router.delete("/:id", hasValidAdminToken, async (req, res) => {
+  let id = Number(req.params.id);
+  try {
+    await db.events.deleteCorrespondingDivisions(id);
+    await db.events.deleteEvent(id);
+    res.json(
+      "hopefully deleted the event after deleting corresponding divisions"
+    );
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 export default router;
