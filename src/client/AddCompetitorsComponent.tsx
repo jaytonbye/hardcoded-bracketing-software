@@ -35,7 +35,13 @@ export default function AddCompetitorsComponent() {
     console.log(seededArrayofWrestlersAndTeams);
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
     console.log(brackets);
-    setCompletedBrackets(brackets);
+
+    //I was unable to set it into state due to my lack of typescript ability. I'm just going to move forward with it in a regular variable (brackets).
+    //setCompletedBrackets(brackets);
+
+    // for(let x=0; x<brackets.length; x++){
+
+    // }
   };
 
   return (

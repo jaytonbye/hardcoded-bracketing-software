@@ -6,6 +6,7 @@ import { hasValidToken } from "./utils/tokenCheck";
 import Contact from "./routes/Contact";
 import routesForEvents from "./routes/routesForEvents";
 import routesForDivisions from "./routes/routesForDivisions";
+import routesForBouts from "./routes/routesForBouts";
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use("/successfulLogins", routesForSuccessfulLogins);
 router.use("/contact", Contact);
 router.use("/events", routesForEvents);
 router.use("/divisions", routesForDivisions);
+router.use("/bouts/", routesForBouts);
 
 export default router;

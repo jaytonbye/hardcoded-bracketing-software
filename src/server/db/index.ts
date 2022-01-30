@@ -2,6 +2,7 @@ import * as mysql from "mysql";
 import users from "./users";
 import events from "./events";
 import divisions from "./divisions";
+import bouts from "./bouts";
 import successful_logins from "./successful_logins";
 
 import config from "../config";
@@ -28,5 +29,6 @@ export default {
   users,
   events,
   divisions,
+  bouts,
   successful_logins,
 };
