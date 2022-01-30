@@ -1,14 +1,21 @@
 import React from "react";
 
-// @ts-ignore
-import { dataFormatter } from "./bracketing_logic/bracketBuilder";
+// // @ts-ignore
+// import { dataFormatter } from "./bracketing_logic/bracketBuilder";
 // // @ts-ignore
 // import { handleSeedingFunction } from "./bracketing_logic/bracketBuilder";
 // // @ts-ignore
 // import { bracketBuilder } from "./bracketing_logic/bracketBuilder";
+// @ts-ignore
+import { dataFormatter } from "./bracketing_logic/dataFormatter";
+// @ts-ignore
+import { handleSeedingFunction } from "./bracketing_logic/handleSeedingFunction";
+// @ts-ignore
+import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 
 export default function AddCompetitorsComponent() {
   const [wrestlerList, setWrestlerList] = React.useState("");
+  const [comletedBrackets, setCompletedBrackets] = React.useState([]);
 
   let divisionID = 25;
 
@@ -19,11 +26,16 @@ export default function AddCompetitorsComponent() {
   let handleSubmitWrestlerList = () => {
     alert("The button was clicked");
 
-    // formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
-    // let seededArrayofWrestlersAndTeams = handleSeedingFunction(
-    //   formattedArrayOfWrestlersAndTeams
-    // );
-    // bracketBuilder(seededArrayofWrestlersAndTeams);
+    let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
+    console.log(formattedArrayOfWrestlersAndTeams);
+
+    let seededArrayofWrestlersAndTeams = handleSeedingFunction(
+      formattedArrayOfWrestlersAndTeams
+    );
+    console.log(seededArrayofWrestlersAndTeams);
+    let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
+    console.log(brackets);
+    setCompletedBrackets(brackets);
   };
 
   return (
