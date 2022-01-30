@@ -36,7 +36,7 @@ export default function Admin() {
       </button> */}
       {showAddDivision && <AddDivisionComponent eventID={eventID} />}
 
-      <EditDivisionsComponent />
+      <EditDivisionsComponent eventID={eventID} />
     </>
   );
 }

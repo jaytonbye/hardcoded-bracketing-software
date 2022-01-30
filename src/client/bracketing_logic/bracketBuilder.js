@@ -1,7 +1,7 @@
 //The bracket builder
 
 // This is the data formatter. It will start by taking a tab separated list (in order of seeding from first to last) and maninpulating it into an array of objects where each object contains the wrestler's name and team name.
-let dataFormatter = (tabSeparatedWrestlersString) => {
+export let dataFormatter = (tabSeparatedWrestlersString) => {
   let arrayOfWrestlersAndTeamsTabSeparated = tabSeparatedWrestlersString.split(
     "\n"
   );
@@ -53,13 +53,13 @@ Wrestler Seeded32	Team 32`);
 
 console.log({ formattedArrayOfWrestlersAndTeams });
 
-let handleSeedingFunction = (initialArrayOfCompetitorsOrderedBySeed) => {
+export let handleSeedingFunction = (initialArrayOfCompetitorsOrderedBySeed) => {
   let bigArray = [];
   let binarySplitting = (initialArrayOfCompetitorsOrderedBySeed) => {
     let topArray = [];
     let botArray = [];
 
-    for (x = 0; x < initialArrayOfCompetitorsOrderedBySeed.length; x++) {
+    for (let x = 0; x < initialArrayOfCompetitorsOrderedBySeed.length; x++) {
       if (x % 4 === 0 || x % 4 === 3) {
         topArray.push(initialArrayOfCompetitorsOrderedBySeed[x]);
       } else {
@@ -102,7 +102,7 @@ let handleSeedingFunction = (initialArrayOfCompetitorsOrderedBySeed) => {
   let makeSureOddSeedsAreOnTopFunction = (
     formattedArrayOfWrestlersTeamsAndSeeds
   ) => {
-    for (x = 0; x < formattedArrayOfWrestlersTeamsAndSeeds.length; x++) {
+    for (let x = 0; x < formattedArrayOfWrestlersTeamsAndSeeds.length; x++) {
       if (x % 2 === 0) {
         if (formattedArrayOfWrestlersTeamsAndSeeds[x].seed % 2 === 0) {
           let placeholder1 = formattedArrayOfWrestlersTeamsAndSeeds[x];
@@ -125,7 +125,7 @@ let seededArrayofWrestlersAndTeams = handleSeedingFunction(
 );
 
 // This is the bracket builder. It will start by taking a tab separated list (in order of seeding from first to last) and maninpulating it into an array of objects where each object contains the wrestler's name and team name (this function is called the dataFormatter)
-let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
+export let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
   let empty32ManDoubleEliminationBracket = [
     {
       matchNumber: 1,

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function EditDivisionsComponent() {
+export default function EditDivisionsComponent(props: any) {
   const [divisions, setDivisions] = React.useState([]);
   const [deleteText, setDeleteText] = React.useState("");
 
@@ -34,8 +34,9 @@ export default function EditDivisionsComponent() {
     }
   };
 
+  console.log(props.eventID);
   React.useEffect(() => {
-    fetch(`/api/divisions`)
+    fetch(`/api/divisions/divisionsByEventId/${props.eventID}`)
       .then((res) => res.json())
       .then((results) => {
         setDivisions(results);

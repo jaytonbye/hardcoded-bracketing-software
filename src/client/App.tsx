@@ -10,6 +10,7 @@ import LoggedIn from "./LoggedIn";
 import EventsPage from "./EventsPage";
 import Admin from "./Admin";
 import EventAdminPage from "./EventAdminPage";
+import AddCompetitorsComponent from "./AddCompetitorsComponent";
 
 const App = (props: AppProps) => {
   return (
@@ -27,6 +28,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/createAccount">
             <CreateAccount />
+          </Route>
+          <Route exact path="/blah">
+            <AddCompetitorsComponent />
           </Route>
           <Route exact path="/homepage">
             <LoggedIn />

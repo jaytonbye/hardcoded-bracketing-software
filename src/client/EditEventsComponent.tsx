@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function EditEventsComponent() {
   const [events, setEvents] = React.useState([]);
@@ -59,7 +60,11 @@ export default function EditEventsComponent() {
           {events.map((event) => {
             return (
               <tr key={event.id}>
-                <td>{event.name_of_event}</td>
+                <td>
+                  <Link to={`/eventAdmin/${event.id}`}>
+                    {event.name_of_event}
+                  </Link>
+                </td>
                 <td>{event.date_of_event}</td>
                 <td>{event.location_of_event}</td>
                 <td>
