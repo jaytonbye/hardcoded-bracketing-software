@@ -6,6 +6,7 @@ import React from "react";
 // import { handleSeedingFunction } from "./bracketing_logic/bracketBuilder";
 // // @ts-ignore
 // import { bracketBuilder } from "./bracketing_logic/bracketBuilder";
+
 // @ts-ignore
 import { dataFormatter } from "./bracketing_logic/dataFormatter";
 // @ts-ignore
@@ -16,8 +17,6 @@ import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 export default function AddCompetitorsComponent() {
   const [wrestlerList, setWrestlerList] = React.useState("");
   const [comletedBrackets, setCompletedBrackets] = React.useState([]);
-
-  let divisionID = 25;
 
   let onWrestlerListChange = (e: any) => {
     setWrestlerList(e.target.value);
@@ -36,12 +35,45 @@ export default function AddCompetitorsComponent() {
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
     console.log(brackets);
 
-    //I was unable to set it into state due to my lack of typescript ability. I'm just going to move forward with it in a regular variable (brackets).
-    //setCompletedBrackets(brackets);
+    //I'm not using state here. Is that ok?
 
-    // for(let x=0; x<brackets.length; x++){
+    let token = sessionStorage.getItem("token");
+    let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
+    let eventID = 7; //hardcoded
+    let divisionID = 25; //hardcoded
 
-    // }
+    //creates individual matches out of the array
+    for (let x = 0; x < brackets.length; x++) {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify({
+          userID,
+          eventID,
+          divisionID,
+          bottomLineWrestler: JSON.stringify(brackets[x].bottomLineWrestler),
+          dispatched: brackets[x].dispatched,
+          loser: brackets[x].loser,
+          matchNumber: brackets[x].matchNumber,
+          round: brackets[x].round,
+          score: brackets[x].score,
+          topLineWrestler: JSON.stringify(brackets[x].topLineWrestler),
+          winner: brackets[x].winner,
+          dispatchedToMat: null,
+        }),
+      };
+      fetch("/api/bouts", requestOptions).then((res) => {
+        if (res.ok) {
+          console.log("bout added");
+        } else {
+          console.log("it didn't work!");
+        }
+      });
+    }
   };
 
   return (

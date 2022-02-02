@@ -13,17 +13,17 @@ const allBoutsForSingleEventAndSingleDivision = async (
   eventID: number,
   divisionID: number
 ) => {
-  return Query(`Select * from bouts Where event_id=? and division_id=?;`, [
-    eventID,
-    divisionID,
-  ]);
+  return Query(
+    `Select * from bouts Where event_id=? and division_id=? ORDER BY match_number;`,
+    [eventID, divisionID]
+  );
 };
 
-const singlebout = async (id: number) => {
+const singleBout = async (id: number) => {
   return Query(`Select * from bouts WHERE id=?;`, [id]);
 };
 
-const createbout = async (
+const createBout = async (
   userID: number,
   eventID: number,
   divisionID: number,
@@ -61,10 +61,42 @@ VALUES (?, ?, ?, ?,?,?, ?, ?, ?,?,?,?, ?);
   );
 };
 
+const editBout = async (
+  boutID: number,
+  userID: number,
+  bottomLineWrestler: string,
+  dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
+  loser: string,
+  score: string,
+  topLineWrestler: string,
+  winner: string,
+  dispatchedToMat: string
+) => {
+  return Query(
+    `
+    UPDATE bouts
+    SET created_by_user=?, bottom_line_wrestler=?, dispatched=?,loser=?,score=?,top_line_wrestler=?,winner=?, dispatched_to_mat=?
+    WHERE boutID=?;
+    `,
+    [
+      userID,
+      bottomLineWrestler,
+      dispatched,
+      loser,
+      score,
+      topLineWrestler,
+      winner,
+      dispatchedToMat,
+      boutID,
+    ]
+  );
+};
+
 export default {
   allBouts,
   allBoutsForSingleEvent,
   allBoutsForSingleEventAndSingleDivision,
-  singlebout,
-  createbout,
+  singleBout,
+  createBout,
+  editBout,
 };

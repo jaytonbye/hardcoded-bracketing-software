@@ -1,9 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import DisplayBracket from "./DisplayBracket";
 
 export default function SelectDivisionComponent(props: any) {
   const [selectedDivision, setSelectedDivision] = React.useState();
   const [allDivisions, setAllDivisions] = React.useState([]);
+  const [displayBracket, setDisplayBracket] = React.useState(false);
 
   const onEventChange = (event: any) => {
     setSelectedDivision(event.target.value);
@@ -12,7 +14,7 @@ export default function SelectDivisionComponent(props: any) {
   let history = useHistory();
 
   let loadBracket = () => {
-    //do something
+    setDisplayBracket(!displayBracket);
   };
 
   React.useEffect(() => {
@@ -38,6 +40,9 @@ export default function SelectDivisionComponent(props: any) {
       <button className="btn btn-primary" onClick={loadBracket}>
         Load the bracket!
       </button>
+      {displayBracket && (
+        <DisplayBracket eventID={props.eventID} divisionID={selectedDivision} />
+      )}
     </>
   );
 }

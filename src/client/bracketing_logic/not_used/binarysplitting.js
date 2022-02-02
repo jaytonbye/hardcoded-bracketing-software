@@ -95,9 +95,9 @@ let handleSeedingFunction = (initialArrayOfCompetitorsOrderedBySeed) => {
     return formattedArrayOfWrestlersTeamsAndSeeds;
   };
 
-  console.log(makeSureOddSeedsAreOnTopFunction(extraNewBiggestArray));
+  //console.log(makeSureOddSeedsAreOnTopFunction(extraNewBiggestArray));
   let Output = makeSureOddSeedsAreOnTopFunction(extraNewBiggestArray);
   return Output;
 };
 
-handleSeedingFunction(people);
+console.log(handleSeedingFunction(people));

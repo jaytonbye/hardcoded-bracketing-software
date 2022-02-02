@@ -17,7 +17,7 @@ export default function AddEventComponent() {
 
   let submitEvent = () => {
     let token = sessionStorage.getItem("token");
-    let userID = 1; //Number(sessionStorage.getItem("UID"));
+    let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
     const requestOptions = {
       method: "POST",
       headers: {

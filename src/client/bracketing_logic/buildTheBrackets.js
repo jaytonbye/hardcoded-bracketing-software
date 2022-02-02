@@ -637,7 +637,7 @@ export let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
         ].bottomLineWrestler = arrayOfWrestlersandTeams2.shift();
       }
     }
-    console.log(empty32ManDoubleEliminationBracket);
+    return empty32ManDoubleEliminationBracket;
   };
 
   return populateBrackets(formattedArrayOfWrestlersAndTeams);

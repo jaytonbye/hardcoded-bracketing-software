@@ -21,7 +21,7 @@ router.get("/:id?", async (req, res) => {
   let boutID = Number(req.params.id);
   try {
     if (boutID) {
-      res.json(await db.bouts.singlebout(boutID));
+      res.json(await db.bouts.singleBout(boutID));
     } else {
       res.json(await db.bouts.allBouts());
     }
@@ -30,6 +30,29 @@ router.get("/:id?", async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.get(
+  "/boutsByEventAndDivision/:eventID&:divisionID",
+  async (req, res) => {
+    let eventID = Number(req.params.eventID);
+    let divisionID = Number(req.params.divisionID);
+
+    console.log(eventID);
+    console.log(divisionID);
+    try {
+      res.json(
+        await db.bouts.allBoutsForSingleEventAndSingleDivision(
+          eventID,
+          divisionID
+        )
+      );
+    } catch (error) {
+      console.log(req.body);
+      console.log(error);
+      res.sendStatus(500);
+    }
+  }
+);
 
 router.post("/", async (req, res) => {
   try {
@@ -48,7 +71,7 @@ router.post("/", async (req, res) => {
     let eventDivisionBoutConcatenated = `e${eventID}d${divisionID}b${matchNumber}`;
 
     res.json(
-      await db.bouts.createbout(
+      await db.bouts.createBout(
         userID,
         eventID,
         divisionID,
