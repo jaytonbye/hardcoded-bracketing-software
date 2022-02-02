@@ -15,11 +15,73 @@ export default function DisplayBracket(props: any) {
   }, []);
 
   let dispatchToMatFunction = () => {
-    alert("it doesn't work yet...");
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        //hardcoded
+        boutID: 204,
+        dispatched: 1, //1 means true. 0 by default.
+        dispatchedToMat: 2,
+      }),
+    };
+    fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
+      if (res.ok) {
+        alert(`The match was dispatched without a catch`);
+      } else {
+        alert("it didn't work! Blame Jason!");
+      }
+    });
   };
 
   let editBout = () => {
-    alert("this feature doesn't work yet...");
+    //hardcoded
+    let bottomLineWrestlerName = "Turd McDuckin";
+    let bottomLineWrestlerTeam = "quacky jacks";
+    let bottomLineWrestlerSeed = 17;
+    let topLineWrestlerName = "Your mom is a donkey";
+    let topLineWrestlerTeam = "donkey doooos";
+    let topLineWrestlerSeed = 10000;
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        //hardcoded
+        boutID: 203,
+        userID: 1,
+        bottomLineWrestler: JSON.stringify({
+          name: bottomLineWrestlerName,
+          team: bottomLineWrestlerTeam,
+          seed: bottomLineWrestlerSeed,
+        }),
+        dispatched: true,
+        loser: "you",
+        score: "infinity to negative infinity",
+        topLineWrestler: JSON.stringify({
+          name: topLineWrestlerName,
+          team: topLineWrestlerTeam,
+          seed: topLineWrestlerSeed,
+        }),
+        winner: "me",
+        dispatchedToMat: 2,
+      }),
+    };
+    fetch(`/api/bouts/`, requestOptions).then((res) => {
+      if (res.ok) {
+        alert(
+          `The changes you requested have been magically completed via the power of the internet. Voila!`
+        );
+      } else {
+        alert("it didn't work! Blame Jason!");
+      }
+    });
   };
 
   return (
@@ -33,7 +95,7 @@ export default function DisplayBracket(props: any) {
             <h4>{JSON.parse(bout.top_line_wrestler).name}</h4>
             <h5>VS</h5>
             <h4>{JSON.parse(bout.bottom_line_wrestler).name}</h4>
-            <h4>{bout.dispatched_to_mat}</h4>
+            <h4>Dispatched to mat #: {bout.dispatched_to_mat}</h4>
             <h4>{bout.score}</h4>
             <label>Dispatch this match to mat number: </label>
             <input type="number" />

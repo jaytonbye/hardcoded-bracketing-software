@@ -37,8 +37,6 @@ router.get(
     let eventID = Number(req.params.eventID);
     let divisionID = Number(req.params.divisionID);
 
-    console.log(eventID);
-    console.log(divisionID);
     try {
       res.json(
         await db.bouts.allBoutsForSingleEventAndSingleDivision(
@@ -94,15 +92,51 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.put("/", hasValidAdminToken, async (req, res) => {
-//   try {
-//     res.json(await db.users.updateUser(req.body));
-//   } catch (error) {
-//     console.log(error);
-//     console.log("somethings messing up here");
-//     res.sendStatus(500);
-//   }
-// });
+router.put("/", async (req, res) => {
+  try {
+    let boutID = req.body.boutID;
+    let userID = req.body.userID;
+    let bottomLineWrestler = req.body.bottomLineWrestler;
+    let dispatched = req.body.dispatched;
+    let loser = req.body.loser;
+    let score = req.body.score;
+    let topLineWrestler = req.body.topLineWrestler;
+    let winner = req.body.winner;
+    let dispatchedToMat = req.body.dispatchedToMat;
+
+    res.json(
+      await db.bouts.editBout(
+        boutID,
+        userID,
+        bottomLineWrestler,
+        dispatched,
+        loser,
+        score,
+        topLineWrestler,
+        winner,
+        dispatchedToMat
+      )
+    );
+  } catch (error) {
+    console.log(error);
+    console.log("somethings messing up here");
+    res.sendStatus(500);
+  }
+});
+
+router.put("/dispatch", async (req, res) => {
+  try {
+    let boutID = req.body.boutID;
+    let dispatched = req.body.dispatched;
+    let dispatchedToMat = req.body.dispatchedToMat;
+
+    res.json(await db.bouts.dispatchBout(boutID, dispatched, dispatchedToMat));
+  } catch (error) {
+    console.log(error);
+    console.log("somethings messing up here");
+    res.sendStatus(500);
+  }
+});
 
 // router.delete("/:id", hasValidAdminToken, async (req, res) => {
 //   let id = Number(req.params.id);

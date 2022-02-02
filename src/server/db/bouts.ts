@@ -35,7 +35,7 @@ const createBout = async (
   score: string,
   topLineWrestler: string,
   winner: string,
-  dispatchedToMat: string,
+  dispatchedToMat: number,
   eventDivisionBoutConcatenated: string
 ) => {
   return Query(
@@ -70,13 +70,14 @@ const editBout = async (
   score: string,
   topLineWrestler: string,
   winner: string,
-  dispatchedToMat: string
+  dispatchedToMat: number
 ) => {
+  console.log({ boutID });
   return Query(
     `
     UPDATE bouts
     SET created_by_user=?, bottom_line_wrestler=?, dispatched=?,loser=?,score=?,top_line_wrestler=?,winner=?, dispatched_to_mat=?
-    WHERE boutID=?;
+    WHERE ID=?;
     `,
     [
       userID,
@@ -92,6 +93,22 @@ const editBout = async (
   );
 };
 
+const dispatchBout = async (
+  boutID: number,
+  dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
+  dispatchedToMat: number
+) => {
+  console.log({ boutID });
+  return Query(
+    `
+    UPDATE bouts
+    SET dispatched=?, dispatched_to_mat=?
+    WHERE ID=?;
+    `,
+    [dispatched, dispatchedToMat, boutID]
+  );
+};
+
 export default {
   allBouts,
   allBoutsForSingleEvent,
@@ -99,4 +116,5 @@ export default {
   singleBout,
   createBout,
   editBout,
+  dispatchBout,
 };
