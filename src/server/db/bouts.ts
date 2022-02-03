@@ -136,19 +136,71 @@ const submitResult = async (
   );
 };
 
-const updateTopLineWrestlerOfDependantBouts = async (
-  boutID: number,
+const updateTopLineWrestlerOfDependantBoutsWithWinner = async (
   userID: number,
   winner: string,
-  loser: string
+  eventID: number,
+  divisionID: number,
+  matchNumber: number
 ) => {
   return Query(
     `
-    UPDATE bouts
-    SET created_by_user=?, bottom_line_wrestler=?,top_line_wrestler=?
-    WHERE ID=?;
+    update bouts
+    set created_by_user=?, top_line_wrestler = ?
+    WHERE event_id = ? and division_id=? and top_line_wrestler = '{"name":"winnerOfBout#?"}';
     `,
-    [userID, winner, loser, boutID]
+    [userID, winner, eventID, divisionID, matchNumber]
+  );
+};
+
+const updateBottomLineWrestlerOfDependantBoutsWithWinner = async (
+  userID: number,
+  winner: string,
+  eventID: number,
+  divisionID: number,
+  matchNumber: number
+) => {
+  return Query(
+    `
+    update bouts
+    set created_by_user=?, bottom_line_wrestler = ?
+    WHERE event_id = ? and division_id=? and bottom_line_wrestler = '{"name":"winnerOfBout#?"}';
+    `,
+    [userID, winner, eventID, divisionID, matchNumber]
+  );
+};
+
+const updateTopLineWrestlerOfDependantBoutsWithLoser = async (
+  userID: number,
+  loser: string,
+  eventID: number,
+  divisionID: number,
+  matchNumber: number
+) => {
+  return Query(
+    `
+    update bouts
+    set created_by_user=?, top_line_wrestler = ?
+    WHERE event_id = ? and division_id=? and top_line_wrestler = '{"name":"loserOfBout#?"}';
+    `,
+    [userID, loser, eventID, divisionID, matchNumber]
+  );
+};
+
+const updateBottomLineWrestlerOfDependantBoutsWithLoser = async (
+  userID: number,
+  loser: string,
+  eventID: number,
+  divisionID: number,
+  matchNumber: number
+) => {
+  return Query(
+    `
+    update bouts
+    set created_by_user=?, bottom_line_wrestler = ?
+    WHERE event_id = ? and division_id=? and bottom_line_wrestler = '{"name":"loserOfBout#?"}';
+    `,
+    [userID, loser, eventID, divisionID, matchNumber]
   );
 };
 
@@ -162,5 +214,8 @@ export default {
   dispatchBout,
   getAllDispatchedBouts,
   submitResult,
-  updateTopLineWrestlerOfDependantBouts,
+  updateTopLineWrestlerOfDependantBoutsWithWinner,
+  updateTopLineWrestlerOfDependantBoutsWithLoser,
+  updateBottomLineWrestlerOfDependantBoutsWithLoser,
+  updateBottomLineWrestlerOfDependantBoutsWithWinner,
 };

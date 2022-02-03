@@ -158,19 +158,45 @@ router.put("/result", async (req, res) => {
     let loser = req.body.loser;
     let score = req.body.score;
     let winner = req.body.winner;
+    let eventID = req.body.eventID;
+    let divisionID = req.body.divisionID;
+    let matchNumber = req.body.matchNumber;
 
-    let boutIDOfDependantBout1 = req.body.boutIDOfDependantBout1;
-    let boutIDOfDependantBout2 = req.body.boutIDOfDependantBout2;
+    //I first update the bout result, and then I update any matches that are waiting for the result. This takes 4 database calls because I don't know how to be more efficient with my SQL.
+    await db.bouts.submitResult(boutID, userID, loser, score, winner);
 
-    res.json(await db.bouts.submitResult(boutID, userID, loser, score, winner));
-    res.json(
-      await db.bouts.updateTopLineWrestlerOfDependantBouts(
-        boutIDOfDependantBout1,
-        userID,
-        winner,
-        loser
-      )
+    await db.bouts.updateTopLineWrestlerOfDependantBoutsWithWinner(
+      userID,
+      winner,
+      eventID,
+      divisionID,
+      matchNumber
     );
+
+    await db.bouts.updateTopLineWrestlerOfDependantBoutsWithLoser(
+      userID,
+      loser,
+      eventID,
+      divisionID,
+      matchNumber
+    );
+
+    await db.bouts.updateBottomLineWrestlerOfDependantBoutsWithWinner(
+      userID,
+      winner,
+      eventID,
+      divisionID,
+      matchNumber
+    );
+
+    await db.bouts.updateBottomLineWrestlerOfDependantBoutsWithLoser(
+      userID,
+      loser,
+      eventID,
+      divisionID,
+      matchNumber
+    );
+    res.json("we're hoping this worked, but it's kind of out of my hands...");
   } catch (error) {
     console.log(error);
     console.log("somethings messing up here");
