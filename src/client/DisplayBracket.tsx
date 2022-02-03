@@ -96,11 +96,23 @@ export default function DisplayBracket(props: any) {
           <div key={bout.id}>
             <h4>Match #: {bout.match_number}</h4>
             <h4>Round #: {bout.round}</h4>
-            <h4>{JSON.parse(bout.top_line_wrestler).name}</h4>
+            <h4>
+              Top Wrestler's Name: {JSON.parse(bout.top_line_wrestler).name}
+            </h4>
+            <h5>
+              Top Wrestler's Team: {JSON.parse(bout.top_line_wrestler).team}
+            </h5>
             <h5>VS</h5>
-            <h4>{JSON.parse(bout.bottom_line_wrestler).name}</h4>
+            <h4>
+              Bottom Wrestler's Name:{" "}
+              {JSON.parse(bout.bottom_line_wrestler).name}
+            </h4>
+            <h5>
+              Bottom Wrestler's Team:{" "}
+              {JSON.parse(bout.bottom_line_wrestler).team}
+            </h5>
             <h4>Dispatched to mat #: {bout.dispatched_to_mat}</h4>
-            <h4>{bout.score}</h4>
+            <h4>Score: {bout.score}</h4>
             <label>Dispatch this match to mat number: </label>
             <input type="number" />
             <button
