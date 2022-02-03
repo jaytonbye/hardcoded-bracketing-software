@@ -15,6 +15,7 @@ export default function DisplayBracket(props: any) {
   }, []);
 
   let dispatchToMatFunction = () => {
+    alert("this is currently hardcoded to go to mat 2, we will fix this soon");
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -38,6 +39,9 @@ export default function DisplayBracket(props: any) {
   };
 
   let editBout = () => {
+    alert(
+      "this is currently hardcoded with made up values, it is waiting on a modal"
+    );
     //hardcoded
     let bottomLineWrestlerName = "Turd McDuckin";
     let bottomLineWrestlerTeam = "quacky jacks";

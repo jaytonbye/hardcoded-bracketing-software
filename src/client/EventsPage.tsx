@@ -6,7 +6,7 @@ import NavigationBar from "./NavigationBar";
 
 export default function EventsPage() {
   let { event } = useParams<any>();
-
+  const [matNumberToNavigateTo, setMatNumberToNavigateTo] = React.useState();
   const [eventInfo, setEventinfo] = React.useState([]);
   const [eventLoaded, setEventLoaded] = React.useState(false);
 
@@ -19,6 +19,11 @@ export default function EventsPage() {
       });
   }, []);
 
+  let navigateToMat = () => {};
+
+  let onMatNumberChange = (e: any) => {
+    setMatNumberToNavigateTo(e.target.value);
+  };
   return (
     <>
       <NavigationBar />
@@ -27,6 +32,11 @@ export default function EventsPage() {
       )}
 
       <SelectDivisionComponent eventID={event} />
+      <label>Take me to mat #:</label>
+      <input type="number" onChange={onMatNumberChange} />
+      <button onClick={navigateToMat} className="btn btn-secondary">
+        Go!
+      </button>
       <MatsForEvent eventID={event} />
     </>
   );

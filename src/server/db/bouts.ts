@@ -98,7 +98,6 @@ const dispatchBout = async (
   dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
   dispatchedToMat: number
 ) => {
-  console.log({ boutID });
   return Query(
     `
     UPDATE bouts
@@ -106,6 +105,50 @@ const dispatchBout = async (
     WHERE ID=?;
     `,
     [dispatched, dispatchedToMat, boutID]
+  );
+};
+
+//Not currently being ordered by anything. This is an annoying issue to solve! We obviously want to order it by match number, but we also want to order it by the divisions. Maybe I should simply order them by a timestamp of when they were dispatched? That is probably the easiest way.
+const getAllDispatchedBouts = async (eventID: number, matNumber: number) => {
+  return Query(
+    `
+    Select * from bouts
+    WHERE event_id = ? AND dispatched = 1 AND dispatched_to_mat =?;
+    `,
+    [eventID, matNumber]
+  );
+};
+
+const submitResult = async (
+  boutID: number,
+  userID: number,
+  loser: string,
+  score: string,
+  winner: string
+) => {
+  return Query(
+    `
+    UPDATE bouts
+    SET created_by_user=?, dispatched=0,loser=?,score=?,winner=?, dispatched_to_mat=null
+    WHERE ID=?;
+    `,
+    [userID, loser, score, winner, boutID]
+  );
+};
+
+const updateTopLineWrestlerOfDependantBouts = async (
+  boutID: number,
+  userID: number,
+  winner: string,
+  loser: string
+) => {
+  return Query(
+    `
+    UPDATE bouts
+    SET created_by_user=?, bottom_line_wrestler=?,top_line_wrestler=?
+    WHERE ID=?;
+    `,
+    [userID, winner, loser, boutID]
   );
 };
 
@@ -117,4 +160,7 @@ export default {
   createBout,
   editBout,
   dispatchBout,
+  getAllDispatchedBouts,
+  submitResult,
+  updateTopLineWrestlerOfDependantBouts,
 };

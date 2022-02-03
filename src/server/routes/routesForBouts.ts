@@ -52,6 +52,19 @@ router.get(
   }
 );
 
+router.get("/dispatched/:eventID&:matNumber", async (req, res) => {
+  let eventID = Number(req.params.eventID);
+  let matNumber = Number(req.params.matNumber);
+  console.log(matNumber);
+  try {
+    res.json(await db.bouts.getAllDispatchedBouts(eventID, matNumber));
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     let userID = req.body.userID;
@@ -131,6 +144,33 @@ router.put("/dispatch", async (req, res) => {
     let dispatchedToMat = req.body.dispatchedToMat;
 
     res.json(await db.bouts.dispatchBout(boutID, dispatched, dispatchedToMat));
+  } catch (error) {
+    console.log(error);
+    console.log("somethings messing up here");
+    res.sendStatus(500);
+  }
+});
+
+router.put("/result", async (req, res) => {
+  try {
+    let boutID = req.body.boutID;
+    let userID = req.body.userID;
+    let loser = req.body.loser;
+    let score = req.body.score;
+    let winner = req.body.winner;
+
+    let boutIDOfDependantBout1 = req.body.boutIDOfDependantBout1;
+    let boutIDOfDependantBout2 = req.body.boutIDOfDependantBout2;
+
+    res.json(await db.bouts.submitResult(boutID, userID, loser, score, winner));
+    res.json(
+      await db.bouts.updateTopLineWrestlerOfDependantBouts(
+        boutIDOfDependantBout1,
+        userID,
+        winner,
+        loser
+      )
+    );
   } catch (error) {
     console.log(error);
     console.log("somethings messing up here");
