@@ -9,6 +9,7 @@ const allBoutsForSingleEvent = async (eventID: number) => {
   return Query(`Select * from bouts WHERE event_id=?;`, [eventID]);
 };
 
+//I don't need eventID since divisionID is unique.
 const allBoutsForSingleEventAndSingleDivision = async (
   eventID: number,
   divisionID: number

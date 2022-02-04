@@ -8,7 +8,7 @@ export default function SubmitResult(props: any) {
   let submitResult = () => {
     //This function will both submit the result (by updating the bout), but it will also update the 2 matches that are dependant upon these results.
 
-    let boutID = 949; //hardcoded
+    let boutID = props.boutID; //hardcoded
     let userID = 1; //hardcoded
     let loser = JSON.stringify({
       name: "Wrestler Seeded24",

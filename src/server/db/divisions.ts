@@ -28,9 +28,14 @@ VALUES (?, ?, ?, ?,?);
   );
 };
 
+const deleteDivision = async (divisionID: number) => {
+  return Query("DELETE FROM divisions WHERE id=?;", [divisionID]);
+};
+
 export default {
   allDivisions,
   allDivisionsForSingleEvent,
   singleDivision,
   createDivision,
+  deleteDivision,
 };

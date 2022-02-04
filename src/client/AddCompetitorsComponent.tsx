@@ -14,7 +14,7 @@ import { handleSeedingFunction } from "./bracketing_logic/handleSeedingFunction"
 // @ts-ignore
 import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 
-export default function AddCompetitorsComponent() {
+export default function AddCompetitorsComponent(props: any) {
   const [wrestlerList, setWrestlerList] = React.useState("");
   const [comletedBrackets, setCompletedBrackets] = React.useState([]);
 
@@ -39,8 +39,8 @@ export default function AddCompetitorsComponent() {
 
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
-    let eventID = 7; //hardcoded
-    let divisionID = 24; //hardcoded
+    let eventID = 8; //hardcoded
+    let divisionID = 27; //props.divisionID; //hardcoded
 
     //creates individual matches out of the array
     for (let x = 0; x < brackets.length; x++) {
@@ -79,7 +79,7 @@ export default function AddCompetitorsComponent() {
   return (
     <>
       <h2>
-        Copy and paste the full list of copmetitors and there teams into this
+        Copy and paste the full list of copmetitors and their teams into this
         text field. They should be "tab separated", which is the default way of
         copying and pasting from a spread sheet with 2 columns. They should also
         be in seed order, from top to bottom. The maximum bracket size is 32
@@ -109,7 +109,10 @@ export default function AddCompetitorsComponent() {
           </tr>
         </tbody>
       </table>
-      <h3>Division Label:</h3>
+      <h3>
+        Note: You can only submit the wrestlers once. If you made a mistake and
+        need to do it again, simply delete the division and recreate it.
+      </h3>
       <label>Paste Wrestler List for this division</label>
       <textarea className="ml-2" onChange={onWrestlerListChange} />
       <button

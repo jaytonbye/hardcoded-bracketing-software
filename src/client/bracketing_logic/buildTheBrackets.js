@@ -1,4 +1,5 @@
 export let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
+  //hardcoded
   let empty32ManDoubleEliminationBracket = [
     {
       matchNumber: 1,

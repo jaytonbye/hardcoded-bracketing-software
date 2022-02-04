@@ -34,7 +34,6 @@ export default function EditDivisionsComponent(props: any) {
     }
   };
 
-  console.log(props.eventID);
   React.useEffect(() => {
     fetch(`/api/divisions/divisionsByEventId/${props.eventID}`)
       .then((res) => res.json())

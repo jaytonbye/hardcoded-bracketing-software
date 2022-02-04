@@ -12,6 +12,7 @@ import Admin from "./Admin";
 import EventAdminPage from "./EventAdminPage";
 import AddCompetitorsComponent from "./AddCompetitorsComponent";
 import SingleMatPage from "./SingleMatPage";
+import DivisionAdminPage from "./DivisionAdminPage";
 
 const App = (props: AppProps) => {
   return (
@@ -44,6 +45,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/eventAdmin/:eventID">
             <EventAdminPage />
+          </Route>
+          <Route exact path="/divisionAdmin/:divisionID">
+            <DivisionAdminPage />
           </Route>
           <Route path="/passwordResetLandingPage/:encryptedIdInUrl">
             <PasswordResetLandingPage />

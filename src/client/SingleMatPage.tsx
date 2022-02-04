@@ -23,7 +23,6 @@ export default function SingleMatPage(props: any) {
         return (
           <>
             <SubmitResult boutID={bout.id} />
-            <h1>poop</h1>;
           </>
         );
       })}
