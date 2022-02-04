@@ -19,7 +19,14 @@ export default function SingleMatPage(props: any) {
     <>
       <h1>This is mat # _ for event with id _</h1>
       <h2>Upcoming Bouts: </h2>
-      <SubmitResult />
+      {upcomingBouts.map((bout) => {
+        return (
+          <>
+            <SubmitResult boutID={bout.id} />
+            <h1>poop</h1>;
+          </>
+        );
+      })}
     </>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 
 export default function DisplayBracket(props: any) {
   const [bouts, setBouts] = React.useState([]);
+  const [dispatchToMat, setDispatchToMat] = React.useState();
 
   let eventID = props.eventID;
   let divisionID = props.divisionID;
@@ -14,8 +15,11 @@ export default function DisplayBracket(props: any) {
       });
   }, []);
 
-  let dispatchToMatFunction = () => {
-    alert("this is currently hardcoded to go to mat 2, we will fix this soon");
+  let onDispatchToMatChange = (e: any) => {
+    setDispatchToMat(e.target.value);
+  };
+
+  let dispatchToMatFunction = (boutID: number, dispatchedToMat: number) => {
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -23,10 +27,9 @@ export default function DisplayBracket(props: any) {
         //   Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        //hardcoded
-        boutID: 204,
+        boutID,
         dispatched: 1, //1 means true. 0 by default.
-        dispatchedToMat: 2,
+        dispatchedToMat,
       }),
     };
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
@@ -114,10 +117,12 @@ export default function DisplayBracket(props: any) {
             <h4>Dispatched to mat #: {bout.dispatched_to_mat}</h4>
             <h4>Score: {bout.score}</h4>
             <label>Dispatch this match to mat number: </label>
-            <input type="number" />
+            <input type="number" onChange={onDispatchToMatChange} />
             <button
               className="btn btn-secondary"
-              onClick={dispatchToMatFunction}
+              onClick={() => {
+                dispatchToMatFunction(bout.id, dispatchToMat);
+              }}
             >
               Dispatch!
             </button>
