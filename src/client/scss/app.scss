@@ -5,6 +5,17 @@ $theme-colors: (
 
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
+.justify-content-evenly{
+  justify-content: space-evenly;
+}
+
+.the-card-border{
+  border: 3px solid #ff7824; 
+}
+.the-card-border-black{
+  border: 3px solid #000000; 
+}
+
 .gradeOf3 {
   background-color: lightgreen;
 }
@@ -36,6 +47,9 @@ $theme-colors: (
   text-decoration: underline;
   cursor: pointer;
 }
+
 td {
   white-space: pre-line;
 }
+
+

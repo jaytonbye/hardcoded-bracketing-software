@@ -5,8 +5,8 @@ node_modules/
 dist/
 public/js/app.js
 
-
-
+# SQL
+SQL
 
 #environment variables
 .env

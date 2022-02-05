@@ -4,8 +4,8 @@ import SubmitResult from "./SubmitResult";
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
 
-  let eventID = 7; //hardcoded
-  let matNumber = 2; //hardcoded
+  let eventID = 1; //hardcoded
+  let matNumber = 1; //hardcoded
 
   React.useEffect(() => {
     fetch(`/api/bouts/dispatched/${eventID}&${matNumber}`)

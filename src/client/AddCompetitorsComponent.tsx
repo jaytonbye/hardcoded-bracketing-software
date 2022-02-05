@@ -39,8 +39,8 @@ export default function AddCompetitorsComponent() {
 
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
-    let eventID = 7; //hardcoded
-    let divisionID = 24; //hardcoded
+    let eventID = 1; //hardcoded
+    let divisionID = 1; //hardcoded
 
     //creates individual matches out of the array
     for (let x = 0; x < brackets.length; x++) {
