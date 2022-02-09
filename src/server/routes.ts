@@ -19,6 +19,6 @@ router.use("/successfulLogins", routesForSuccessfulLogins);
 router.use("/contact", Contact);
 router.use("/events", routesForEvents);
 router.use("/divisions", routesForDivisions);
-router.use("/bouts/", routesForBouts);
+router.use("/bouts", routesForBouts);
 
 export default router;

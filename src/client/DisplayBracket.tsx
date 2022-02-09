@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Button } from 'react-bootstrap';
 import classNames from 'classnames';
+import ModalForDisplayBrackets from './ModalForDisplayBrackets';
 
 
 
 export default function DisplayBracket(props: any) {
   const [bouts, setBouts] = React.useState([]);
   const [dispatchToMat, setDispatchToMat] = React.useState();
+  const [modalShow, setModalShow] = React.useState<any>({});
 
   let eventID = props.eventID;
   let divisionID = props.divisionID;
@@ -18,6 +20,7 @@ export default function DisplayBracket(props: any) {
         setBouts(results);
       });
   }, []);
+
 
   let onDispatchToMatChange = (e: any) => {
     setDispatchToMat(e.target.value);
@@ -45,66 +48,27 @@ export default function DisplayBracket(props: any) {
     });
   };
 
-  let editBout = () => {
-    alert(
-      "this is currently hardcoded with made up values, it is waiting on a modal"
-    );
-    //hardcoded
-    let bottomLineWrestlerName = "Turd McDuckin";
-    let bottomLineWrestlerTeam = "quacky jacks";
-    let bottomLineWrestlerSeed = 17;
-    let topLineWrestlerName = "Your mom is a donkey";
-    let topLineWrestlerTeam = "donkey doooos";
-    let topLineWrestlerSeed = 10000;
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        //   Authorization: `Bearer ${token}`,
-      },
-
-      body: JSON.stringify({
-        //hardcoded
-        boutID: 203,
-        userID: 1,
-        bottomLineWrestler: JSON.stringify({
-          name: bottomLineWrestlerName,
-          team: bottomLineWrestlerTeam,
-          seed: bottomLineWrestlerSeed,
-        }),
-        dispatched: true,
-        loser: "you",
-        score: "infinity to negative infinity",
-        topLineWrestler: JSON.stringify({
-          name: topLineWrestlerName,
-          team: topLineWrestlerTeam,
-          seed: topLineWrestlerSeed,
-        }),
-        winner: "me",
-        dispatchedToMat: 2,
-      }),
-    };
-    fetch(`/api/bouts/`, requestOptions).then((res) => {
-      if (res.ok) {
-        alert(
-          `The changes you requested have been magically completed via the power of the internet. Voila!`
-        );
-      } else {
-        alert("it didn't work! Blame Jason!");
-      }
-    });
-  };
-
+  let showEditBout = (e: any) => {
+    // alert(
+    //   "this is currently hardcoded with made up values, it is waiting on a modal"
+    // Not any more mothafukas!!!
+    // );
+    setModalShow((prev: {}) => {
+      return (
+        { ...prev, [e.target.name]: !modalShow[e.target.name] }
+      )
+    })
+  }
 
 
   return (
     <>
       <h3>Brackets go here:</h3>
-      {bouts.map((bout) => {
-        const cardClasses = classNames("my-2", "mx-1", { "the-card-border": bout.id % 2 === 0, "the-card-border-black": bout.id % 2 !== 0 })
+      {bouts.map((bout, index) => {
+        const cardClasses = classNames("my-2", "mx-1", "col-10", { "the-card-border": bout.id % 2 === 0, "the-card-border-black": bout.id % 2 !== 0 })
         return (
           <>
-            <Card key={bout.id} style={{ width: '50rem' }} className={cardClasses}>
+            <Card key={`Bout ID:${bout.id}`} className={cardClasses}>
               <Card.Body>
                 <Card.Title style={{ textDecoration: "underline" }}><h3>Match #: {bout.match_number}</h3></Card.Title>
                 <Card.Subtitle className="mb-3" style={{ borderBottom: "2px solid black" }}><h4>Round #: {bout.round}</h4></Card.Subtitle>
@@ -131,11 +95,13 @@ export default function DisplayBracket(props: any) {
                 <h4>Score: {bout.score}</h4>
                 <div>
                   <label>Dispatch this match to mat number: </label>
-                  <input type="number" className="ml-2" onChange={onDispatchToMatChange} />
+                  <input type="number" className="mb-2 ml-2" onChange={onDispatchToMatChange} />
                 </div>
 
                 <div className="d-flex justify-content-evenly">
-                  <Button variant="secondary" onClick={editBout}>
+                  <Button variant="secondary"
+                    name={String(bout.id)}
+                    onClick={showEditBout}>
                     Edit Bout
                   </Button>
                   <Button
@@ -147,6 +113,7 @@ export default function DisplayBracket(props: any) {
                     Dispatch!
                   </Button>
                 </div>
+                {modalShow[bout.id] && <ModalForDisplayBrackets index={index} bouts={bouts} />}
               </Card.Footer>
             </Card>
           </>

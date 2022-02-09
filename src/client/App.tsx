@@ -12,6 +12,7 @@ import Admin from "./Admin";
 import EventAdminPage from "./EventAdminPage";
 import AddCompetitorsComponent from "./AddCompetitorsComponent";
 import SingleMatPage from "./SingleMatPage";
+import BullShitComononet from "./BullShitComononet";
 
 const App = (props: AppProps) => {
   return (
@@ -35,6 +36,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/blah2">
             <SingleMatPage />
+          </Route>
+          <Route exact path="/blah3">
+            <BullShitComononet />
           </Route>
           <Route exact path="/homepage">
             <LoggedIn />
@@ -62,6 +66,6 @@ const App = (props: AppProps) => {
   );
 };
 
-interface AppProps {}
+interface AppProps { }
 
 export default App;
