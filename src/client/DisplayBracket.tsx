@@ -60,7 +60,6 @@ export default function DisplayBracket(props: any) {
     })
   }
 
-
   return (
     <>
       <h3>Brackets go here:</h3>

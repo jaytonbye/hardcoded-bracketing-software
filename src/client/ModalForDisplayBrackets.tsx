@@ -119,11 +119,39 @@ export default function ModalForDisplayBrackets(props: any) {
             }
             )
             setEditOfBout(theFinalEditedBout);
+
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // Authorization: `Bearer token`,
+                },
+                body: JSON.stringify(theFinalEditedBout),
+            };
+
+            fetch(`/api/bouts/`, requestOptions).then((res) => {
+                if (res.ok) {
+
+                } else {
+                    alert("it didn't work! Coach Wayne Apologizes try again later");
+                }
+            });
+
+
         })();
 
     }
 
-    console.log(editOfBout);
+
+
+
+    const eventSubmit = (e: any) => {
+        e.preventDefault();
+
+
+
+    }
+
 
     // const requestOptions = {
     //     method: "POST",
