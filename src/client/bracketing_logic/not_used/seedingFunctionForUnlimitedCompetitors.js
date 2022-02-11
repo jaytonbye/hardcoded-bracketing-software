@@ -1,3 +1,5 @@
+//this is the original version. The newer version is better.
+
 people = [
   { name: "Wrestler Seeded1", team: "Team 1", seed: 1 },
   { name: "Wrestler Seeded2", team: "Team 2", seed: 2 },
@@ -36,6 +38,7 @@ people = [
 let seedingFunction = (seededArray) => {
   let numberOfRoundsNeeded = Math.log2(seededArray.length);
   let arrayOfWrestlers = [1]; //starts out with a single wrestler in it.
+  [seededArray[0]];
   for (let round = 1; round <= numberOfRoundsNeeded; round++) {
     let pairAddsTo = Math.pow(2, round) + 1;
     console.log({ round });

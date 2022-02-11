@@ -1,18 +1,15 @@
 import React from "react";
 
-// // @ts-ignore
-// import { dataFormatter } from "./bracketing_logic/bracketBuilder";
-// // @ts-ignore
-// import { handleSeedingFunction } from "./bracketing_logic/bracketBuilder";
-// // @ts-ignore
-// import { bracketBuilder } from "./bracketing_logic/bracketBuilder";
-
 // @ts-ignore
 import { dataFormatter } from "./bracketing_logic/dataFormatter";
+
+// // @ts-ignore
+// import { handleSeedingFunction } from "./bracketing_logic/handleSeedingFunction";
+
 // @ts-ignore
-import { handleSeedingFunction } from "./bracketing_logic/handleSeedingFunction";
+import { seedingFunctionForUnlimitedCompetitors2 } from "./bracketing_logic/seedingFunctionForUnlimitedCompetitors2";
 // @ts-ignore
-import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
+import { bracketBuilder } from "./bracketing_logic/not_used/buildTheBrackets";
 
 export default function AddCompetitorsComponent() {
   const [wrestlerList, setWrestlerList] = React.useState("");
@@ -28,10 +25,11 @@ export default function AddCompetitorsComponent() {
     let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
     console.log(formattedArrayOfWrestlersAndTeams);
 
-    let seededArrayofWrestlersAndTeams = handleSeedingFunction(
+    let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
       formattedArrayOfWrestlersAndTeams
     );
     console.log(seededArrayofWrestlersAndTeams);
+
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
     console.log(brackets);
 
@@ -39,8 +37,8 @@ export default function AddCompetitorsComponent() {
 
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
-    let eventID = 1; //hardcoded
-    let divisionID = 1; //hardcoded
+    let eventID = 7; //hardcoded
+    let divisionID = 29; //hardcoded
 
     //creates individual matches out of the array
     for (let x = 0; x < brackets.length; x++) {
