@@ -11,7 +11,7 @@ import { seedingFunctionForUnlimitedCompetitors2 } from "./bracketing_logic/seed
 // @ts-ignore
 import { bracketBuilder } from "./bracketing_logic/not_used/buildTheBrackets";
 
-export default function AddCompetitorsComponent() {
+export default function AddCompetitorsComponent(props: any) {
   const [wrestlerList, setWrestlerList] = React.useState("");
   const [comletedBrackets, setCompletedBrackets] = React.useState([]);
 
@@ -37,8 +37,8 @@ export default function AddCompetitorsComponent() {
 
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
-    let eventID = 7; //hardcoded
-    let divisionID = 29; //hardcoded
+    let eventID = props.eventID;
+    let divisionID = props.divisionID;
 
     //creates individual matches out of the array
     for (let x = 0; x < brackets.length; x++) {
@@ -75,47 +75,54 @@ export default function AddCompetitorsComponent() {
   };
 
   return (
-    <>
-      <h2>
-        Copy and paste the full list of copmetitors and there teams into this
-        text field. They should be "tab separated", which is the default way of
-        copying and pasting from a spread sheet with 2 columns. They should also
-        be in seed order, from top to bottom. The maximum bracket size is 32
-        wrestlers. Here is a sample:{" "}
-      </h2>
-      <table className="table">
-        <tbody className="bg-light">
-          <tr>
-            <td>Dan Gable</td>
-            <td>Iowa</td>
-          </tr>
-          <tr>
-            <td>Jason Layton</td>
-            <td>Dynamic</td>
-          </tr>
-          <tr>
-            <td>Cael Sanderson</td>
-            <td>Penn State</td>
-          </tr>
-          <tr>
-            <td>Hulk Hogan</td>
-            <td>WWF</td>
-          </tr>
-          <tr>
-            <td>Dana White</td>
-            <td>UFC</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>Division Label:</h3>
-      <label>Paste Wrestler List for this division</label>
-      <textarea className="ml-2" onChange={onWrestlerListChange} />
-      <button
-        className="btn btn-primary ml-2"
-        onClick={() => handleSubmitWrestlerList()}
-      >
-        Submit Wrestler List and Make the Brackets!
-      </button>
-    </>
+    <tr>
+      <td colSpan={2}>
+        <p>
+          Copy and paste the full list of copmetitors and their teams into this
+          text field. They should be "tab separated", which is the default way
+          of copying and pasting from a spread sheet with 2 columns. They should
+          also be in seed order, from top to bottom. The maximum bracket size is
+          32 wrestlers. Here is a sample:{" "}
+        </p>
+      </td>
+      <td colSpan={2}>
+        <table className="table">
+          <tbody className="bg-light">
+            <tr>
+              <td>Dan Gable</td>
+              <td>Iowa</td>
+            </tr>
+            <tr>
+              <td>Jason Layton</td>
+              <td>Dynamic</td>
+            </tr>
+            <tr>
+              <td>Cael Sanderson</td>
+              <td>Penn State</td>
+            </tr>
+            <tr>
+              <td>Hulk Hogan</td>
+              <td>WWF</td>
+            </tr>
+            <tr>
+              <td>Dana White</td>
+              <td>UFC</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td>
+        <label>Paste Wrestler List for this division</label>
+        <textarea className="ml-2" onChange={onWrestlerListChange} />
+      </td>
+      <td>
+        <button
+          className="btn btn-primary ml-2"
+          onClick={() => handleSubmitWrestlerList()}
+        >
+          Submit Wrestler List and Make the Brackets!
+        </button>
+      </td>
+    </tr>
   );
 }
