@@ -69,11 +69,6 @@ router.delete("/:id", async (req, res) => {
   let id = Number(req.params.id);
   try {
     await db.divisions.deleteDivision(id);
-<<<<<<< HEAD
-    res.json(
-      "hopefully deleted users after deleting corresponding personal_info and grades"
-    );
-=======
     res.json("Deleted the division!");
   } catch (error) {
     console.log(error);

@@ -37,13 +37,8 @@ export default function AddCompetitorsComponent(props: any) {
 
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
-<<<<<<< HEAD
-    let eventID = 8; //hardcoded
-    let divisionID = 27; //props.divisionID; //hardcoded
-=======
     let eventID = props.eventID;
     let divisionID = props.divisionID;
->>>>>>> waynesBranch
 
     //creates individual matches out of the array
     for (let x = 0; x < brackets.length; x++) {
@@ -80,53 +75,6 @@ export default function AddCompetitorsComponent(props: any) {
   };
 
   return (
-<<<<<<< HEAD
-    <>
-      <h2>
-        Copy and paste the full list of copmetitors and their teams into this
-        text field. They should be "tab separated", which is the default way of
-        copying and pasting from a spread sheet with 2 columns. They should also
-        be in seed order, from top to bottom. The maximum bracket size is 32
-        wrestlers. Here is a sample:{" "}
-      </h2>
-      <table className="table">
-        <tbody className="bg-light">
-          <tr>
-            <td>Dan Gable</td>
-            <td>Iowa</td>
-          </tr>
-          <tr>
-            <td>Jason Layton</td>
-            <td>Dynamic</td>
-          </tr>
-          <tr>
-            <td>Cael Sanderson</td>
-            <td>Penn State</td>
-          </tr>
-          <tr>
-            <td>Hulk Hogan</td>
-            <td>WWF</td>
-          </tr>
-          <tr>
-            <td>Dana White</td>
-            <td>UFC</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>
-        Note: You can only submit the wrestlers once. If you made a mistake and
-        need to do it again, simply delete the division and recreate it.
-      </h3>
-      <label>Paste Wrestler List for this division</label>
-      <textarea className="ml-2" onChange={onWrestlerListChange} />
-      <button
-        className="btn btn-primary ml-2"
-        onClick={() => handleSubmitWrestlerList()}
-      >
-        Submit Wrestler List and Make the Brackets!
-      </button>
-    </>
-=======
     <tr>
       <td colSpan={2}>
         <p>
@@ -176,6 +124,5 @@ export default function AddCompetitorsComponent(props: any) {
         </button>
       </td>
     </tr>
->>>>>>> waynesBranch
   );
 }
