@@ -34,7 +34,7 @@ const App = (props: AppProps) => {
           <Route exact path="/blah">
             <AddCompetitorsComponent />
           </Route>
-          <Route exact path="/blah2">
+          <Route exact path="/events/:eventID/mat/:matNumber">
             <SingleMatPage />
           </Route>
           <Route exact path="/blah3">
@@ -66,6 +66,6 @@ const App = (props: AppProps) => {
   );
 };
 
-interface AppProps { }
+interface AppProps {}
 
 export default App;

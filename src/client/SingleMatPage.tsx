@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import SubmitResult from "./SubmitResult";
+import { useParams } from "react-router-dom";
+import NavigationBar from "./NavigationBar";
 
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
 
-  let eventID = 1; //hardcoded
-  let matNumber = 1; //hardcoded
+  let { eventID, matNumber } = useParams<any>();
 
   React.useEffect(() => {
     fetch(`/api/bouts/dispatched/${eventID}&${matNumber}`)
@@ -17,13 +18,15 @@ export default function SingleMatPage(props: any) {
 
   return (
     <>
-      <h1>This is mat # _ for event with id _</h1>
+      <NavigationBar />
+      <h1>
+        This is mat # {matNumber} for event with id {eventID}
+      </h1>
       <h2>Upcoming Bouts: </h2>
       {upcomingBouts.map((bout) => {
         return (
           <>
             <SubmitResult boutID={bout.id} />
-            <h1>poop</h1>;
           </>
         );
       })}
