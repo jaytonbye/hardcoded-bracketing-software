@@ -5,7 +5,12 @@ import { useParams } from "react-router-dom";
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
 
+<<<<<<< HEAD
   let { eventID, matNumber } = useParams<any>();
+=======
+  let eventID = 1; //hardcoded
+  let matNumber = 1; //hardcoded
+>>>>>>> waynesBranch
 
   React.useEffect(() => {
     fetch(`/api/bouts/dispatched/${eventID}&${matNumber}`)

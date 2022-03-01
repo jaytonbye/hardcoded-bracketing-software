@@ -1,18 +1,15 @@
 import React from "react";
 
-// // @ts-ignore
-// import { dataFormatter } from "./bracketing_logic/bracketBuilder";
-// // @ts-ignore
-// import { handleSeedingFunction } from "./bracketing_logic/bracketBuilder";
-// // @ts-ignore
-// import { bracketBuilder } from "./bracketing_logic/bracketBuilder";
-
 // @ts-ignore
 import { dataFormatter } from "./bracketing_logic/dataFormatter";
+
+// // @ts-ignore
+// import { handleSeedingFunction } from "./bracketing_logic/handleSeedingFunction";
+
 // @ts-ignore
-import { handleSeedingFunction } from "./bracketing_logic/handleSeedingFunction";
+import { seedingFunctionForUnlimitedCompetitors2 } from "./bracketing_logic/seedingFunctionForUnlimitedCompetitors2";
 // @ts-ignore
-import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
+import { bracketBuilder } from "./bracketing_logic/not_used/buildTheBrackets";
 
 export default function AddCompetitorsComponent(props: any) {
   const [wrestlerList, setWrestlerList] = React.useState("");
@@ -28,10 +25,11 @@ export default function AddCompetitorsComponent(props: any) {
     let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
     console.log(formattedArrayOfWrestlersAndTeams);
 
-    let seededArrayofWrestlersAndTeams = handleSeedingFunction(
+    let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
       formattedArrayOfWrestlersAndTeams
     );
     console.log(seededArrayofWrestlersAndTeams);
+
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
     console.log(brackets);
 
@@ -39,8 +37,13 @@ export default function AddCompetitorsComponent(props: any) {
 
     let token = sessionStorage.getItem("token");
     let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
+<<<<<<< HEAD
     let eventID = 8; //hardcoded
     let divisionID = 27; //props.divisionID; //hardcoded
+=======
+    let eventID = props.eventID;
+    let divisionID = props.divisionID;
+>>>>>>> waynesBranch
 
     //creates individual matches out of the array
     for (let x = 0; x < brackets.length; x++) {
@@ -77,6 +80,7 @@ export default function AddCompetitorsComponent(props: any) {
   };
 
   return (
+<<<<<<< HEAD
     <>
       <h2>
         Copy and paste the full list of copmetitors and their teams into this
@@ -122,5 +126,56 @@ export default function AddCompetitorsComponent(props: any) {
         Submit Wrestler List and Make the Brackets!
       </button>
     </>
+=======
+    <tr>
+      <td colSpan={2}>
+        <p>
+          Copy and paste the full list of copmetitors and their teams into this
+          text field. They should be "tab separated", which is the default way
+          of copying and pasting from a spread sheet with 2 columns. They should
+          also be in seed order, from top to bottom. The maximum bracket size is
+          32 wrestlers. Here is a sample:{" "}
+        </p>
+      </td>
+      <td colSpan={2}>
+        <table className="table">
+          <tbody className="bg-light">
+            <tr>
+              <td>Dan Gable</td>
+              <td>Iowa</td>
+            </tr>
+            <tr>
+              <td>Jason Layton</td>
+              <td>Dynamic</td>
+            </tr>
+            <tr>
+              <td>Cael Sanderson</td>
+              <td>Penn State</td>
+            </tr>
+            <tr>
+              <td>Hulk Hogan</td>
+              <td>WWF</td>
+            </tr>
+            <tr>
+              <td>Dana White</td>
+              <td>UFC</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td>
+        <label>Paste Wrestler List for this division</label>
+        <textarea className="ml-2" onChange={onWrestlerListChange} />
+      </td>
+      <td>
+        <button
+          className="btn btn-primary ml-2"
+          onClick={() => handleSubmitWrestlerList()}
+        >
+          Submit Wrestler List and Make the Brackets!
+        </button>
+      </td>
+    </tr>
+>>>>>>> waynesBranch
   );
 }

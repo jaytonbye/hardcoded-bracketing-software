@@ -12,7 +12,11 @@ import Admin from "./Admin";
 import EventAdminPage from "./EventAdminPage";
 import AddCompetitorsComponent from "./AddCompetitorsComponent";
 import SingleMatPage from "./SingleMatPage";
+<<<<<<< HEAD
 import DivisionAdminPage from "./DivisionAdminPage";
+=======
+import BullShitComononet from "./BullShitComononet";
+>>>>>>> waynesBranch
 
 const App = (props: AppProps) => {
   return (
@@ -34,7 +38,16 @@ const App = (props: AppProps) => {
           <Route exact path="/blah">
             <AddCompetitorsComponent />
           </Route>
+<<<<<<< HEAD
 
+=======
+          <Route exact path="/blah2">
+            <SingleMatPage />
+          </Route>
+          <Route exact path="/blah3">
+            <BullShitComononet />
+          </Route>
+>>>>>>> waynesBranch
           <Route exact path="/homepage">
             <LoggedIn />
           </Route>
@@ -69,6 +82,6 @@ const App = (props: AppProps) => {
   );
 };
 
-interface AppProps {}
+interface AppProps { }
 
 export default App;
