@@ -75,7 +75,6 @@ router.delete("/:id", async (req, res) => {
     );
 =======
     res.json("Deleted the division!");
->>>>>>> waynesBranch
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
