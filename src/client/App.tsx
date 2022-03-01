@@ -34,14 +34,18 @@ const App = (props: AppProps) => {
           <Route exact path="/blah">
             <AddCompetitorsComponent />
           </Route>
-          <Route exact path="/blah2">
-            <SingleMatPage />
-          </Route>
+
           <Route exact path="/homepage">
             <LoggedIn />
           </Route>
           <Route exact path="/events/:event">
             <EventsPage />
+          </Route>
+          <Route exact path="/eventAdmin/:eventID">
+            <EventAdminPage />
+          </Route>
+          <Route exact path="/events/:eventID/mat/:matNumber">
+            <SingleMatPage />
           </Route>
           <Route exact path="/eventAdmin/:eventID">
             <EventAdminPage />
@@ -55,7 +59,6 @@ const App = (props: AppProps) => {
           <Route path="/ShowAllLoggins">
             <ShowAllLogins />
           </Route>
-
           <Route path="*">
             <h1>404 not found error, you probably went to the wrong page...</h1>
             <a href="/homepage">Go back to the homepage!</a>
