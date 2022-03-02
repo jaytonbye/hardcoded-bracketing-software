@@ -1,8 +1,22 @@
 import React from "react";
+import AddCompetitorsComponent from "./AddCompetitorsComponent";
 
 export default function EditDivisionsComponent(props: any) {
   const [divisions, setDivisions] = React.useState([]);
   const [deleteText, setDeleteText] = React.useState("");
+  const [
+    showInputCompetitorsComponent,
+    setShowInputCompetitorsComponent,
+  ] = React.useState<any>({});
+
+  let onClickRevealInputCompetitorsComponent = (e: any) => {
+    setShowInputCompetitorsComponent((prev: {}) => {
+      return {
+        ...prev,
+        [e.target.name]: !showInputCompetitorsComponent[e.target.name],
+      };
+    });
+  };
 
   let onTextChange = (e: any) => {
     setDeleteText(e.target.value);
@@ -52,6 +66,7 @@ export default function EditDivisionsComponent(props: any) {
             <th>Name of division</th>
             <th>Date</th>
             <th>Location</th>
+            <th>Input Competitors</th>
             <th>Delete this division?</th>
             <th>Delete Button</th>
           </tr>
@@ -59,22 +74,39 @@ export default function EditDivisionsComponent(props: any) {
         <tbody>
           {divisions.map((division) => {
             return (
-              <tr key={division.id}>
-                <td>{division.name_of_division}</td>
-                <td>{division.date_of_event}</td>
-                <td>{division.location_of_event}</td>
-                <td>
-                  <input type="text" onChange={onTextChange} />
-                </td>
-                <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDeleteClick(division.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
+              <>
+                <tr key={division.id}>
+                  <td>{division.name_of_division}</td>
+                  <td>{division.date_of_event}</td>
+                  <td>{division.location_of_event}</td>
+                  <td>
+                    <button
+                      name={String(division.id)}
+                      className="btn btn-primary"
+                      onClick={onClickRevealInputCompetitorsComponent}
+                    >
+                      Add Competitors
+                    </button>
+                  </td>
+                  <td>
+                    <input type="text" onChange={onTextChange} />
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteClick(division.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                {showInputCompetitorsComponent[division.id] && (
+                  <AddCompetitorsComponent
+                    divisionID={division.id}
+                    eventID={props.eventID}
+                  />
+                )}
+              </>
             );
           })}
         </tbody>

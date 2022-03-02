@@ -1,4 +1,4 @@
-// as of writing this comment, this function does not correctly order the seeds. It orders them in a way that will have the same matchups, but the match numbers are out of order. I have decided to continue with the code, and worry about it later.
+// as of writing this comment, this function does not correctly order the seeds. It orders them in a way that will have the same matchups, but the match numbers are out of order. I have decided to continue with the code, and worry about it later. This is dr. modi's solution.
 
 export let handleSeedingFunction = (initialArrayOfCompetitorsOrderedBySeed) => {
   let bigArray = [];
