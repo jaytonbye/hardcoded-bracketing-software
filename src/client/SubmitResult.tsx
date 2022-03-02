@@ -71,6 +71,10 @@ export default function SubmitResult(props: any) {
     console.log(e);
   };
 
+  let dispatchToMat = () => {
+    alert("have not set this up yet");
+  };
+
   return (
     <>
       <h4>Bout ID: {boutID}</h4>
@@ -102,6 +106,13 @@ export default function SubmitResult(props: any) {
       <input type="text" onChange={onScoreChange} />
       <button onClick={submitResult} className="btn btn-primary">
         Submit Result
+      </button>
+
+      {/*Do we want to give these scrubs permission to move matches to different mats?*/}
+      <label>Send this bout to mat#: </label>
+      <input type="number" onChange={onScoreChange} />
+      <button onClick={dispatchToMat} className="btn btn-primary">
+        Dispatch to Mat
       </button>
     </>
   );
