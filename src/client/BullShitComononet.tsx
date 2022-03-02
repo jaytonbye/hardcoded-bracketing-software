@@ -3,7 +3,7 @@ export default function BullShitComponent() {
     const [arrayOfStuff, setArrayOfStuff] = React.useState([1, 2, 3]);
     const [theText, setTheText] = useState({});
 
-    let onChangeTextForThisDiv = (e: any) => {
+    let onChangeTextForThisDiv = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTheText((previousState) => ({
             ...previousState,
             [e.target.name]: e.target.value,
@@ -18,7 +18,7 @@ export default function BullShitComponent() {
                         <div>This is thing {thing}</div>
                         <input
                             type="text"
-                            onChange={onChangeTextForThisDiv}
+                            onChange={(e) => { console.log(e) }}
                             name={String(thing)}
                         />
                         <h1>You Just Typed </h1>

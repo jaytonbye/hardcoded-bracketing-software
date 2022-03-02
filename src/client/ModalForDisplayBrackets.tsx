@@ -50,6 +50,7 @@ export default function ModalForDisplayBrackets(props: any) {
         (function () {
             let arrayOfKeyValuePairs = Object.entries(theFinalEditedBout);
             arrayOfKeyValuePairs.map((keyPair, index) => {
+                // See top of file for bout definition
                 switch (index) {
                     case 0:
                         if (!keyPair[1]) {
