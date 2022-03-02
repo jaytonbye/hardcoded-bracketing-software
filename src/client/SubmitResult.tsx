@@ -1,8 +1,14 @@
 import React from "react";
 import bouts from "../server/db/bouts";
+import { useParams } from "react-router-dom";
 
 export default function SubmitResult(props: any) {
   const [score, setScore] = React.useState("");
+
+  //The purpose of current mat is so they don't accidenatly dispatch a mat to no mans land.
+  let currentMat = useParams<any>().matNumber;
+
+  const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);
   const [selectedWinner, setSelectedWinner] = React.useState();
 
   let token = sessionStorage.getItem("token");
@@ -15,7 +21,6 @@ export default function SubmitResult(props: any) {
   let divisionID = props.bout.division_id;
   let matchNumber = props.bout.match_number;
 
-  console.log({ top_line_wrestler });
   let submitResult = () => {
     //This function will both submit the result (by updating the bout), but it will also update the 2 matches that are dependant upon these results.
     let loser;
@@ -25,15 +30,7 @@ export default function SubmitResult(props: any) {
     if (selectedWinner === JSON.stringify(bottom_line_wrestler)) {
       loser = JSON.stringify(top_line_wrestler);
     }
-    // let loser = JSON.stringify({
-    //   name: "Wrestler Seeded24",
-    //   team: "Team 24",
-    //   seed: 24,
-    // }); //hardcoded
-    console.log({ loser });
-
     let winner = selectedWinner;
-
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -64,6 +61,10 @@ export default function SubmitResult(props: any) {
     setScore(e.target.value);
   };
 
+  let onDispatchChange = (e: any) => {
+    setMatToDispatchTo(e.target.value);
+  };
+
   let onWinnerClicked = (e: any) => {
     if (e.target.checked) {
     }
@@ -71,8 +72,26 @@ export default function SubmitResult(props: any) {
     console.log(e);
   };
 
-  let dispatchToMat = () => {
-    alert("have not set this up yet");
+  let dispatchToMatFunction = (boutID: number, dispatchedToMat: number) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        boutID,
+        dispatched: 1, //1 means true. 0 by default.
+        dispatchedToMat,
+      }),
+    };
+    fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
+      if (res.ok) {
+        alert(`The match was dispatched without a catch`);
+      } else {
+        alert("it didn't work! Blame Jason!");
+      }
+    });
   };
 
   return (
@@ -110,8 +129,13 @@ export default function SubmitResult(props: any) {
 
       {/*Do we want to give these scrubs permission to move matches to different mats?*/}
       <label>Send this bout to mat#: </label>
-      <input type="number" onChange={onScoreChange} />
-      <button onClick={dispatchToMat} className="btn btn-primary">
+      <input type="number" onChange={onDispatchChange} />
+      <button
+        onClick={() => {
+          dispatchToMatFunction(boutID, matToDispatchTo);
+        }}
+        className="btn btn-primary"
+      >
         Dispatch to Mat
       </button>
     </>
