@@ -45,7 +45,7 @@ export default function ModalForDisplayBrackets(props: any) {
             round,
             score
         };
-
+        // We are fucked
 
         (function () {
             let arrayOfKeyValuePairs = Object.entries(theFinalEditedBout);
