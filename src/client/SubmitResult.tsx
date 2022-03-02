@@ -57,7 +57,7 @@ export default function SubmitResult(props: any) {
 
   return (
     <>
-      <h1>hey</h1>
+      <h1>Select the winner:</h1>
       <label>Wrestler 1 Name goes here:</label>
       <input type="radio" value="the value will go here" />
       <br />
