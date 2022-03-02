@@ -1,29 +1,38 @@
 import React from "react";
+import bouts from "../server/db/bouts";
 
 export default function SubmitResult(props: any) {
   const [score, setScore] = React.useState("");
+  const [selectedWinner, setSelectedWinner] = React.useState();
 
   let token = sessionStorage.getItem("token");
 
+  let top_line_wrestler = JSON.parse(props.bout.top_line_wrestler);
+  let bottom_line_wrestler = JSON.parse(props.bout.bottom_line_wrestler);
+  let boutID = props.bout.id;
+  let userID = 1; //hardcoded
+  let eventID = props.bout.event_id;
+  let divisionID = props.bout.division_id;
+  let matchNumber = props.bout.match_number;
+
+  console.log({ top_line_wrestler });
   let submitResult = () => {
     //This function will both submit the result (by updating the bout), but it will also update the 2 matches that are dependant upon these results.
+    let loser;
+    if (selectedWinner === JSON.stringify(top_line_wrestler)) {
+      loser = JSON.stringify(bottom_line_wrestler);
+    }
+    if (selectedWinner === JSON.stringify(bottom_line_wrestler)) {
+      loser = JSON.stringify(top_line_wrestler);
+    }
+    // let loser = JSON.stringify({
+    //   name: "Wrestler Seeded24",
+    //   team: "Team 24",
+    //   seed: 24,
+    // }); //hardcoded
+    console.log({ loser });
 
-    let boutID = 949; //hardcoded
-    let userID = 1; //hardcoded
-    let loser = JSON.stringify({
-      name: "Wrestler Seeded24",
-      team: "Team 24",
-      seed: 24,
-    }); //hardcoded
-    let score = "3-2"; //hardcoded
-    let winner = JSON.stringify({
-      name: "Wrestler Seeded9",
-      team: "Team 9",
-      seed: 9,
-    }); //hardcoded
-    let eventID = 7; //hardcoded
-    let divisionID = 24; //hardcoded
-    let matchNumber = 4; //hardcoded
+    let winner = selectedWinner;
 
     const requestOptions = {
       method: "PUT",
@@ -55,14 +64,39 @@ export default function SubmitResult(props: any) {
     setScore(e.target.value);
   };
 
+  let onWinnerClicked = (e: any) => {
+    if (e.target.checked) {
+    }
+    setSelectedWinner(e.target.value);
+    console.log(e);
+  };
+
   return (
     <>
-      <h1>Select the winner:</h1>
-      <label>Wrestler 1 Name goes here:</label>
-      <input type="radio" value="the value will go here" />
+      <h4>Bout ID: {boutID}</h4>
+      <h4>Match Number: {matchNumber}</h4>
+      <h4>Select the winner:</h4>
+      <label>
+        <strong>Name:</strong> {top_line_wrestler.name} <strong>Team:</strong>{" "}
+        {top_line_wrestler.team}
+      </label>
+      <input
+        type="radio"
+        value={JSON.stringify(top_line_wrestler)}
+        checked={selectedWinner == JSON.stringify(top_line_wrestler)}
+        onChange={onWinnerClicked}
+      />
       <br />
-      <label>Wrestler 2 Name goes here</label>
-      <input type="radio" value="the value will go here" />
+      <label>
+        <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
+        <strong>Team:</strong> {bottom_line_wrestler.team}
+      </label>
+      <input
+        type="radio"
+        value={JSON.stringify(bottom_line_wrestler)}
+        checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
+        onChange={onWinnerClicked}
+      />
       <br />
       <label>Score: </label>
       <input type="text" onChange={onScoreChange} />

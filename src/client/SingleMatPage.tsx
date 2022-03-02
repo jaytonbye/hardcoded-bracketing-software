@@ -26,7 +26,7 @@ export default function SingleMatPage(props: any) {
       {upcomingBouts.map((bout) => {
         return (
           <>
-            <SubmitResult boutID={bout.id} />
+            <SubmitResult bout={bout} />
           </>
         );
       })}
