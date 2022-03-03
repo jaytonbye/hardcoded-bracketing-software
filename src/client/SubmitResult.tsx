@@ -128,8 +128,7 @@ export default function SubmitResult(props: any) {
         Submit Result
       </button>
 
-      {/*Do we want to give these scrubs permission to move matches to different mats?*/}
-      <label>Send this bout to mat#: </label>
+      <label>Move this bout to mat#: </label>
       <input type="number" onChange={onDispatchChange} />
       <button
         onClick={() => {

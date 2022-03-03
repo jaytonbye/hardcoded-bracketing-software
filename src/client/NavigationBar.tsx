@@ -31,10 +31,10 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="navbar navbar-light bg-light">
+      <nav className="navbar navbar-light bg-light sticky-top">
         <div className="container-fluid">
           <button className="btn btn-outline-primary" onClick={goToHome}>
-            Home
+            Events
           </button>
           {userRole === "admin" && (
             <button className="btn btn-outline-danger" onClick={goToAdminPage}>

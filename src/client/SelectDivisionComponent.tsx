@@ -27,7 +27,7 @@ export default function SelectDivisionComponent(props: any) {
 
   return (
     <>
-      <h2>Select the division you would like to view:</h2>
+      <h4>To view the brackets, select the division you would like to view:</h4>
       <select onChange={onEventChange}>
         <option value="">Select a division</option>
         {allDivisions.map((division) => {

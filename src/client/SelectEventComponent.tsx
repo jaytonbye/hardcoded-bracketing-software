@@ -25,7 +25,7 @@ export default function EventsPage() {
 
   return (
     <>
-      <h2>Select the event:</h2>
+      <h4>Select the event:</h4>
       <select onChange={onEventChange}>
         <option>Select an event</option>
         {allEvents.map((event) => {
