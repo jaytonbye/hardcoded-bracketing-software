@@ -6,16 +6,16 @@ export default function ModalForDisplayBrackets(props: any) {
     let BoutId = bout.id;
     console.log({ Thebout: bout });
 
-    const [topLineWrestler, setTopLineWrestler] = useState("");
-    const [bottomLineWrestler, setBottomLineWrestler] = useState("");
+    const [topLineWrestler, setTopLineWrestler] = useState(bout.top_line_wrestler);
+    const [bottomLineWrestler, setBottomLineWrestler] = useState(bout.bottom_line_wrestler);
     // You need to remove these any's and be a big boy about it
-    const [dispatched, setDispatched] = useState<any>(0);
-    const [dispatchedToMat, setDispatchedToMat] = useState<any>(0);
-    const [winner, setWinner] = useState("");
-    const [loser, setLoser] = useState("");
-    const [matchNumber, setMatchNumber] = useState("");
-    const [round, setRound] = useState("");
-    const [score, setScore] = useState("");
+    const [dispatched, setDispatched] = useState<any>(bout.dispatched);
+    const [dispatchedToMat, setDispatchedToMat] = useState<any>(bout.dispatched_to_mat);
+    const [winner, setWinner] = useState(bout.winner);
+    const [loser, setLoser] = useState(bout.loser);
+    const [matchNumber, setMatchNumber] = useState(bout.match_number);
+    const [round, setRound] = useState(bout.round);
+    const [score, setScore] = useState(bout.score);
 
     // Changing the winner of x or loser of x before the result has accrued will cause the 
 
@@ -32,7 +32,7 @@ export default function ModalForDisplayBrackets(props: any) {
         userID: 1,
     }
 
-    const [editOfBout, setEditOfBout] = useState<any>({});
+    const [editOfBout, setEditOfBout] = useState<any>(defaultStateObj);
 
 
     const takeInTheInputs = () => {
@@ -51,134 +51,29 @@ export default function ModalForDisplayBrackets(props: any) {
         };
 
 
-        (function () {
-            let arrayOfKeyValuePairs = Object.entries(theFinalEditedBout);
-            arrayOfKeyValuePairs.map((keyPair, index) => {
-                console.log({ index, keyPair })
 
-                switch (index) {
-                    case 0:
-                        console.log(`I got to case ${index}`);
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setTopLineWrestler(bout.top_line_wrestler);
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 1:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setBottomLineWrestler(bout.bottom_line_wrestler);
-                            // bout.bottomLineWrestler = bout.bottom_line_wrestler;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 2:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setDispatched(bout.dispatched);
-                            // bout.dispatched = bout.dispatched;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 3:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] = '') {
-                            setDispatchedToMat(12)
-                            // bout.dispatchedToMat = bout.dispatched_to_mat;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 4:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            console.log("I am in")
-                            setWinner(bout.winner)
-                            // bout.winner = bout.winner;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 5:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setLoser(bout.loser)
-                            // bout.loser = bout.loser;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 6:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setMatchNumber(bout.match_number);
-                            // bout.matchNumber = bout.match_number;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 7:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setRound(bout.round)
-                            // bout.round = bout.round;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 8:
-                        console.log(`I got to case ${index}`)
-                        console.log({ keyPairString: keyPair[1] });
-                        if (keyPair[1] === '') {
-                            setScore(bout.score)
-                            // bout.score = bout.score;
-                            break;
-                        } else {
-                            break;
-                        }
-                }
-                console.log({
-                    theFinalEditedBout,
-                    bout
-                });
-
-            })
-
-            useEffect(() => {
-                setEditOfBout({
-                    topLineWrestler,
-                    bottomLineWrestler,
-                    dispatched,
-                    dispatchedToMat: Number(dispatchedToMat),
-                    winner,
-                    loser,
-                    matchNumber,
-                    round,
-                    score,
-                    userID: 1
-                });
-            }, [topLineWrestler,
+        useEffect(() => {
+            setEditOfBout({
+                topLineWrestler,
                 bottomLineWrestler,
                 dispatched,
-                dispatchedToMat,
+                dispatchedToMat: Number(dispatchedToMat),
                 winner,
                 loser,
                 matchNumber,
                 round,
-                score,])
-        })();
-
+                score,
+                userID: 1
+            });
+        }, [topLineWrestler,
+            bottomLineWrestler,
+            dispatched,
+            dispatchedToMat,
+            winner,
+            loser,
+            matchNumber,
+            round,
+            score,])
         const requestOptions = {
             method: "PUT",
             headers: {

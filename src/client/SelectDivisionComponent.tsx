@@ -9,6 +9,8 @@ export default function SelectDivisionComponent(props: any) {
 
   const onEventChange = (event: any) => {
     setSelectedDivision(event.target.value);
+    console.log(event.target.value);
+    console.log({ selectedDivision });
   };
 
   let history = useHistory();
@@ -24,6 +26,8 @@ export default function SelectDivisionComponent(props: any) {
         setAllDivisions(results);
       });
   }, []);
+
+  console.log({ allDivisions })
 
   return (
     <>

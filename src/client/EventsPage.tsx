@@ -22,6 +22,8 @@ export default function EventsPage() {
       });
   }, []);
 
+  console.log({ eventInfo })
+
   let navigateToMat = () => {
     history.push(`/events/${event}/mat/${matNumberToNavigateTo}`);
   };
