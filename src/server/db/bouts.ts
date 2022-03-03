@@ -65,7 +65,7 @@ const editBout = async (
   boutID: number,
   userID: number,
   bottomLineWrestler: string,
-  dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
+  dispatched: number, //TS complained when I used boolean, let's see if this messes up the code...
   loser: string,
   score: string,
   topLineWrestler: string,
