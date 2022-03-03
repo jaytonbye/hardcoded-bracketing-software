@@ -51,9 +51,9 @@ export default function SubmitResult(props: any) {
     };
     fetch("/api/bouts/result", requestOptions).then((res) => {
       if (res.ok) {
-        console.log("Result Submitted");
+        alert("Result Submitted");
       } else {
-        console.log("It didn't submit the bout! Something is not working...");
+        alert("It didn't submit the bout! Something is not working...");
       }
     });
   };

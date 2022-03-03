@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import SubmitResult from "./SubmitResult";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
 
 export default function SingleMatPage(props: any) {
@@ -20,7 +20,8 @@ export default function SingleMatPage(props: any) {
     <>
       <NavigationBar />
       <h1>
-        This is mat # {matNumber} for event with id {eventID}
+        This is mat # {matNumber} for event with id{" "}
+        <Link to={`/events/${eventID}`}>{eventID}</Link>
       </h1>
       <h2>Upcoming Bouts: </h2>
       {upcomingBouts.map((bout) => {

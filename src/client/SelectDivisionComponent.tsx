@@ -39,7 +39,7 @@ export default function SelectDivisionComponent(props: any) {
         })}
       </select>
       <button className="btn btn-primary" onClick={loadBracket}>
-        Load the bracket!
+        Show/hide bracket!
       </button>
       {displayBracket && (
         <DisplayBracket eventID={props.eventID} divisionID={selectedDivision} />

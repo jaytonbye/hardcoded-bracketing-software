@@ -57,7 +57,33 @@ router.get("/dispatched/:eventID&:matNumber", async (req, res) => {
   let matNumber = Number(req.params.matNumber);
   console.log(matNumber);
   try {
-    res.json(await db.bouts.getAllDispatchedBouts(eventID, matNumber));
+    res.json(
+      await db.bouts.getAllDispatchedBoutsForThisMat(eventID, matNumber)
+    );
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/allDispatched/:eventID", async (req, res) => {
+  let eventID = Number(req.params.eventID);
+
+  try {
+    res.json(await db.bouts.getAllDispatchedBouts(eventID));
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/matsThatHaveBoutsAssigned/:eventID", async (req, res) => {
+  let eventID = Number(req.params.eventID);
+
+  try {
+    res.json(await db.bouts.getAllMatsThatHaveBoutsAssigned(eventID));
   } catch (error) {
     console.log(req.body);
     console.log(error);
