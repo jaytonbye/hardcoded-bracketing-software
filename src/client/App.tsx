@@ -13,6 +13,7 @@ import EventAdminPage from "./EventAdminPage";
 import AddCompetitorsComponent from "./AddCompetitorsComponent";
 import SingleMatPage from "./SingleMatPage";
 import BullShitComononet from "./BullShitComononet";
+import BracketView from "./BracketVeiw";
 
 const App = (props: AppProps) => {
   return (
@@ -33,6 +34,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/blah">
             <AddCompetitorsComponent />
+          </Route>
+          <Route exact path="/bracketView">
+            <BracketView />
           </Route>
           <Route exact path="/events/:eventID/mat/:matNumber">
             <SingleMatPage />
@@ -66,6 +70,6 @@ const App = (props: AppProps) => {
   );
 };
 
-interface AppProps {}
+interface AppProps { }
 
 export default App;

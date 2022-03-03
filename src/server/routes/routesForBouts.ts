@@ -131,12 +131,12 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    let boutID = req.body.boutID;
+    let boutID = req.params.id;
     let userID = req.body.userID;
     let bottomLineWrestler = req.body.bottomLineWrestler;
-    let dispatched = req.body.dispatched;
+    let dispatched = (req.body.dispatched = 1 ? 1 : 0);
     let loser = req.body.loser;
     let score = req.body.score;
     let topLineWrestler = req.body.topLineWrestler;
@@ -145,8 +145,8 @@ router.put("/", async (req, res) => {
 
     res.json(
       await db.bouts.editBout(
-        boutID,
-        userID,
+        Number(boutID),
+        Number(userID),
         bottomLineWrestler,
         dispatched,
         loser,
