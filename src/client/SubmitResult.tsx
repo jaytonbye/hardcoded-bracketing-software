@@ -98,6 +98,7 @@ export default function SubmitResult(props: any) {
     <>
       <h4>Bout ID: {boutID}</h4>
       <h4>Match Number: {matchNumber}</h4>
+      <h4>Division ID: {divisionID}</h4>
       <h4>Select the winner:</h4>
       <label>
         <strong>Name:</strong> {top_line_wrestler.name} <strong>Team:</strong>{" "}
