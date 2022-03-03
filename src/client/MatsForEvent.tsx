@@ -27,7 +27,7 @@ export default function MatsForEvent(props: any) {
       <h5>The following mats currently have matches assigned:</h5>
       {mats.map((mat) => {
         return (
-          <p>
+          <p key={mat.dispatched_to_mat}>
             <Link to={`/events/${eventID}/mat/${mat.dispatched_to_mat}`}>
               Mat {mat.dispatched_to_mat}
             </Link>{" "}
