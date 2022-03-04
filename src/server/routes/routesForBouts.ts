@@ -131,8 +131,13 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/editBout/:id", async (req, res) => {
   try {
+
+    console.log("try")
+    console.log(req.body)
+    console.log(req.params.id)
+
     let boutID = req.params.id;
     let userID = req.body.userID;
     let bottomLineWrestler = req.body.bottomLineWrestler;

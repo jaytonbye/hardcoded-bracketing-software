@@ -4,7 +4,6 @@ import { Button, Card, Modal, Form } from 'react-bootstrap';
 export default function ModalForDisplayBrackets(props: any) {
     let bout = props.bouts[props.index];
     let BoutId = bout.id;
-    console.log({ Thebout: bout });
 
     const [topLineWrestler, setTopLineWrestler] = useState(bout.top_line_wrestler);
     const [bottomLineWrestler, setBottomLineWrestler] = useState(bout.bottom_line_wrestler);
@@ -37,23 +36,38 @@ export default function ModalForDisplayBrackets(props: any) {
 
     const takeInTheInputs = () => {
 
-        let theFinalEditedBout = {
-            topLineWrestler,
-            bottomLineWrestler,
-            dispatched,
-            dispatchedToMat,
-            winner,
-            loser,
-            matchNumber,
-            round,
-            score,
-            userID: 1
-        };
+        // hardcoded
+
+        // let theFinalEditedBout = {
+        //     topLineWrestler,
+        //     bottomLineWrestler,
+        //     dispatched,
+        //     dispatchedToMat,
+        //     winner,
+        //     loser,
+        //     matchNumber,
+        //     round,
+        //     score,
+        //     userID: 1
+        // };
 
 
+        // useEffect(() => {
 
-        useEffect(() => {
-            setEditOfBout({
+        // }, [topLineWrestler,
+        //     bottomLineWrestler,
+        //     dispatched,
+        //     dispatchedToMat,
+        //     winner,
+        //     loser,
+        //     matchNumber,
+        //     round,
+        //     score,])
+
+
+        (function () {
+
+            let poop = {
                 topLineWrestler,
                 bottomLineWrestler,
                 dispatched,
@@ -64,63 +78,29 @@ export default function ModalForDisplayBrackets(props: any) {
                 round,
                 score,
                 userID: 1
-            });
-        }, [topLineWrestler,
-            bottomLineWrestler,
-            dispatched,
-            dispatchedToMat,
-            winner,
-            loser,
-            matchNumber,
-            round,
-            score,])
-        const requestOptions = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                // Authorization: `Bearer token`,
-            },
-            body: JSON.stringify(editOfBout),
-        };
-
-        fetch(`/api/bouts/${BoutId}`, requestOptions).then((res) => {
-            if (res.ok) {
-
-            } else {
-                alert("it didn't work! Coach Wayne Apologizes try again later");
             }
-        });
 
 
+            const requestOptions = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    // Authorization: `Bearer token`,
+                },
+                body: JSON.stringify(poop),
+            };
+            // 
+            fetch(`/api/bouts/editBout/${BoutId}`, requestOptions).then((res) => {
+                if (res.ok) {
 
+                } else {
+                    alert("it didn't work! Coach Wayne Apologizes try again later");
+                }
+            });
+        }())
     }
 
     console.log(editOfBout);
-
-
-
-    const eventSubmit = (e: any) => {
-        e.preventDefault();
-
-
-
-    }
-
-
-    // const requestOptions = {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         // Authorization: `Bearer token`,
-    //     },
-    //     body: JSON.stringify({
-    //         eventname: EventNames,
-    //         eventdescription: EventDescriptions,
-    //         eventdate: EventDates,
-    //         userId: 1
-    //     }),
-    // };
-
 
 
     return (
@@ -128,7 +108,7 @@ export default function ModalForDisplayBrackets(props: any) {
 
             <Form.Group className="mb-3" >
                 <Form.Label>topLineWrestler</Form.Label>
-                <Form.Control onChange={(e) => setTopLineWrestler(e.target.value)} type="text" placeholder="Enter email" />
+                <Form.Control value={topLineWrestler} onChange={(e) => setTopLineWrestler(e.target.value)} type="text" placeholder="Enter email" />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
@@ -136,42 +116,42 @@ export default function ModalForDisplayBrackets(props: any) {
 
             <Form.Group className="mb-3" >
                 <Form.Label>bottomLineWrestler</Form.Label>
-                <Form.Control onChange={(e) => setBottomLineWrestler(e.target.value)} type="text" placeholder="Password" />
+                <Form.Control value={bottomLineWrestler} onChange={(e) => setBottomLineWrestler(e.target.value)} type="text" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>dispatched</Form.Label>
-                <Form.Control onChange={(e) => setDispatched(e.target.value)} type="number" placeholder="0 ===''  1 = true" />
+                <Form.Control value={dispatched} onChange={(e) => setDispatched(e.target.value)} type="number" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>dispatchedToMat</Form.Label>
-                <Form.Control onChange={(e) => setDispatchedToMat(e.target.value)} type="text" placeholder="text" />
+                <Form.Control value={dispatchedToMat} onChange={(e) => setDispatchedToMat(e.target.value)} type="text" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>winner</Form.Label>
-                <Form.Control onChange={(e) => setWinner(e.target.value)} type="text" placeholder="Password" />
+                <Form.Control value={winner} onChange={(e) => setWinner(e.target.value)} type="text" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>loser</Form.Label>
-                <Form.Control onChange={(e) => setLoser(e.target.value)} type="text" placeholder="Password" />
+                <Form.Control value={loser} onChange={(e) => setLoser(e.target.value)} type="text" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>matchNumber</Form.Label>
-                <Form.Control onChange={(e) => setMatchNumber(e.target.value)} type="text" placeholder="Password" />
+                <Form.Control value={matchNumber} onChange={(e) => setMatchNumber(e.target.value)} type="text" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>Round</Form.Label>
-                <Form.Control onChange={(e) => setRound(e.target.value)} type="text" placeholder="Password" />
+                <Form.Control value={round} onChange={(e) => setRound(e.target.value)} type="text" />
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label>Score</Form.Label>
-                <Form.Control onChange={(e) => setScore(e.target.value)} type="text" placeholder="Password" />
+                <Form.Control value={score} onChange={(e) => setScore(e.target.value)} type="text" />
             </Form.Group>
 
             <Button variant="primary" type="button" onClick={takeInTheInputs}>

@@ -13,6 +13,8 @@ export default function DisplayBracket(props: any) {
   let eventID = props.eventID;
   let divisionID = props.divisionID;
 
+  console.log({ eventID, divisionID, bouts })
+
   React.useEffect(() => {
     fetch(`/api/bouts/boutsByEventAndDivision/${eventID}&${divisionID}`)
       .then((res) => res.json())
