@@ -20,6 +20,20 @@ const BracketContainer = Style.div`
     align-items: center;
     margin-bottom: 2em;
     `;
+const BoutContainer = Style.div`
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    `;
+
+const TestBout = Style.div`
+    height:100px;
+    width:100px;
+    background-color: blue;
+    `
+
 // height: ${number}vh;
 
 const divStyles = {
@@ -73,76 +87,324 @@ const BracketView: React.FC<Props> = (props) => {
                 <div className="btn btn-secondary" onClick={losers}>Toggle Loser Bracket</div>
             </div>
 
-            <div className="d-flex flex-column justify-content-around align-items-center">
-                {winnersTrueFalse && <BracketContainer>
-                    <div style={divStyles}>1</div>
-                    <div style={divStyles}> 2</div >
-                    <div style={divStyles}>3</div>
-                    <div style={divStyles}>4</div>
-                    <div style={divStyles}>5</div>
-                    <div style={divStyles}>6</div>
-                    <div style={divStyles}>7</div>
-                    <div style={divStyles}>8</div>
-                    <div style={divStyles}>9</div>
-                    <div style={divStyles}>10</div>
-                    <div style={divStyles}>11</div>
-                    <div style={divStyles}>12</div>
-                    <div style={divStyles}>13</div>
-                    <div style={divStyles}>14</div>
-                    <div style={divStyles}>15</div>
-                    <div style={divStyles}>16</div>
-                    <div style={rowSpan}>17</div>
-                    <div style={rowSpan}>18</div>
-                    <div style={rowSpan}>19</div>
-                    <div style={rowSpan}>20</div>
-                    <div style={rowSpan}>21</div>
-                    <div style={rowSpan}>22</div>
-                    <div style={rowSpan}>23</div>
-                    <div style={rowSpan}>24</div>
-                    <div style={rowSpan2}>25</div>
-                    <div style={rowSpan2}>26</div>
-                    <div style={rowSpan2}>27</div>
-                    <div style={rowSpan2}>28</div>
-                    <div style={rowSpan3}>29</div>
-                    <div style={rowSpan3}>30</div>
-                    <div style={rowSpan4}>31</div>
-                </BracketContainer >}
-
-                <div style={{ height: '2em', }}></div>
-
-                {losersTrueFalse && <BracketContainer>
-                    <div style={divStyles}>1</div>
-                    <div style={divStyles}> 2</div >
-                    <div style={divStyles}>3</div>
-                    <div style={divStyles}>4</div>
-                    <div style={divStyles}>5</div>
-                    <div style={divStyles}>6</div>
-                    <div style={divStyles}>7</div>
-                    <div style={divStyles}>8</div>
-                    <div style={divStyles}>9</div>
-                    <div style={divStyles}>10</div>
-                    <div style={divStyles}>11</div>
-                    <div style={divStyles}>12</div>
-                    <div style={divStyles}>13</div>
-                    <div style={divStyles}>14</div>
-                    <div style={divStyles}>15</div>
-                    <div style={divStyles}>16</div>
-                    <div style={rowSpan}>17</div>
-                    <div style={rowSpan}>18</div>
-                    <div style={rowSpan}>19</div>
-                    <div style={rowSpan}>20</div>
-                    <div style={rowSpan}>21</div>
-                    <div style={rowSpan}>22</div>
-                    <div style={rowSpan}>23</div>
-                    <div style={rowSpan}>24</div>
-                    <div style={rowSpan2}>25</div>
-                    <div style={rowSpan2}>26</div>
-                    <div style={rowSpan2}>27</div>
-                    <div style={rowSpan2}>28</div>
-                    <div style={rowSpan3}>29</div>
-                    <div style={rowSpan3}>30</div>
-                    <div style={rowSpan4}>31</div>
-                </BracketContainer >}
+            <div className="row col-11">
+                <div className="d-flex flex-column justify-content-around align-items-center">
+                    {winnersTrueFalse && <BracketContainer>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>1</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>2</TestBout></BoutContainer>
+                            </>
+                        </div >
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>3</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>4</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>5</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>6</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>7</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>8</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>9</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>10</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>11</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>12</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>13</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>14</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>15</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>16</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>17</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>18</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>19</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>20</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>21</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>22</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>23</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>24</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>25</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>26</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>27</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>28</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan3}>
+                            <>
+                                <BoutContainer><TestBout>29</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan3}>
+                            <>
+                                <BoutContainer><TestBout>30</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan4}>
+                            <>
+                                <BoutContainer><TestBout>31</TestBout></BoutContainer>
+                            </>
+                        </div>
+                    </BracketContainer >}
+                    <div style={{ height: '2em', }}></div>
+                    {losersTrueFalse && <BracketContainer>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>1</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>2</TestBout></BoutContainer>
+                            </>
+                        </div >
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>3</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>4</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>5</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>6</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>7</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>8</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>9</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>10</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>11</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>12</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>13</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>14</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>15</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={divStyles}>
+                            <>
+                                <BoutContainer><TestBout>16</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>17</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>18</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>19</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>20</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>21</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>22</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>23</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan}>
+                            <>
+                                <BoutContainer><TestBout>24</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>25</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>26</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>27</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan2}>
+                            <>
+                                <BoutContainer><TestBout>28</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan3}>
+                            <>
+                                <BoutContainer><TestBout>29</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan3}>
+                            <>
+                                <BoutContainer><TestBout>30</TestBout></BoutContainer>
+                            </>
+                        </div>
+                        <div style={rowSpan4}>
+                            <>
+                                <BoutContainer><TestBout>31</TestBout></BoutContainer>
+                            </>
+                        </div>
+                    </BracketContainer >}
+                </div>
             </div>
         </>
     )
