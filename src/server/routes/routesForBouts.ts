@@ -4,19 +4,6 @@ import { hasValidAdminToken } from "../utils/tokenCheck";
 
 const router = Router();
 
-// router.get("/divisionsByEventId/:id?", async (req, res) => {
-//   let eventID = Number(req.params.id);
-//   try {
-//     if (eventID) {
-//       res.json(await db.divisions.allDivisionsForSingleEvent(eventID));
-//     } else {
-//     }
-//   } catch (e) {
-//     console.log(e);
-//     res.sendStatus(500);
-//   }
-// });
-
 router.get("/:id?", async (req, res) => {
   let boutID = Number(req.params.id);
   try {
@@ -133,10 +120,9 @@ router.post("/", async (req, res) => {
 
 router.put("/editBout/:id", async (req, res) => {
   try {
-
-    console.log("try")
-    console.log(req.body)
-    console.log(req.params.id)
+    console.log("try");
+    console.log(req.body);
+    console.log(req.params.id);
 
     let boutID = req.params.id;
     let userID = req.body.userID;

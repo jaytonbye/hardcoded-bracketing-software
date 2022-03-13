@@ -77,4 +77,11 @@ router.get("/gettingYourUser_Ids/:email", async (req, res) => {
   } catch (error) {}
 });
 
+router.get("/forAdminCreatedAccounts", async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export default router;
