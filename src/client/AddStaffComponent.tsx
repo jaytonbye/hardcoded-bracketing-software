@@ -41,6 +41,7 @@ function AddStaffComponent() {
         }),
       };
 
+      //covalence : It sends the alert that the account was created whether or not it works. How can I fix this? Is it because it's not in a try block?
       fetch("/api/users/forEventAdminCreatedAccounts", requestOptions).then(
         (data) => {
           apiService("/auth/login", "POST", {
@@ -88,7 +89,7 @@ function AddStaffComponent() {
               <option value="tableWorker">
                 Table worker (can enter match results)
               </option>
-              <option value="adminstrator">
+              <option value="administrator">
                 Administator (has full administrative priviliges)
               </option>
             </select>

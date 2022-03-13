@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
           userId: userFound.id,
           email: userFound.email,
           role: userFound.role,
-          tenant: userFound.tenant,
+          priviliges_for_event_ID: userFound.priviliges_for_event_ID,
         },
         config.jwt.secret,
         { expiresIn: "1d" }

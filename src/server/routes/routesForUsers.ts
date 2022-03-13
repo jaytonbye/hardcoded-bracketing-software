@@ -1,6 +1,9 @@
 import { Router } from "express";
 import db from "../db";
-import { hasValidAdminToken } from "../utils/tokenCheck";
+import {
+  hasValidAdminToken,
+  hasValidEventAdministratorToken,
+} from "../utils/tokenCheck";
 
 const router = Router();
 
@@ -36,26 +39,30 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/forEventAdminCreatedAccounts", async (req, res) => {
-  console.log("hey you!"); //hardcoded
-  try {
-    let email = req.body.email;
-    let password = req.body.password;
-    let role = req.body.role;
-    let priviliges_for_event_ID = req.body.priviliges_for_event_ID;
+router.post(
+  "/forEventAdminCreatedAccounts",
+  hasValidEventAdministratorToken,
+  async (req, res) => {
+    console.log("hey you!"); //hardcoded
+    try {
+      let email = req.body.email;
+      let password = req.body.password;
+      let role = req.body.role;
+      let priviliges_for_event_ID = req.body.priviliges_for_event_ID;
 
-    res.json(
-      await db.users.createUserFromEventAdmin({
-        email,
-        password,
-        role,
-        priviliges_for_event_ID,
-      })
-    );
-  } catch (error) {
-    console.log(error);
+      res.json(
+        await db.users.createUserFromEventAdmin({
+          email,
+          password,
+          role,
+          priviliges_for_event_ID,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 router.put("/", hasValidAdminToken, async (req, res) => {
   try {
