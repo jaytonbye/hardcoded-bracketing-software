@@ -37,11 +37,11 @@ function AddStaffComponent() {
           email: email,
           password: password,
           role: createdAccountsRoll,
-          tenant: userTenant,
+          priviliges_for_event_ID: 11, //hardcoded
         }),
       };
 
-      fetch("/api/users/forAdminCreatedAccounts", requestOptions).then(
+      fetch("/api/users/forEventAdminCreatedAccounts", requestOptions).then(
         (data) => {
           apiService("/auth/login", "POST", {
             email,

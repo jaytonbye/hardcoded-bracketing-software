@@ -12,17 +12,45 @@ export let hasValidToken: express.RequestHandler = (req, res, next) => {
   }
 };
 
-export let hasValidCoachToken: express.RequestHandler = (req, res, next) => {
+export let hasValidTableWorkerToken: express.RequestHandler = (
+  req,
+  res,
+  next
+) => {
   let token = req.headers.authorization.split(" ")[1]; //removes bearer from the string
   let decoded: any = decode(token);
   let role = decoded.role;
   let isValidToken = verify(token, config.jwt.secret);
 
-  if (isValidToken && (role === "coach" || role === "admin")) {
+  if (
+    isValidToken &&
+    (role === "tableWorker" || role === "administrator" || role === "admin")
+  ) {
     next();
   } else {
     res.status(401).json({
-      message: "your token is not valid, or doesn't have coach privlidges",
+      message:
+        "your token is not valid, or doesn't have the privlidges required",
+    });
+  }
+};
+
+export let hasValidEventAdministratorToken: express.RequestHandler = (
+  req,
+  res,
+  next
+) => {
+  let token = req.headers.authorization.split(" ")[1]; //removes bearer from the string
+  let decoded: any = decode(token);
+  let role = decoded.role;
+  let isValidToken = verify(token, config.jwt.secret);
+
+  if (isValidToken && (role === "administrator" || role === "admin")) {
+    next();
+  } else {
+    res.status(401).json({
+      message:
+        "your token is not valid, or doesn't have event admin privlidges",
     });
   }
 };
