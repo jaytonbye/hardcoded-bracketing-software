@@ -1,6 +1,9 @@
 import { Router } from "express";
 import db from "../db";
-import { hasValidAdminToken } from "../utils/tokenCheck";
+import {
+  hasValidAdminToken,
+  hasValidTableWorkerToken,
+} from "../utils/tokenCheck";
 
 const router = Router();
 
@@ -168,7 +171,7 @@ router.put("/dispatch", async (req, res) => {
   }
 });
 
-router.put("/result", async (req, res) => {
+router.put("/result", hasValidTableWorkerToken, async (req, res) => {
   try {
     let boutID = req.body.boutID;
     let userID = req.body.userID;

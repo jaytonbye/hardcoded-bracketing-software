@@ -43,7 +43,6 @@ router.post(
   "/forEventAdminCreatedAccounts",
   hasValidEventAdministratorToken,
   async (req, res) => {
-    console.log("hey you!"); //hardcoded
     try {
       let email = req.body.email;
       let password = req.body.password;
