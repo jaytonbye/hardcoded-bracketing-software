@@ -19,7 +19,6 @@ export let hasValidTableWorkerToken: express.RequestHandler = (
 ) => {
   try {
     let token = req.headers.authorization.split(" ")[1]; //removes bearer from the string
-
     let isValidToken: any = verify(token, config.jwt.secret);
     let role = isValidToken.role;
     if (
@@ -50,10 +49,9 @@ export let hasValidEventAdministratorToken: express.RequestHandler = (
   next
 ) => {
   let token = req.headers.authorization.split(" ")[1]; //removes bearer from the string
-  let decoded: any = decode(token);
-  let role = decoded.role;
-  let isValidToken = verify(token, config.jwt.secret);
 
+  let isValidToken: any = verify(token, config.jwt.secret);
+  let role = isValidToken.role;
   if (isValidToken && (role === "administrator" || role === "admin")) {
     next();
   } else {
