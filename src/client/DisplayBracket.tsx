@@ -51,10 +51,6 @@ export default function DisplayBracket(props: any) {
   };
 
   let showEditBout = (e: any) => {
-    // alert(
-    //   "this is currently hardcoded with made up values, it is waiting on a modal"
-    // Not any more mothafukas!!!
-    // );
     setModalShow((prev: {}) => {
       return { ...prev, [e.target.name]: !modalShow[e.target.name] };
     });

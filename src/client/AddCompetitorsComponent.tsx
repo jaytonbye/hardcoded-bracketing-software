@@ -36,7 +36,7 @@ export default function AddCompetitorsComponent(props: any) {
     //I'm not using state here. Is that ok?
 
     let token = sessionStorage.getItem("token");
-    let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
+    let userID = Number(sessionStorage.getItem("UID"));
     let eventID = props.eventID;
     let divisionID = props.divisionID;
 

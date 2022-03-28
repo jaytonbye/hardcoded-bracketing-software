@@ -41,33 +41,6 @@ export default function ModalForDisplayBrackets(props: any) {
   const [editOfBout, setEditOfBout] = useState<any>(defaultStateObj);
 
   const takeInTheInputs = () => {
-    // hardcoded
-
-    // let theFinalEditedBout = {
-    //     topLineWrestler,
-    //     bottomLineWrestler,
-    //     dispatched,
-    //     dispatchedToMat,
-    //     winner,
-    //     loser,
-    //     matchNumber,
-    //     round,
-    //     score,
-    //     userID: 1
-    // };
-
-    // useEffect(() => {
-
-    // }, [topLineWrestler,
-    //     bottomLineWrestler,
-    //     dispatched,
-    //     dispatchedToMat,
-    //     winner,
-    //     loser,
-    //     matchNumber,
-    //     round,
-    //     score,])
-
     (function () {
       let poop = {
         topLineWrestler,

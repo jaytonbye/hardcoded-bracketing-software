@@ -5,19 +5,20 @@ import { apiService } from "./services/api-services";
 function AddStaffComponent() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [userTenant, setUserTenant] = React.useState("");
+  const [userEventPriviliges, setUserEventPriviliges] = React.useState("");
   const [createdAccountsRoll, setCreatedAccountsRoll] = React.useState(
     "tableWorker"
   );
 
   let UID = Number(sessionStorage.getItem("UID"));
 
-  //gets the user's tenant so that the wrestlers created are linked to the proper tenant
+  //gets the user's event, so that the created accounts can only edit the correct events.
   React.useEffect(() => {
     fetch(`/api/users/${UID}`)
       .then((res) => res.json())
       .then((results) => {
-        setUserTenant(results[0].tenant);
+        console.log({ results });
+        setUserEventPriviliges(results[0].priviliges_for_event_ID);
       });
   });
 
@@ -37,7 +38,7 @@ function AddStaffComponent() {
           email: email,
           password: password,
           role: createdAccountsRoll,
-          priviliges_for_event_ID: 11, //hardcoded
+          priviliges_for_event_ID: userEventPriviliges,
         }),
       };
 
