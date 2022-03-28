@@ -22,11 +22,10 @@ export let hasValidTableWorkerToken: express.RequestHandler = (
     let isValidToken: any = verify(token, config.jwt.secret);
     let role = isValidToken.role;
     if (
-      isValidToken &&
-      (role === "tableWorker" ||
-        role === "administrator" ||
-        role === "admin") &&
-      req.body.eventID === Number(isValidToken.priviliges_for_event_ID)
+      (isValidToken &&
+        (role === "tableWorker" || role === "administrator") &&
+        req.body.eventID === Number(isValidToken.priviliges_for_event_ID)) ||
+      (role === "admin" && isValidToken)
     ) {
       next();
     } else {
