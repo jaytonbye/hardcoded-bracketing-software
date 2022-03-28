@@ -77,12 +77,13 @@ export default function SubmitResult(props: any) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        //   Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         boutID,
         dispatched: 1, //1 means true. 0 by default.
         dispatchedToMat,
+        eventID,
       }),
     };
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {

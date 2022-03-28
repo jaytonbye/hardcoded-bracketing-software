@@ -1,7 +1,6 @@
 import { Router } from "express";
 import db from "../db";
 import {
-  hasValidAdminToken,
   hasValidEventAdministratorToken,
   hasValidTableWorkerToken,
 } from "../utils/tokenCheck";
@@ -122,45 +121,41 @@ router.post("/", hasValidEventAdministratorToken, async (req, res) => {
   }
 });
 
-router.put(
-  "/editBout/:id",
-  hasValidEventAdministratorToken,
-  async (req, res) => {
-    try {
-      console.log("try");
-      console.log(req.body);
-      console.log(req.params.id);
+router.put("/editBout/:id", hasValidTableWorkerToken, async (req, res) => {
+  try {
+    console.log("try");
+    console.log(req.body);
+    console.log(req.params.id);
 
-      let boutID = req.params.id;
-      let userID = req.body.userID;
-      let bottomLineWrestler = req.body.bottomLineWrestler;
-      let dispatched = (req.body.dispatched = 1 ? 1 : 0);
-      let loser = req.body.loser;
-      let score = req.body.score;
-      let topLineWrestler = req.body.topLineWrestler;
-      let winner = req.body.winner;
-      let dispatchedToMat = req.body.dispatchedToMat;
+    let boutID = req.params.id;
+    let userID = req.body.userID;
+    let bottomLineWrestler = req.body.bottomLineWrestler;
+    let dispatched = (req.body.dispatched = 1 ? 1 : 0);
+    let loser = req.body.loser;
+    let score = req.body.score;
+    let topLineWrestler = req.body.topLineWrestler;
+    let winner = req.body.winner;
+    let dispatchedToMat = req.body.dispatchedToMat;
 
-      res.json(
-        await db.bouts.editBout(
-          Number(boutID),
-          Number(userID),
-          bottomLineWrestler,
-          dispatched,
-          loser,
-          score,
-          topLineWrestler,
-          winner,
-          dispatchedToMat
-        )
-      );
-    } catch (error) {
-      console.log(error);
-      console.log("somethings messing up here");
-      res.sendStatus(500);
-    }
+    res.json(
+      await db.bouts.editBout(
+        Number(boutID),
+        Number(userID),
+        bottomLineWrestler,
+        dispatched,
+        loser,
+        score,
+        topLineWrestler,
+        winner,
+        dispatchedToMat
+      )
+    );
+  } catch (error) {
+    console.log(error);
+    console.log("somethings messing up here");
+    res.sendStatus(500);
   }
-);
+});
 
 router.put("/dispatch", hasValidTableWorkerToken, async (req, res) => {
   try {

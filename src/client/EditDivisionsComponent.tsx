@@ -44,7 +44,9 @@ export default function EditDivisionsComponent(props: any) {
         }
       });
     } else {
-      alert('you must tyle "delete" in order to delete the division');
+      alert(
+        'you must tyle "delete" in order to delete the division. Be careful, this will permanently delete all of the bouts in this division. There is no undoing this operation.'
+      );
     }
   };
 

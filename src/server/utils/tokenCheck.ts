@@ -21,11 +21,13 @@ export let hasValidTableWorkerToken: express.RequestHandler = (
     let token = req.headers.authorization.split(" ")[1]; //removes bearer from the string
     let isValidToken: any = verify(token, config.jwt.secret);
     let role = isValidToken.role;
+    console.log(req.body);
     if (
       (isValidToken &&
         (role === "tableWorker" || role === "administrator") &&
-        req.body.eventID === Number(isValidToken.priviliges_for_event_ID)) ||
+        req.body.eventID == Number(isValidToken.priviliges_for_event_ID)) ||
       (role === "admin" && isValidToken)
+      // I used the == sign above, as I was having some trouble with the strings/numbers. For some reason req.body.eventID was coming in as a string.
     ) {
       next();
     } else {
