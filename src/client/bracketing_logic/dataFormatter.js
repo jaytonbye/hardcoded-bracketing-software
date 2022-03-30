@@ -2,7 +2,7 @@ export let dataFormatter = (tabSeparatedWrestlersString) => {
   let arrayOfWrestlersAndTeamsTabSeparated = tabSeparatedWrestlersString.split(
     "\n"
   );
-
+  console.log("the data formatter");
   let arrayOfWrestlersandTeams = [];
   for (let x = 0; x < arrayOfWrestlersAndTeamsTabSeparated.length; x++) {
     let indexOfSlashT = arrayOfWrestlersAndTeamsTabSeparated[x].search("\t");

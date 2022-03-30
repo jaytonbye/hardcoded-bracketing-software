@@ -38,7 +38,7 @@ export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
   //this part of the code determines the seeding order, but only generates an array of numbers which represent the seeds. At the end we will insert the wrestlers.
   let numberOfRoundsNeeded = Math.log2(seededArray.length);
   let arrayOfWrestlers = [1]; //starts out with a single wrestler in it.
-  [seededArray[0]];
+
   for (let round = 1; round <= numberOfRoundsNeeded; round++) {
     let pairAddsTo = Math.pow(2, round) + 1;
     console.log({ round });
