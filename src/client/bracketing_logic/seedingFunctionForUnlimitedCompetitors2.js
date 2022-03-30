@@ -67,4 +67,6 @@ export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
   return finalArrayOfWrestlers;
 };
 
-console.log("hey from the outside looking in");
+console.log(
+  "hey from the outside looking in. This is running in seedingFunctionForUnlimited..."
+);

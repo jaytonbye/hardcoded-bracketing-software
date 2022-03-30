@@ -1,5 +1,5 @@
 import React from "react";
-import bouts from "../server/db/bouts";
+
 import { useParams } from "react-router-dom";
 
 export default function SubmitResult(props: any) {
