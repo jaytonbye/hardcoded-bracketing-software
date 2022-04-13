@@ -30,6 +30,17 @@ const createUser = async (user: IUser) => {
   );
 };
 
+const createUserFromEventAdmin = async (user: any) => {
+  let hashedPassword = generateHash(user.password);
+  console.log(user.role);
+  return <Promise<any>>(
+    Query(
+      `INSERT INTO users (email, password, role, priviliges_for_event_ID) VALUES (?,?,?,?)`,
+      [user.email, hashedPassword, user.role, user.priviliges_for_event_ID]
+    )
+  );
+};
+
 const updateUser = async (user: IUser) => {
   return Query(`UPDATE users SET email=?, password=?, role=? WHERE id=?`, [
     user.email,
@@ -63,6 +74,7 @@ export default {
   find,
   singleUser,
   createUser,
+  createUserFromEventAdmin,
   updateUser,
   deleteUser,
   resetPassword,

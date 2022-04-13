@@ -1,6 +1,6 @@
 import { Router } from "express";
 import db from "../db";
-import { hasValidAdminToken } from "../utils/tokenCheck";
+import { hasValidEventAdministratorToken } from "../utils/tokenCheck";
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.get("/:id?", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", hasValidEventAdministratorToken, async (req, res) => {
   try {
     let userID = req.body.userID;
     let eventID = req.body.eventID;
@@ -65,9 +65,10 @@ router.post("/", async (req, res) => {
 //   }
 // });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", hasValidEventAdministratorToken, async (req, res) => {
   let id = Number(req.params.id);
   try {
+    await db.divisions.deleteCorrespondingBouts(id);
     await db.divisions.deleteDivision(id);
     res.json("Deleted the division!");
   } catch (error) {

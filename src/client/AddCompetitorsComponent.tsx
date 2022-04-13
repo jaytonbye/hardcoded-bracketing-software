@@ -13,7 +13,6 @@ import { bracketBuilder } from "./bracketing_logic/not_used/buildTheBrackets";
 
 export default function AddCompetitorsComponent(props: any) {
   const [wrestlerList, setWrestlerList] = React.useState("");
-  const [comletedBrackets, setCompletedBrackets] = React.useState([]);
 
   let onWrestlerListChange = (e: any) => {
     setWrestlerList(e.target.value);
@@ -23,20 +22,20 @@ export default function AddCompetitorsComponent(props: any) {
     alert("The button was clicked");
 
     let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
-    console.log(formattedArrayOfWrestlersAndTeams);
+    console.log({ formattedArrayOfWrestlersAndTeams });
 
     let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
       formattedArrayOfWrestlersAndTeams
     );
-    console.log(seededArrayofWrestlersAndTeams);
+    console.log({ seededArrayofWrestlersAndTeams });
 
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
-    console.log(brackets);
+    console.log({ brackets });
 
     //I'm not using state here. Is that ok?
 
     let token = sessionStorage.getItem("token");
-    let userID = 1; //Number(sessionStorage.getItem("UID")); //hardcoded
+    let userID = Number(sessionStorage.getItem("UID"));
     let eventID = props.eventID;
     let divisionID = props.divisionID;
 

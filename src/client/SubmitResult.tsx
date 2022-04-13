@@ -1,5 +1,5 @@
 import React from "react";
-import bouts from "../server/db/bouts";
+
 import { useParams } from "react-router-dom";
 
 export default function SubmitResult(props: any) {
@@ -16,7 +16,7 @@ export default function SubmitResult(props: any) {
   let top_line_wrestler = JSON.parse(props.bout.top_line_wrestler);
   let bottom_line_wrestler = JSON.parse(props.bout.bottom_line_wrestler);
   let boutID = props.bout.id;
-  let userID = 1; //hardcoded
+  let userID = Number(sessionStorage.getItem("UID"));
   let eventID = props.bout.event_id;
   let divisionID = props.bout.division_id;
   let matchNumber = props.bout.match_number;
@@ -77,12 +77,13 @@ export default function SubmitResult(props: any) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        //   Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         boutID,
         dispatched: 1, //1 means true. 0 by default.
         dispatchedToMat,
+        eventID,
       }),
     };
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {

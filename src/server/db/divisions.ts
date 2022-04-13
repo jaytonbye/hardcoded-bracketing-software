@@ -31,10 +31,15 @@ const deleteDivision = async (divisionID: number) => {
   Query(`DELETE FROM divisions WHERE id=?`, [divisionID]);
 };
 
+const deleteCorrespondingBouts = async (divisionID: number) => {
+  return Query("DELETE FROM bouts WHERE division_id=?", [divisionID]);
+};
+
 export default {
   allDivisions,
   allDivisionsForSingleEvent,
   singleDivision,
   createDivision,
   deleteDivision,
+  deleteCorrespondingBouts,
 };

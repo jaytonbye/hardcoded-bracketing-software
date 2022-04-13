@@ -9,7 +9,7 @@ export default function EventsPage() {
   const [matNumberToNavigateTo, setMatNumberToNavigateTo] = React.useState();
   const [eventInfo, setEventinfo] = React.useState([]);
   const [eventLoaded, setEventLoaded] = React.useState(false);
-  const [showMats, setShowMats] = React.useState(false);
+  const [showMats, setShowMats] = React.useState(true);
 
   let history = useHistory();
 
@@ -22,7 +22,7 @@ export default function EventsPage() {
       });
   }, []);
 
-  console.log({ eventInfo })
+  console.log({ eventInfo });
 
   let navigateToMat = () => {
     history.push(`/events/${event}/mat/${matNumberToNavigateTo}`);

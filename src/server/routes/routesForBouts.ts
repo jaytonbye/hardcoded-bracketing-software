@@ -1,21 +1,11 @@
 import { Router } from "express";
 import db from "../db";
-import { hasValidAdminToken } from "../utils/tokenCheck";
+import {
+  hasValidEventAdministratorToken,
+  hasValidTableWorkerToken,
+} from "../utils/tokenCheck";
 
 const router = Router();
-
-// router.get("/divisionsByEventId/:id?", async (req, res) => {
-//   let eventID = Number(req.params.id);
-//   try {
-//     if (eventID) {
-//       res.json(await db.divisions.allDivisionsForSingleEvent(eventID));
-//     } else {
-//     }
-//   } catch (e) {
-//     console.log(e);
-//     res.sendStatus(500);
-//   }
-// });
 
 router.get("/:id?", async (req, res) => {
   let boutID = Number(req.params.id);
@@ -91,7 +81,7 @@ router.get("/matsThatHaveBoutsAssigned/:eventID", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", hasValidEventAdministratorToken, async (req, res) => {
   try {
     let userID = req.body.userID;
     let eventID = req.body.eventID;
@@ -131,12 +121,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/editBout/:id", async (req, res) => {
+router.put("/editBout/:id", hasValidTableWorkerToken, async (req, res) => {
   try {
-
-    console.log("try")
-    console.log(req.body)
-    console.log(req.params.id)
+    console.log("try");
+    console.log(req.body);
+    console.log(req.params.id);
 
     let boutID = req.params.id;
     let userID = req.body.userID;
@@ -168,7 +157,7 @@ router.put("/editBout/:id", async (req, res) => {
   }
 });
 
-router.put("/dispatch", async (req, res) => {
+router.put("/dispatch", hasValidTableWorkerToken, async (req, res) => {
   try {
     let boutID = req.body.boutID;
     let dispatched = req.body.dispatched;
@@ -182,7 +171,7 @@ router.put("/dispatch", async (req, res) => {
   }
 });
 
-router.put("/result", async (req, res) => {
+router.put("/result", hasValidTableWorkerToken, async (req, res) => {
   try {
     let boutID = req.body.boutID;
     let userID = req.body.userID;
