@@ -75,16 +75,16 @@ export default function AddCompetitorsComponent(props: any) {
 
   return (
     <tr>
-      <td colSpan={2}>
+      <td colSpan={1}>
         <p>
           Copy and paste the full list of copmetitors and their teams into this
           text field. They should be "tab separated", which is the default way
-          of copying and pasting from a spread sheet with 2 columns. They should
-          also be in seed order, from top to bottom. The maximum bracket size is
-          32 wrestlers. Here is a sample:{" "}
+          of copying and pasting from a spread sheet with 2 columns. They will
+          be in seed order, from top to bottom. The maximum bracket size is 32
+          wrestlers. Here is a sample:{" "}
         </p>
       </td>
-      <td colSpan={2}>
+      <td colSpan={1}>
         <table className="table">
           <tbody className="bg-light">
             <tr>

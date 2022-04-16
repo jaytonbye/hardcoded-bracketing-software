@@ -3,18 +3,17 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
-
 import PasswordResetLandingPage from "./PasswordResetLandingPage";
 import ShowAllLogins from "./ShowAllLogins";
 import LoggedIn from "./LoggedIn";
 import EventsPage from "./EventsPage";
 import Admin from "./Admin";
 import EventAdminPage from "./EventAdminPage";
-import AddCompetitorsComponent from "./AddCompetitorsComponent";
 import SingleMatPage from "./SingleMatPage";
 import BullShitComononet from "./BullShitComononet";
 import BracketView from "./BracketVeiw";
 import BracketLayout from "./BracketLayout";
+import UpdateAllByes from "./UpdateAllByes";
 
 const App = (props: AppProps) => {
   return (
@@ -44,6 +43,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/blah3">
             <BullShitComononet />
+          </Route>
+          <Route exact path="/blah4">
+            <UpdateAllByes />
           </Route>
           <Route exact path="/homepage">
             <LoggedIn />

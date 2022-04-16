@@ -45,7 +45,7 @@ export default function DisplayBracket(props: any) {
       if (res.ok) {
         alert(`The match was dispatched without a catch`);
       } else {
-        alert("it didn't work! Blame Jason!");
+        alert("it didn't work! You likely don't have the security clearance!");
       }
     });
   };

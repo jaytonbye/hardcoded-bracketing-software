@@ -66,8 +66,6 @@ export default function EditDivisionsComponent(props: any) {
         <thead className="sticky-top">
           <tr className="bg-light">
             <th>Name of division</th>
-            <th>Date</th>
-            <th>Location</th>
             <th>Input Competitors</th>
             <th>Delete this division?</th>
             <th>Delete Button</th>
@@ -79,8 +77,7 @@ export default function EditDivisionsComponent(props: any) {
               <>
                 <tr key={division.id}>
                   <td>{division.name_of_division}</td>
-                  <td>{division.date_of_event}</td>
-                  <td>{division.location_of_event}</td>
+
                   <td>
                     <button
                       name={String(division.id)}
