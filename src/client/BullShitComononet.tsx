@@ -21,7 +21,7 @@ export default function BullShitComponent() {
                             onChange={onChangeTextForThisDiv}
                             name={String(thing)}
                         />
-                        <h1>You Just Typed </h1>
+                        <h1>You Just Typed {theText[thing]}</h1>
                     </>
                 );
             })}
