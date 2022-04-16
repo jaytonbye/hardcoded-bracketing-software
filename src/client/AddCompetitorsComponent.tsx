@@ -9,7 +9,7 @@ import { dataFormatter } from "./bracketing_logic/dataFormatter";
 // @ts-ignore
 import { seedingFunctionForUnlimitedCompetitors2 } from "./bracketing_logic/seedingFunctionForUnlimitedCompetitors2";
 // @ts-ignore
-import { bracketBuilder } from "./bracketing_logic/not_used/buildTheBrackets";
+import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 
 export default function AddCompetitorsComponent(props: any) {
   const [wrestlerList, setWrestlerList] = React.useState("");
