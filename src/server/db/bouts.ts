@@ -172,6 +172,13 @@ const updateTopLineWrestlerOfDependantBoutsWithWinner = async (
   divisionID: number,
   matchNumber: number
 ) => {
+  console.log(
+    { userID },
+    { winner },
+    { eventID },
+    { divisionID },
+    { matchNumber }
+  );
   return Query(
     `
     update bouts
@@ -231,6 +238,14 @@ const updateBottomLineWrestlerOfDependantBoutsWithLoser = async (
     `,
     [userID, loser, eventID, divisionID, matchNumber]
   );
+};
+
+const handleAllByesForThisDivision = async (
+  userID: number,
+  eventID: number,
+  divisionID: number
+) => {
+  return Query(``);
 };
 
 export default {

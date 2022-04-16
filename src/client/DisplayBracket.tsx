@@ -3,6 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import classNames from "classnames";
 import ModalForDisplayBrackets from "./ModalForDisplayBrackets";
 import { Link } from "react-router-dom";
+import UpdateAllByes from "./UpdateAllByes";
 
 export default function DisplayBracket(props: any) {
   const [bouts, setBouts] = React.useState([]);
@@ -58,6 +59,7 @@ export default function DisplayBracket(props: any) {
 
   return (
     <>
+      <UpdateAllByes divisionID={divisionID} eventID={eventID} />
       <h3>Brackets go here:</h3>
       {bouts.map((bout, index) => {
         const cardClasses = classNames("my-2", "mx-1", "col-10", {

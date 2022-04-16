@@ -24,6 +24,10 @@ export default function SubmitResult(props: any) {
   let submitResult = () => {
     //This function will both submit the result (by updating the bout), but it will also update the 2 matches that are dependant upon these results.
     let loser;
+    if (!selectedWinner) {
+      alert("you must select a winner");
+      return;
+    }
     if (selectedWinner === JSON.stringify(top_line_wrestler)) {
       loser = JSON.stringify(bottom_line_wrestler);
     }
