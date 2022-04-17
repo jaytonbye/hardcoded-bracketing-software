@@ -17,5 +17,4 @@
 
 - All bouts in a division need to be displayed properly (formatted like a bracket)
 - Make it so that it is not hardcoded into a 32 man bracket, but that it automatically makes the properly sized brackets.
-
-- Notifications
+- Text notifications

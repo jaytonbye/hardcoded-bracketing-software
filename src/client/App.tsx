@@ -14,6 +14,7 @@ import BullShitComononet from "./BullShitComononet";
 import BracketView from "./BracketVeiw";
 import BracketLayout from "./BracketLayout";
 import UpdateAllByes from "./UpdateAllByes";
+import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxToDisplayTheBrackets";
 
 const App = (props: AppProps) => {
   return (
@@ -40,6 +41,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/events/:eventID/mat/:matNumber">
             <SingleMatPage />
+          </Route>
+          <Route exact path="/blah">
+            <PracticingWithFlexboxToDisplayTheBrackets />
           </Route>
           <Route exact path="/blah3">
             <BullShitComononet />

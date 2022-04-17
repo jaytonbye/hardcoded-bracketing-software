@@ -14,8 +14,6 @@ export default function DisplayBracket(props: any) {
   let divisionID = props.divisionID;
   let token = sessionStorage.getItem("token");
 
-  console.log({ eventID, divisionID, bouts });
-
   React.useEffect(() => {
     fetch(`/api/bouts/boutsByEventAndDivision/${eventID}&${divisionID}`)
       .then((res) => res.json())
