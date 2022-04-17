@@ -62,6 +62,7 @@ export default function UpdateAllByes(props: any) {
             );
           } else if (JSON.parse(results[x].top_line_wrestler).name === "bye") {
             console.log("top line bye");
+
             submitResult(
               results[x].id,
               '{"name":"bye"}',
@@ -73,6 +74,7 @@ export default function UpdateAllByes(props: any) {
             JSON.parse(results[x].bottom_line_wrestler).name === "bye"
           ) {
             console.log("bottom line bye");
+
             submitResult(
               results[x].id,
               '{"name":"bye"}',
