@@ -1,3 +1,5 @@
+//I replaced this file with V2 of the same name. I did it because I wanted to separate the logic of the card into a separate component. It was a pain in the ass.
+
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import classNames from "classnames";

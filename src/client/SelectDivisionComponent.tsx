@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import DisplayBracket from "./DisplayBracket";
+import DisplayBracketV2 from "./DisplayBracketV2";
 
 export default function SelectDivisionComponent(props: any) {
   const [selectedDivision, setSelectedDivision] = React.useState();
@@ -27,7 +28,7 @@ export default function SelectDivisionComponent(props: any) {
       });
   }, []);
 
-  console.log({ allDivisions })
+  console.log({ allDivisions });
 
   return (
     <>
@@ -46,7 +47,11 @@ export default function SelectDivisionComponent(props: any) {
         Show/hide bracket!
       </button>
       {displayBracket && (
-        <DisplayBracket eventID={props.eventID} divisionID={selectedDivision} />
+        // <DisplayBracket eventID={props.eventID} divisionID={selectedDivision} />
+        <DisplayBracketV2
+          eventID={props.eventID}
+          divisionID={selectedDivision}
+        />
       )}
     </>
   );

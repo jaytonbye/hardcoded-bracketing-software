@@ -15,6 +15,7 @@ import BracketView from "./BracketVeiw";
 import BracketLayout from "./BracketLayout";
 import UpdateAllByes from "./UpdateAllByes";
 import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxToDisplayTheBrackets";
+import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
 
 const App = (props: AppProps) => {
   return (
@@ -44,6 +45,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/blah">
             <PracticingWithFlexboxToDisplayTheBrackets />
+          </Route>
+          <Route exact path="/blah2">
+            <SingleBoutForDisplayBracket />
           </Route>
           <Route exact path="/blah3">
             <BullShitComononet />

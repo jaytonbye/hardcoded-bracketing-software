@@ -14,9 +14,9 @@
   flex-basis: 0;
 }
 
-* {
-  border: 5px solid yellow;
-}
+// * {
+//   border: 5px solid yellow;
+// }
 
 .full_bracket {
   border: black 10px solid;
@@ -28,7 +28,6 @@
 
 .round {
   flex-grow: 1;
-  //   height: ;
   border: orange 1px solid;
   display: flex;
   flex-direction: column;
@@ -39,7 +38,6 @@
 .bout {
   background-color: red;
   border: black 2px solid;
-  height: 300px;
   margin-top: 2px;
   margin-bottom: 2px;
 }
