@@ -50,83 +50,90 @@ export default function SingleBoutForDisplayBracket(props: any) {
 
   return (
     <>
-      <>
-        <Card key={`Bout ID:${bout.id}`}>
-          <Card.Body>
-            <Card.Title style={{ textDecoration: "underline" }}>
-              <h3>Match #: {bout.match_number}</h3>
-            </Card.Title>
-            <Card.Subtitle
-              className="mb-3"
-              style={{ borderBottom: "2px solid black" }}
-            >
-              <h4>Round #: {bout.round}</h4>
-            </Card.Subtitle>
-            <Card.Text
-              className="display-4 font-weight-bold"
-              style={{ fontSize: "1.5em" }}
-            >
-              Top Wrestler's Name: {JSON.parse(bout.top_line_wrestler).name}
-            </Card.Text>
-            <Card.Text className="text-muted">
-              Top Wrestler's Team: {JSON.parse(bout.top_line_wrestler).team}
-            </Card.Text>
-          </Card.Body>
-          <hr />
-          <Card.Body>
-            <Card.Text
-              className="display-4 font-weight-bold"
-              style={{ fontSize: "1.5em" }}
-            >
-              Bottom Wrestler's Name:{" "}
-              {JSON.parse(bout.bottom_line_wrestler).name}
-            </Card.Text>
-            <Card.Text className="text-muted">
-              Top Wrestler's Team: {JSON.parse(bout.bottom_line_wrestler).team}
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <em>
-              <h4>
-                Dispatched to mat #:{" "}
-                <Link to={`/events/${eventID}/mat/${bout.dispatched_to_mat}`}>
-                  {bout.dispatched_to_mat}
-                </Link>
-              </h4>
-            </em>
-            <h4>Score: {bout.score}</h4>
-            <div>
-              <label>Dispatch this match to mat number: </label>
-              <input
-                type="number"
-                className="mb-2 ml-2"
-                onChange={onDispatchToMatChange}
-              />
-            </div>
+      <Card key={`Bout ID:${bout.id}`}>
+        <Card.Body>
+          <Card.Title style={{ textDecoration: "underline" }}>
+            <h3>Match #: {bout.match_number}</h3>
+          </Card.Title>
+          <Card.Subtitle
+            className="mb-3"
+            style={{ borderBottom: "2px solid black" }}
+          >
+            <h4>Round #: {bout.round}</h4>
+          </Card.Subtitle>
+          <Card.Text
+            className="display-4 font-weight-bold"
+            style={{ fontSize: "1.5em" }}
+          >
+            Top Wrestler's Name: {JSON.parse(bout.top_line_wrestler).name}
+          </Card.Text>
+          <Card.Text className="text-muted">
+            Top Wrestler's Team: {JSON.parse(bout.top_line_wrestler).team}
+          </Card.Text>
+        </Card.Body>
+        <hr />
+        <Card.Body>
+          <Card.Text
+            className="display-4 font-weight-bold"
+            style={{ fontSize: "1.5em" }}
+          >
+            Bottom Wrestler's Name: {JSON.parse(bout.bottom_line_wrestler).name}
+          </Card.Text>
+          <Card.Text className="text-muted">
+            Top Wrestler's Team: {JSON.parse(bout.bottom_line_wrestler).team}
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <em>
+            <h4>
+              Dispatched to mat #:{" "}
+              <Link to={`/events/${eventID}/mat/${bout.dispatched_to_mat}`}>
+                {bout.dispatched_to_mat}
+              </Link>
+            </h4>
+          </em>
+          <h4>Score: {bout.score}</h4>
+          <div>
+            <label>Dispatch this match to mat number: </label>
+            <input
+              type="number"
+              //   className="mb-2 ml-2 poop"
+              className={classNames({
+                notYetWrestled: !bout.winner,
+                itsBeenDispatched: bout.dispatched == 1,
+                notReadyToBeDispatchedYet:
+                  JSON.parse(bout.bottom_line_wrestler).name.slice(0, 8) ===
+                    "winnerOf" ||
+                  JSON.parse(bout.bottom_line_wrestler).name.slice(0, 7) ===
+                    "loserOf",
+                alreadyCompleted: bout.winner,
+              })}
+              onChange={onDispatchToMatChange}
+            />
+          </div>
 
-            <div className="d-flex justify-content-evenly">
-              <Button
-                variant="secondary"
-                name={String(bout.id)}
-                onClick={showEditBout}
-              >
-                Edit Bout
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  dispatchToMatFunction(bout.id, dispatchToMat);
-                }}
-              >
-                Dispatch!
-              </Button>
-            </div>
-            {modalShow[bout.id] && (
-              <ModalForDisplayBrackets index={index} bouts={bouts} />
-            )}
-          </Card.Footer>
-        </Card>
-      </>
+          <div className="d-flex justify-content-evenly">
+            <Button
+              variant="secondary"
+              name={String(bout.id)}
+              onClick={showEditBout}
+            >
+              Edit Bout
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                dispatchToMatFunction(bout.id, dispatchToMat);
+              }}
+            >
+              Dispatch!
+            </Button>
+          </div>
+          {modalShow[bout.id] && (
+            <ModalForDisplayBrackets index={index} bouts={bouts} />
+          )}
+        </Card.Footer>
+      </Card>
     </>
   );
 }

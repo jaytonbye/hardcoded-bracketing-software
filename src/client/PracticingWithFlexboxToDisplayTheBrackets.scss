@@ -1,5 +1,26 @@
+.simpleBorder {
+  border: black solid 2px;
+}
+
+.notYetWrestled {
+  background-color: lightgreen;
+}
+
+.itsBeenDispatched {
+  background-color: yellow;
+}
+
+.notReadyToBeDispatchedYet {
+  background-color: black;
+}
+
+.alreadyCompleted {
+  background-color: black;
+}
+
 .div-for-bracket_header-and-full_bracket {
   width: fit-content;
+  background-color: pink;
 }
 
 .bracket_header {
