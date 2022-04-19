@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 
 import UpdateAllByes from "./UpdateAllByes";
-import SingleBoutForDisplayBracketPublicVersion from "./SingleBoutForDisplayBracketPublicVersion";
+import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
 import "./PracticingWithFlexboxToDisplayTheBrackets.scss";
 
 export default function DisplayBracket(props: any) {
@@ -80,7 +80,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 12) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -101,7 +101,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 10) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -122,7 +122,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 9) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -143,7 +143,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 7) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -164,7 +164,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 6) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -185,7 +185,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 4) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -206,7 +206,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 3) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -227,7 +227,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 1) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -248,7 +248,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 2) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -269,7 +269,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 5) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -290,7 +290,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 8) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}
@@ -311,7 +311,7 @@ export default function DisplayBracket(props: any) {
               if (bout.round == 11) {
                 return (
                   <div>
-                    <SingleBoutForDisplayBracketPublicVersion
+                    <SingleBoutForDisplayBracket
                       eventID={eventID}
                       bout={bout}
                       index={index}

@@ -50,51 +50,47 @@ export default function SingleBoutForDisplayBracket(props: any) {
 
   return (
     <>
-      <Card key={`Bout ID:${bout.id}`}>
+      <Card key={`Bout ID:${bout.id}`} className="the-card-border-black m-1">
+        <Card.Footer>
+          <Card.Text
+            className="display-4 font-weight-bold"
+            style={{ fontSize: "1em" }}
+          >
+            {JSON.parse(bout.top_line_wrestler).name}
+          </Card.Text>
+          <Card.Text className="text-muted">
+            {JSON.parse(bout.top_line_wrestler).team}
+          </Card.Text>
+        </Card.Footer>
+
         <Card.Body>
           <Card.Title style={{ textDecoration: "underline" }}>
-            <h3>Match #: {bout.match_number}</h3>
+            <h5>Match #: {bout.match_number}</h5>
           </Card.Title>
-          <Card.Subtitle
-            className="mb-3"
-            style={{ borderBottom: "2px solid black" }}
-          >
-            <h4>Round #: {bout.round}</h4>
-          </Card.Subtitle>
-          <Card.Text
-            className="display-4 font-weight-bold"
-            style={{ fontSize: "1.5em" }}
-          >
-            Top Wrestler's Name: {JSON.parse(bout.top_line_wrestler).name}
-          </Card.Text>
-          <Card.Text className="text-muted">
-            Top Wrestler's Team: {JSON.parse(bout.top_line_wrestler).team}
-          </Card.Text>
-        </Card.Body>
-        <hr />
-        <Card.Body>
-          <Card.Text
-            className="display-4 font-weight-bold"
-            style={{ fontSize: "1.5em" }}
-          >
-            Bottom Wrestler's Name: {JSON.parse(bout.bottom_line_wrestler).name}
-          </Card.Text>
-          <Card.Text className="text-muted">
-            Top Wrestler's Team: {JSON.parse(bout.bottom_line_wrestler).team}
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
           <em>
-            <h4>
+            <h5>
               Dispatched to mat #:{" "}
               <Link to={`/events/${eventID}/mat/${bout.dispatched_to_mat}`}>
                 {bout.dispatched_to_mat}
               </Link>
-            </h4>
+            </h5>
           </em>
-          <h4>Score: {bout.score}</h4>
+          <h5>Score: {bout.score}</h5>
           <div>
-            <label>Dispatch this match to mat number: </label>
+            <h5>
+              <label
+                className={classNames({
+                  notReadyToBeDispatchedYet:
+                    JSON.parse(bout.bottom_line_wrestler).name.slice(0, 8) ===
+                      "winnerOf" ||
+                    JSON.parse(bout.bottom_line_wrestler).name.slice(0, 7) ===
+                      "loserOf",
+                  alreadyCompleted: bout.winner,
+                })}
+              >
+                Dispatch this match to mat number:{" "}
+              </label>
+            </h5>
             <input
               type="number"
               //   className="mb-2 ml-2 poop"
@@ -121,6 +117,13 @@ export default function SingleBoutForDisplayBracket(props: any) {
               Edit Bout
             </Button>
             <Button
+              hidden={
+                bout.winner ||
+                JSON.parse(bout.bottom_line_wrestler).name.slice(0, 8) ===
+                  "winnerOf" ||
+                JSON.parse(bout.bottom_line_wrestler).name.slice(0, 7) ===
+                  "loserOf"
+              }
               variant="primary"
               onClick={() => {
                 dispatchToMatFunction(bout.id, dispatchToMat);
@@ -132,6 +135,17 @@ export default function SingleBoutForDisplayBracket(props: any) {
           {modalShow[bout.id] && (
             <ModalForDisplayBrackets index={index} bouts={bouts} />
           )}
+        </Card.Body>
+        <Card.Footer>
+          <Card.Text
+            className="display-4 font-weight-bold"
+            style={{ fontSize: "1em" }}
+          >
+            {JSON.parse(bout.bottom_line_wrestler).name}
+          </Card.Text>
+          <Card.Text className="text-muted">
+            {JSON.parse(bout.bottom_line_wrestler).team}
+          </Card.Text>
         </Card.Footer>
       </Card>
     </>
