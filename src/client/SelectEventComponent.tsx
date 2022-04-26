@@ -24,7 +24,7 @@ export default function EventsPage() {
   }, []);
 
   return (
-    <>
+    <div className="m-2">
       <h4>Select the event:</h4>
       <select onChange={onEventChange}>
         <option>Select an event</option>
@@ -36,9 +36,9 @@ export default function EventsPage() {
           );
         })}
       </select>
-      <button className="btn btn-primary" onClick={goToPage}>
+      <button className="btn btn-primary m-1" onClick={goToPage}>
         Go to the events page!
       </button>
-    </>
+    </div>
   );
 }

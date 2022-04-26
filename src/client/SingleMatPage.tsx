@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import SubmitResult from "./SubmitResult";
 import { useParams, Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
+import { ListGroup } from "react-bootstrap";
 
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
@@ -19,18 +20,22 @@ export default function SingleMatPage(props: any) {
   return (
     <>
       <NavigationBar />
-      <h1>
-        This is mat # {matNumber} for event with id{" "}
-        <Link to={`/events/${eventID}`}>{eventID}</Link>
+      <h1 className="m-1">
+        This is mat # {matNumber}
+        <br />
+        <Link to={`/events/${eventID}`}>Click here to go back to the events page</Link>
       </h1>
-      <h2>Upcoming Bouts: </h2>
-      {upcomingBouts.map((bout) => {
-        return (
-          <>
-            <SubmitResult bout={bout} />
-          </>
-        );
-      })}
+      <hr />
+      <div style={{ border: "1px solid black", borderRadius: "5px" }} className="m-2 p-2">
+        <h2 style={{ textDecoration: "underline" }}>Upcoming Bouts </h2>
+        {upcomingBouts.map((bout) => {
+          return (
+            <>
+              <SubmitResult bout={bout} />
+            </>
+          );
+        })}
+      </div>
     </>
   );
 }
