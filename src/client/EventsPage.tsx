@@ -39,14 +39,16 @@ export default function EventsPage() {
   return (
     <>
       <NavigationBar />
-      {eventLoaded && <h4>Event: {eventInfo[0].name_of_event}</h4>}
-      <button className="btn btn-primary" onClick={onRevealMats}>
-        Show/Hide mats
-      </button>
-      {showMats && <MatsForEvent eventID={event} />}
-      <label>Take me to mat #:</label>
+      <div className="m-2 p-2" style={{ border: "solid 1px black" }}>
+        {eventLoaded && <h4>Event: {eventInfo[0].name_of_event}</h4>}
+        <button className="btn btn-primary" onClick={onRevealMats}>
+          Show/Hide mats
+        </button>
+        {showMats && <MatsForEvent eventID={event} />}
+      </div>
+      <label className="m-2 mt-3">Take me to mat #:</label>
       <input type="number" onChange={onMatNumberChange} />
-      <button onClick={navigateToMat} className="btn btn-secondary">
+      <button onClick={navigateToMat} className="btn btn-secondary ml-1">
         Go!
       </button>
 
