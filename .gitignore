@@ -10,3 +10,6 @@ SQL
 
 #environment variables
 .env
+
+#mac stuff
+.DS_Store
