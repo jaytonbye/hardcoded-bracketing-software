@@ -12,7 +12,6 @@ import EventAdminPage from "./EventAdminPage";
 import SingleMatPage from "./SingleMatPage";
 import BullShitComononet from "./BullShitComononet";
 import BracketView from "./BracketVeiw";
-import BracketLayout from "./BracketLayout";
 import UpdateAllByes from "./UpdateAllByes";
 import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxToDisplayTheBrackets";
 import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
@@ -34,9 +33,7 @@ const App = (props: AppProps) => {
           <Route exact path="/createAccount">
             <CreateAccount />
           </Route>
-          <Route exact path="/BracketLayout">
-            <BracketLayout />
-          </Route>
+
           <Route exact path="/bracketView">
             <BracketView />
           </Route>
@@ -80,6 +77,8 @@ const App = (props: AppProps) => {
     </>
   );
 };
+
+//this is a useless comment.
 
 interface AppProps {}
 
