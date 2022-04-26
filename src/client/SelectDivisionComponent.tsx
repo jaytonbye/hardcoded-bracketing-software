@@ -29,11 +29,7 @@ export default function SelectDivisionComponent(props: any) {
     <>
       <h2>Select the division you would like to view:</h2>
       <select onChange={onEventChange}>
-{/* <<<<<<< HEAD
-        <option>Select a division</option> */}
-{/* ======= */}
         <option value="">Select a division</option>
-{/* >>>>>>> waynesBranch */}
         {allDivisions.map((division) => {
           return (
             <option key={division.id} value={division.id}>
