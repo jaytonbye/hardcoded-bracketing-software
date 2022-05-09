@@ -1,0 +1,127 @@
+/*There may a bit of confusion with the word "round" as I have been using it to mean 2 different things. A single bracket will have multiple rounds (quarters, semis, finals, etc), while the entire tournament will also have tournament-rounds (We might not start round 1 of the heavyweight bracket until round 20 of the tournament). I'd like another word to describe tournament-round, but am unhappy with what I've come up with so far: heat, cycle, session, series????*/
+
+// The optimalRoundSpacingFunction will return an array of arrays. Each complete inner array represents a single bracket. Each item in the inner array will be the optimal number of matches to run that round (for that bracket), so that we never go over the maximum number of matches in a single tournament-round.
+let optimalRoundSpacingFunction = (
+  maxNumberOfMatchesPerRound,
+  arrayOfBracketSizes
+) => {
+  //The arrayOfBracketsAsArraysOfRoundSizes will take in an array of bracket sizes, and return an array of arrays, where each inner array represents a complete bracket, and each item in the inner array will be the number of matches that will be in each round.
+  let arrayOfBracketsAsArraysOfRoundSizes = (arrayOfBracketSizes) => {
+    //This function takes in a number (the number of competitors in single bracket) and returns an array of the number of matches there will be in each round of the bracket.
+    let determineNumberOfMatchesInEachRoundForTheWeightClass = (
+      bracketSize
+    ) => {
+      let numberOfRoundsRequired = Math.ceil(Math.log2(bracketSize));
+      let numberOfByesInFirstRound =
+        Math.pow(2, numberOfRoundsRequired) - bracketSize;
+
+      let numberOfMatchesInEachRoundArray = [];
+      for (let x = 0; x < numberOfRoundsRequired; x++) {
+        if (x === 0) {
+          numberOfMatchesInEachRoundArray.push(
+            Math.pow(2, numberOfRoundsRequired) / 2 - numberOfByesInFirstRound
+          );
+        }
+        if (x === 1) {
+          numberOfMatchesInEachRoundArray.push(
+            (Math.pow(2, numberOfRoundsRequired) / 4) * 3 -
+              numberOfByesInFirstRound
+          );
+        }
+        if (x >= 2) {
+          numberOfMatchesInEachRoundArray.push(
+            (Math.pow(2, numberOfRoundsRequired) / Math.pow(2, x + 1)) * 3
+          );
+        }
+      }
+
+      return numberOfMatchesInEachRoundArray;
+    };
+
+    let finalArray = [];
+
+    for (let x = 0; x < arrayOfBracketSizes.length; x++) {
+      finalArray.push(
+        determineNumberOfMatchesInEachRoundForTheWeightClass(
+          arrayOfBracketSizes[x]
+        )
+      );
+    }
+
+    return finalArray;
+  };
+
+  let theArrayOfBracketsAsArraysOfRoundSizes = arrayOfBracketsAsArraysOfRoundSizes(
+    arrayOfBracketSizes
+  );
+
+  //the length of this loop sucks, it's not right, we just forcefully exit the loop :(
+  for (let y = 0; y < 20; y++) {
+    console.log({ y });
+    let totalNumberOfMatchesThisRound = 0;
+    for (let x = 0; x < theArrayOfBracketsAsArraysOfRoundSizes.length; x++) {
+      console.log({ x });
+      //if there isn't a number, we put a 0 there. If we don't do this, it will break the accumulator
+      if (!theArrayOfBracketsAsArraysOfRoundSizes[x][y]) {
+        theArrayOfBracketsAsArraysOfRoundSizes[x].push(0);
+      }
+
+      totalNumberOfMatchesThisRound =
+        totalNumberOfMatchesThisRound +
+        theArrayOfBracketsAsArraysOfRoundSizes[x][y];
+
+      if (totalNumberOfMatchesThisRound === 0) {
+        console.log("breaking out of inner loop");
+        continue;
+      }
+
+      if (totalNumberOfMatchesThisRound > maxNumberOfMatchesPerRound) {
+        theArrayOfBracketsAsArraysOfRoundSizes[x].unshift(0);
+        //We moved these to the next if statement, see below:
+
+        // x = -1;
+        // totalNumberOfMatchesThisRound = 0;
+        //reseting x and the total Number of matches to run through the column again. This is necessary because sometimes a round needs to be delayed multiple times.
+
+        //by moving the above code into this if statement, we only reset to the beginning once we reach the end. This is much more efficient for the computer to calculate, and will always keep the weight classes in order. If we do it the other way, the event will run with a higher efficiency, but the weights will not necessarily remain in order (if there is only 1 match in a weight class, it could potentially start earlier than then weight before it). It is also much more calculation intensive for the computer.
+        if (x === theArrayOfBracketsAsArraysOfRoundSizes.length - 1) {
+          x = -1;
+          totalNumberOfMatchesThisRound = 0;
+          //reseting x and the total Number of matches to run through the column again. This is necessary because sometimes a round needs to be delayed multiple times.
+        }
+      }
+    }
+    if (totalNumberOfMatchesThisRound === 0) {
+      console.log("breaking out of outer loop");
+      break;
+    }
+  }
+  console.log({ theArrayOfBracketsAsArraysOfRoundSizes });
+  return theArrayOfBracketsAsArraysOfRoundSizes;
+};
+
+// I cannot figure out when to stop the outer loop! 27 is an arbitrary number.
+let numberOfMatchesPerRound = (numberOfMatchesInEachRoundOfEachDivision) => {
+  for (let round = 0; round < 27; round++) {
+    let totalMatchesTalliedThisRound = 0;
+    for (
+      let division = 0;
+      division < numberOfMatchesInEachRoundOfEachDivision.length;
+      division++
+    ) {
+      totalMatchesTalliedThisRound =
+        totalMatchesTalliedThisRound +
+        numberOfMatchesInEachRoundOfEachDivision[division][round];
+    }
+
+    console.log({ round });
+    console.log({ totalMatchesTalliedThisRound });
+    totalMatchesTalliedThisRound = 0;
+  }
+};
+
+console.log("optimal:");
+optimalRoundSpacingFunction(29, [16, 16, 16, 16, 16]);
+
+console.log("number of matches per tournament round");
+numberOfMatchesPerRound(optimalRoundSpacingFunction(29, [16, 16, 16, 16, 16]));
