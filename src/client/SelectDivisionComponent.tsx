@@ -7,6 +7,7 @@ export default function SelectDivisionComponent(props: any) {
   const [selectedDivision, setSelectedDivision] = React.useState();
   const [allDivisions, setAllDivisions] = React.useState([]);
   const [displayBracket, setDisplayBracket] = React.useState(false);
+  const [displayBracketList, setDisplayBracketList] = React.useState(false);
 
   const onEventChange = (event: any) => {
     setSelectedDivision(event.target.value);
@@ -17,7 +18,16 @@ export default function SelectDivisionComponent(props: any) {
   let history = useHistory();
 
   let loadBracket = () => {
+    if (displayBracketList) {
+      setDisplayBracketList(false);
+    }
     setDisplayBracket(!displayBracket);
+  };
+  let loadBracketList = () => {
+    if (displayBracket) {
+      setDisplayBracket(false);
+    }
+    setDisplayBracketList(!displayBracketList);
   };
 
   React.useEffect(() => {
@@ -31,7 +41,7 @@ export default function SelectDivisionComponent(props: any) {
   console.log({ allDivisions });
 
   return (
-    <>
+    <div className="m-2">
       <h4>To view the brackets, select the division you would like to view:</h4>
       <select onChange={onEventChange}>
         <option value="">Select a division</option>
@@ -43,8 +53,11 @@ export default function SelectDivisionComponent(props: any) {
           );
         })}
       </select>
-      <button className="btn btn-primary" onClick={loadBracket}>
-        Show/hide bracket!
+      <button className="btn btn-primary m-1" onClick={loadBracket}>
+        Show/hide full bracket!
+      </button>
+      <button className="btn btn-secondary m-1" onClick={loadBracketList}>
+        Show/hide bracket list!
       </button>
       {displayBracket && (
         // <DisplayBracket eventID={props.eventID} divisionID={selectedDivision} />
@@ -53,6 +66,13 @@ export default function SelectDivisionComponent(props: any) {
           divisionID={selectedDivision}
         />
       )}
-    </>
+      {displayBracketList && (
+        // <DisplayBracket eventID={props.eventID} divisionID={selectedDivision} />
+        <DisplayBracket
+          eventID={props.eventID}
+          divisionID={selectedDivision}
+        />
+      )}
+    </div>
   );
 }

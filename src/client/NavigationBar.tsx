@@ -31,7 +31,7 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="navbar navbar-light bg-light sticky-top">
+      <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
           <button className="btn btn-outline-primary" onClick={goToHome}>
             Events

@@ -54,11 +54,12 @@ export let hasValidEventAdministratorToken: express.RequestHandler = (
   let isValidToken: any = verify(token, config.jwt.secret);
   let role = isValidToken.role;
   if (isValidToken && (role === "administrator" || role === "admin")) {
+    res.status(200);
     next();
   } else {
     res.status(401).json({
       message:
-        "your token is not valid, or doesn't have event admin privlidges",
+        "your token is not valid, or doesn't have event admin privileges",
     });
   }
 };
@@ -70,10 +71,11 @@ export let hasValidAdminToken: express.RequestHandler = (req, res, next) => {
   let isValidToken = verify(token, config.jwt.secret);
 
   if (isValidToken && role === "admin") {
+
     next();
   } else {
     res.status(401).json({
-      message: "your token is not valid, or doesn't have admin privlidges",
+      message: "your token is not valid, or doesn't have admin privileges",
     });
   }
 };
