@@ -63,30 +63,44 @@ let optimalRoundSpacingFunction = (
   );
 
   //the length of this loop sucks, it's not right, we just forcefully exit the loop :(
-  for (let y = 0; y < 20; y++) {
-    console.log({ y });
-    let totalNumberOfMatchesThisTournamentRound = 0;
-    for (let x = 0; x < theArrayOfBracketsAsArraysOfRoundSizes.length; x++) {
-      console.log({ x });
+  for (
+    let numberOfMatchesPerBracketRound = 0;
+    numberOfMatchesPerBracketRound < 20;
+    numberOfMatchesPerBracketRound++
+  ) {
+    console.log({ numberOfMatchesPerBracketRound });
+    let totalNumberOfMatchesThisTournamentRoundCounter = 0;
+    for (
+      let weightClass = 0;
+      weightClass < theArrayOfBracketsAsArraysOfRoundSizes.length;
+      weightClass++
+    ) {
+      console.log({ weightClass });
       //if there isn't a number, we put a 0 there. If we don't do this, it will break the accumulator
-      if (!theArrayOfBracketsAsArraysOfRoundSizes[x][y]) {
-        theArrayOfBracketsAsArraysOfRoundSizes[x].push(0);
+      if (
+        !theArrayOfBracketsAsArraysOfRoundSizes[weightClass][
+          numberOfMatchesPerBracketRound
+        ]
+      ) {
+        theArrayOfBracketsAsArraysOfRoundSizes[weightClass].push(0);
       }
 
-      totalNumberOfMatchesThisTournamentRound =
-        totalNumberOfMatchesThisTournamentRound +
-        theArrayOfBracketsAsArraysOfRoundSizes[x][y];
+      totalNumberOfMatchesThisTournamentRoundCounter =
+        totalNumberOfMatchesThisTournamentRoundCounter +
+        theArrayOfBracketsAsArraysOfRoundSizes[weightClass][
+          numberOfMatchesPerBracketRound
+        ];
 
-      if (totalNumberOfMatchesThisTournamentRound === 0) {
+      if (totalNumberOfMatchesThisTournamentRoundCounter === 0) {
         console.log("breaking out of inner loop");
         continue;
       }
 
       if (
-        totalNumberOfMatchesThisTournamentRound >
+        totalNumberOfMatchesThisTournamentRoundCounter >
         maxNumberOfMatchesPerTournamentRound
       ) {
-        theArrayOfBracketsAsArraysOfRoundSizes[x].unshift(0);
+        theArrayOfBracketsAsArraysOfRoundSizes[weightClass].unshift(0);
         //We moved these to the next if statement, see below:
 
         // x = -1;
@@ -94,14 +108,14 @@ let optimalRoundSpacingFunction = (
         //reseting x and the total Number of matches to run through the column again. This is necessary because sometimes a round needs to be delayed multiple times.
 
         //by moving the above code into this if statement, we only reset to the beginning once we reach the end. This is much more efficient for the computer to calculate, and will always keep the weight classes in order. If we do it the other way, the event will run with a higher efficiency, but the weights will not necessarily remain in order (if there is only 1 match in a weight class, it could potentially start earlier than then weight before it). It is also much more calculation intensive for the computer.
-        if (x === theArrayOfBracketsAsArraysOfRoundSizes.length - 1) {
-          x = -1;
-          totalNumberOfMatchesThisTournamentRound = 0;
+        if (weightClass === theArrayOfBracketsAsArraysOfRoundSizes.length - 1) {
+          weightClass = -1;
+          totalNumberOfMatchesThisTournamentRoundCounter = 0;
           //reseting x and the total Number of matches to run through the column again. This is necessary because sometimes a round needs to be delayed multiple times.
         }
       }
     }
-    if (totalNumberOfMatchesThisTournamentRound === 0) {
+    if (totalNumberOfMatchesThisTournamentRoundCounter === 0) {
       console.log("breaking out of outer loop");
       break;
     }
