@@ -27,11 +27,11 @@ export default function SingleMatPage(props: any) {
       </h1>
       <hr />
       <div style={{ border: "1px solid black", borderRadius: "5px" }} className="m-2 p-2">
-        <h2 style={{ textDecoration: "underline" }}>Upcoming Bouts </h2>
-        {upcomingBouts.map((bout) => {
+        <h2 className="text-center" style={{ textDecoration: "underline" }}>Upcoming Bouts </h2>
+        {upcomingBouts.map((bout, evenOdd) => {
           return (
             <>
-              <SubmitResult bout={bout} />
+              <SubmitResult bout={bout} evenOdd={evenOdd} />
             </>
           );
         })}

@@ -1,6 +1,4 @@
 import React from "react";
-import { ListGroup } from "react-bootstrap";
-
 import { useParams } from "react-router-dom";
 
 export default function SubmitResult(props: any) {
@@ -100,60 +98,68 @@ export default function SubmitResult(props: any) {
     });
   };
 
-  return (
-    <div className="p-2 my-2" style={{ backgroundColor: "lightgray", borderRadius: "3px" }}>
-      <h4><ListGroup.Item style={{ borderRadius: "2px" }}>Bout ID: {boutID}</ListGroup.Item></h4>
-      <h4><ListGroup.Item style={{ borderRadius: "2px" }}>Match Number: {matchNumber}</ListGroup.Item></h4>
-      <h4><ListGroup.Item style={{ borderRadius: "2px" }}>Division ID: {divisionID}</ListGroup.Item></h4>
-      <ListGroup >
-        <h4>Select the winner:</h4>
-        <ListGroup.Item style={{ borderRadius: "2px" }}>
-          <label>
-            <strong>Name:</strong> {top_line_wrestler.name} <strong>Team:</strong>{" "}
-            {top_line_wrestler.team}
-          </label>
-          <input
-            type="radio"
-            value={JSON.stringify(top_line_wrestler)}
-            checked={selectedWinner == JSON.stringify(top_line_wrestler)}
-            onChange={onWinnerClicked}
-          />
-        </ListGroup.Item>
-        <br />
-        <ListGroup.Item style={{ borderRadius: "2px" }}>
-          <label>
-            <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
-            <strong>Team:</strong> {bottom_line_wrestler.team}
-          </label>
-          <input
-            type="radio"
-            value={JSON.stringify(bottom_line_wrestler)}
-            checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
-            onChange={onWinnerClicked}
-          />
-        </ListGroup.Item>
-      </ListGroup>
-      <br />
-      <div className="m-1 p-1" style={{ display: "inline" }}>
-        <label>Score: </label>
-        <input type="text" onChange={onScoreChange} />
-        <button onClick={submitResult} className="btn btn-primary m-1">
-          Submit Result
-        </button>
-      </div>
+  let even = props.evenOdd % 2 === 0;
+  let odd = props.evenOdd % 2 !== 0;
 
-      <div className="m-1 p-1" style={{ display: "inline" }}>
-        <label>Move this bout to mat#: </label>
-        <input type="number" onChange={onDispatchChange} />
-        <button
-          onClick={() => {
-            dispatchToMatFunction(boutID, matToDispatchTo);
-          }}
-          className="btn btn-primary m-1"
-        >
-          Dispatch to Mat
-        </button>
+  let theEvenOddReturn = even ? "lightgray" : "orange";
+
+  return (
+    <>
+      <div className="row mx-auto">
+        <div className="p-2 my-1 row col-12  mx-auto" style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}>
+          <div className="col-12 col-md-6">
+            <p style={{ display: "inline", margin: "1px" }}>Bout ID: {boutID} ||</p>
+            <p style={{ display: "inline", margin: "1px" }}> Match Number: {matchNumber} ||</p>
+            <p style={{ display: "inline", margin: "1px" }}> Division ID: {divisionID} ||</p>
+            <br />
+            <h6 style={{ display: "inline", margin: "1px" }}> Select the winner: </h6>
+            <label>
+              <strong>Name:</strong> {top_line_wrestler.name} <strong>Team:</strong>{" "}
+              {top_line_wrestler.team}
+            </label>
+            <input
+              type="radio"
+              value={JSON.stringify(top_line_wrestler)}
+              checked={selectedWinner == JSON.stringify(top_line_wrestler)}
+              onChange={onWinnerClicked}
+            />
+            <h5 style={{ display: "inline", margin: "1px" }}>| |</h5>
+            <label>
+              <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
+              <strong>Team:</strong> {bottom_line_wrestler.team}
+            </label>
+            <input
+              type="radio"
+              value={JSON.stringify(bottom_line_wrestler)}
+              checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
+              onChange={onWinnerClicked}
+            />
+          </div>
+          <div className="col-12 col-md-6">
+            <div className="m-1 p-1 col-12 col-md-6" style={{ display: "inline" }}>
+              <label>Score: </label>
+              <input type="text" onChange={onScoreChange} />
+              <button onClick={submitResult} className="btn btn-sm btn-primary m-1">
+                Submit Result
+              </button>
+            </div>
+            <br />
+            <div className="m-1 p-1 col-12 col-md-6" style={{ display: "inline" }}>
+              <label>Move this bout to mat#: </label>
+              <input type="number" onChange={onDispatchChange} />
+              <button
+                onClick={() => {
+                  dispatchToMatFunction(boutID, matToDispatchTo);
+                }}
+                className="btn btn-sm btn-primary m-1"
+              >
+                Dispatch to Mat
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <hr />
+    </>
   );
 }
