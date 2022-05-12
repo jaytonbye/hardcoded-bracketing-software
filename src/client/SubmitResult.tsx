@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 export default function SubmitResult(props: any) {
   const [score, setScore] = React.useState("");
 
-  //The purpose of current mat is so they don't accidenatly dispatch a mat to no mans land.
+  //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
   let currentMat = useParams<any>().matNumber;
 
   const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);

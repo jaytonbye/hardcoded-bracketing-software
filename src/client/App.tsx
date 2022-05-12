@@ -15,6 +15,7 @@ import BracketView from "./BracketVeiw";
 import UpdateAllByes from "./UpdateAllByes";
 import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxToDisplayTheBrackets";
 import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
+import DisplayBracket from "./DisplayBracket";
 
 const App = (props: AppProps) => {
   return (
@@ -67,6 +68,9 @@ const App = (props: AppProps) => {
           <Route path="/ShowAllLoggins">
             <ShowAllLogins />
           </Route>
+          <Route path="/displayBracketsForStyling">
+            <DisplayBracket />
+          </Route>
 
           <Route path="*">
             <h1>404 not found error, you probably went to the wrong page...</h1>
@@ -80,6 +84,6 @@ const App = (props: AppProps) => {
 
 //this is a useless comment.
 
-interface AppProps {}
+interface AppProps { }
 
 export default App;
