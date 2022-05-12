@@ -107,10 +107,10 @@ export default function SubmitResult(props: any) {
     <>
       <div className="row mx-auto">
         <div className="p-2 my-1 row col-12  mx-auto" style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}>
-          <div className="col-12 col-md-6">
-            <p style={{ display: "inline", margin: "1px" }}>Bout ID: {boutID} ||</p>
-            <p style={{ display: "inline", margin: "1px" }}> Match Number: {matchNumber} ||</p>
-            <p style={{ display: "inline", margin: "1px" }}> Division ID: {divisionID} ||</p>
+          <div className=" col-6">
+            <p style={{ display: "inline", margin: "1px" }}>Bout ID: {boutID} </p>
+            <p style={{ display: "inline", margin: "1px" }}> Match Number: {matchNumber} </p>
+            <p style={{ display: "inline", margin: "1px" }}> Division ID: {divisionID} </p>
             <br />
             <h6 style={{ display: "inline", margin: "1px" }}> Select the winner: </h6>
             <label>
@@ -123,7 +123,6 @@ export default function SubmitResult(props: any) {
               checked={selectedWinner == JSON.stringify(top_line_wrestler)}
               onChange={onWinnerClicked}
             />
-            <h5 style={{ display: "inline", margin: "1px" }}>| |</h5>
             <label>
               <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
               <strong>Team:</strong> {bottom_line_wrestler.team}
@@ -135,18 +134,18 @@ export default function SubmitResult(props: any) {
               onChange={onWinnerClicked}
             />
           </div>
-          <div className="col-12 col-md-6">
-            <div className="m-1 p-1 col-12 col-md-6" style={{ display: "inline" }}>
+          <div className=" col-6">
+            <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Score: </label>
-              <input type="text" onChange={onScoreChange} />
+              <input className="col-2" type="text" onChange={onScoreChange} />
               <button onClick={submitResult} className="btn btn-sm btn-primary m-1">
                 Submit Result
               </button>
             </div>
             <br />
-            <div className="m-1 p-1 col-12 col-md-6" style={{ display: "inline" }}>
+            <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Move this bout to mat#: </label>
-              <input type="number" onChange={onDispatchChange} />
+              <input className="col-2" type="number" onChange={onDispatchChange} />
               <button
                 onClick={() => {
                   dispatchToMatFunction(boutID, matToDispatchTo);
