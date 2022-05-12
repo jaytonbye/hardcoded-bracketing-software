@@ -65,11 +65,11 @@ let optimalRoundSpacingFunction = (
   //the length of this loop sucks, it's not right, we just forcefully exit the loop :(
   for (
     let numberOfMatchesPerBracketRound = 0;
-    numberOfMatchesPerBracketRound < 20;
+    numberOfMatchesPerBracketRound < 999;
     numberOfMatchesPerBracketRound++
   ) {
     console.log({ numberOfMatchesPerBracketRound });
-    let totalNumberOfMatchesThisTournamentRoundCounter = 0;
+    let totalNumberOfMatchesThisTournamentRoundCounter: number = 0;
     for (
       let weightClass = 0;
       weightClass < theArrayOfBracketsAsArraysOfRoundSizes.length;
@@ -90,11 +90,6 @@ let optimalRoundSpacingFunction = (
         theArrayOfBracketsAsArraysOfRoundSizes[weightClass][
           numberOfMatchesPerBracketRound
         ];
-
-      if (totalNumberOfMatchesThisTournamentRoundCounter === 0) {
-        console.log("breaking out of inner loop");
-        continue;
-      }
 
       if (
         totalNumberOfMatchesThisTournamentRoundCounter >
@@ -124,12 +119,13 @@ let optimalRoundSpacingFunction = (
   return theArrayOfBracketsAsArraysOfRoundSizes;
 };
 
-// I cannot figure out when to stop the outer loop! 27 is an arbitrary number.
+// I cannot figure out when to stop the outer loop! 999 is an arbitrary number.
 let numberOfMatchesPerRound = (
-  numberOfMatchesInEachRoundOfEachDivision: any
+  numberOfMatchesInEachRoundOfEachDivision: number[][]
 ) => {
-  for (let round = 0; round < 27; round++) {
-    let totalMatchesTalliedThisRound = 0;
+  let arrayOfMatchesPerTournamentRounds = [];
+  for (let round = 0; round < 999; round++) {
+    let totalMatchesTalliedThisRound: number = 0;
     for (
       let division = 0;
       division < numberOfMatchesInEachRoundOfEachDivision.length;
@@ -139,15 +135,21 @@ let numberOfMatchesPerRound = (
         totalMatchesTalliedThisRound +
         numberOfMatchesInEachRoundOfEachDivision[division][round];
     }
-
-    console.log({ round });
-    console.log({ totalMatchesTalliedThisRound });
+    if (!totalMatchesTalliedThisRound) {
+      break;
+    }
+    // console.log({ round });
+    // console.log({ totalMatchesTalliedThisRound });
+    arrayOfMatchesPerTournamentRounds.push(totalMatchesTalliedThisRound);
     totalMatchesTalliedThisRound = 0;
   }
+  return arrayOfMatchesPerTournamentRounds;
 };
 
 console.log("optimal:");
 optimalRoundSpacingFunction(29, [16, 16, 16, 16, 16]);
 
 console.log("number of matches per tournament round");
-numberOfMatchesPerRound(optimalRoundSpacingFunction(29, [16, 16, 16, 16, 16]));
+console.log(
+  numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
+);
