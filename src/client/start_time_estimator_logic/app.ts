@@ -153,3 +153,10 @@ console.log("number of matches per tournament round");
 console.log(
   numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
 );
+
+let averageLengthOfAMatch = 6;
+let numberOfMatsAtEvent = 4;
+let lengthOfEachTournamentRound = 36;
+let eventStartTime = 9;
+let maximumNumberOfMatchesPerTournamentRound =
+  (lengthOfEachTournamentRound / averageLengthOfAMatch) * numberOfMatsAtEvent;
