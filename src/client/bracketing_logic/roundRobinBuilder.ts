@@ -1,15 +1,4 @@
-let referenceMatch = [
-  {
-    matchNumber: 1,
-    topLineWrestler: { name: "bye" },
-    bottomLineWrestler: { name: "bye" },
-    winner: null,
-    loser: null,
-    score: null,
-    dispatched: false,
-    round: 1,
-  },
-];
+//in order to run a round robin tournament, we use the circle method: https://en.wikipedia.org/wiki/Round-robin_tournament
 
 let roundRobinBuilder = (
   arrayOfCompetitorsAndTeams: {
@@ -23,24 +12,40 @@ let roundRobinBuilder = (
     arrayOfCompetitorsAndTeams.push({ name: "Bye", team: "Bye" });
   }
 
-  let roundRobinBracket = [];
+  //this function allows you to move an index to another index in an array.
+  function arraymove(arr: any, fromIndex: number, toIndex: number) {
+    var element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+  }
 
-  for (let x = 0; x < arrayOfCompetitorsAndTeams.length; x++) {
-    for (let y = x + 1; y < arrayOfCompetitorsAndTeams.length; y++) {
+  let roundRobinBracket = [];
+  let matchNumberCounter = 1;
+  for (let x = 0; x < arrayOfCompetitorsAndTeams.length - 1; x++) {
+    for (let y = 0; y < arrayOfCompetitorsAndTeams.length / 2; y++) {
       roundRobinBracket.push({
-        matchNumber: 999,
-        topLineWrestler: { name: "bye" },
-        bottomLineWrestler: { name: "bye" },
+        matchNumber: matchNumberCounter,
+        topLineWrestler: arrayOfCompetitorsAndTeams[0 + y],
+        bottomLineWrestler:
+          arrayOfCompetitorsAndTeams[arrayOfCompetitorsAndTeams.length - 1 - y],
         winner: null,
         loser: null,
         score: null,
         dispatched: false,
-        round: 1,
+        round: x + 1,
       });
+      matchNumberCounter++;
     }
+
+    // The arraymove function handles the move required for the circle method.
+    arraymove(
+      arrayOfCompetitorsAndTeams,
+      arrayOfCompetitorsAndTeams.length - 1,
+      1
+    );
   }
 
-  console.log(arrayOfCompetitorsAndTeams);
+  console.log(roundRobinBracket);
 };
 
 let people = [
@@ -49,6 +54,7 @@ let people = [
   { name: "Wrestler Seeded3", team: "Team 3", seed: 3 },
   { name: "Wrestler Seeded4", team: "Team 4", seed: 4 },
   { name: "Wrestler Seeded5", team: "Team 5", seed: 5 },
+  { name: "Wrestler Seeded6", team: "Team 6", seed: 6 },
 ];
 
 roundRobinBuilder(people);
