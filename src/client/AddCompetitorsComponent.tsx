@@ -18,9 +18,7 @@ export default function AddCompetitorsComponent(props: any) {
     setWrestlerList(e.target.value);
   };
 
-  let handleSubmitWrestlerList = () => {
-    alert("The button was clicked");
-
+  let handleSubmitWrestlerListFor32ManBracket = () => {
     let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
     console.log({ formattedArrayOfWrestlersAndTeams });
 
@@ -71,6 +69,11 @@ export default function AddCompetitorsComponent(props: any) {
         }
       });
     }
+    alert("The button was clicked. A better alert message should be used");
+  };
+
+  let handleSubmitWrestlerListForRoundRobinBracket = () => {
+    alert("Functionality not yet built");
   };
 
   return (
@@ -117,9 +120,16 @@ export default function AddCompetitorsComponent(props: any) {
       <td>
         <button
           className="btn btn-primary ml-2"
-          onClick={() => handleSubmitWrestlerList()}
+          onClick={() => handleSubmitWrestlerListFor32ManBracket()}
         >
-          Submit Wrestler List and Make the Brackets!
+          Click this button to make a 32 Bracket!
+        </button>
+        <p>or</p>
+        <button
+          className="btn btn-primary ml-2"
+          onClick={() => handleSubmitWrestlerListForRoundRobinBracket()}
+        >
+          Click this button to make a round-robin bracket!
         </button>
       </td>
     </tr>
