@@ -154,9 +154,92 @@ console.log(
   numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
 );
 
-let averageLengthOfAMatch = 6;
+let allBracketSizes = [16, 8, 7, 14, 15, 18, 19, 23, 7, 12];
+let averageLengthOfAMatch = 5;
 let numberOfMatsAtEvent = 4;
-let lengthOfEachTournamentRound = 36;
-let eventStartTime = 9;
+let lengthOfEachTournamentRound = 40;
+let eventStartTimeInMinutes = 7 * 60;
+let lengthOfWeighins = 15;
+let amountofTimeBetweenWeighinsClosingAndWrestlingBeginning = 10;
 let maximumNumberOfMatchesPerTournamentRound =
   (lengthOfEachTournamentRound / averageLengthOfAMatch) * numberOfMatsAtEvent;
+
+let arrayOfOptimallySpacedRoundsForAllDivisions = optimalRoundSpacingFunction(
+  maximumNumberOfMatchesPerTournamentRound,
+  allBracketSizes
+);
+
+let determineStartTimesForAllDivisions = (
+  eventStartTimeInMinutes: number,
+  lengthOfEachTournamentRound: number,
+  arrayOfOptimallySpacedRoundsForAllDivisions: number[][]
+) => {
+  for (
+    let division = 0;
+    division < arrayOfOptimallySpacedRoundsForAllDivisions.length;
+    division++
+  ) {
+    let startTimeHasbeenDetermined = false;
+    let thisDivisionsStartTime: any;
+    let thisDivisionsEndTime: any;
+    for (
+      let tournamentRound = 0;
+      tournamentRound <
+      arrayOfOptimallySpacedRoundsForAllDivisions[division].length;
+      tournamentRound++
+    ) {
+      if (
+        arrayOfOptimallySpacedRoundsForAllDivisions[division][tournamentRound] >
+          0 &&
+        !startTimeHasbeenDetermined
+      ) {
+        thisDivisionsStartTime =
+          eventStartTimeInMinutes +
+          tournamentRound * lengthOfEachTournamentRound;
+        startTimeHasbeenDetermined = true;
+      }
+
+      if (
+        arrayOfOptimallySpacedRoundsForAllDivisions[division][
+          tournamentRound
+        ] == 0 &&
+        startTimeHasbeenDetermined
+      ) {
+        thisDivisionsEndTime =
+          eventStartTimeInMinutes +
+          tournamentRound * lengthOfEachTournamentRound;
+
+        console.log(
+          `division # ${division} will weigh in from ${
+            thisDivisionsStartTime / 60 -
+            amountofTimeBetweenWeighinsClosingAndWrestlingBeginning / 60 -
+            lengthOfWeighins / 60
+          } to ${
+            thisDivisionsStartTime / 60 -
+            amountofTimeBetweenWeighinsClosingAndWrestlingBeginning / 60
+          }, will begin wrestling at ${
+            thisDivisionsStartTime / 60
+          } and be completely finished by ${
+            thisDivisionsEndTime / 60
+          }. Matches in the championship round will be ${lengthOfEachTournamentRound} apart, and matches in the wrestle-back rounds will be ${
+            lengthOfEachTournamentRound / 2
+          } apart.`
+        );
+        break;
+      }
+    }
+  }
+};
+
+determineStartTimesForAllDivisions(
+  eventStartTimeInMinutes,
+  lengthOfEachTournamentRound,
+  arrayOfOptimallySpacedRoundsForAllDivisions
+);
+let totalparticipants = 0;
+
+for (let x = 0; x < allBracketSizes.length; x++) {
+  totalparticipants = totalparticipants + allBracketSizes[x];
+}
+
+console.log(totalparticipants);
