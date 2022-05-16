@@ -23,11 +23,38 @@ export default function AddCompetitorsComponent(props: any) {
   let eventID = props.eventID;
   let divisionID = props.divisionID;
 
+  let labelBracketTypeInDatabase = (
+    bracketType: string,
+    divisionID: number
+  ) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        bracketType,
+        divisionID,
+      }),
+    };
+    fetch("/api/divisions", requestOptions).then((res) => {
+      if (res.ok) {
+        console.log("bracket type updated");
+      } else {
+        console.log("it didn't work!");
+      }
+    });
+  };
+
   let onWrestlerListChange = (e: any) => {
     setWrestlerList(e.target.value);
   };
 
   let handleSubmitWrestlerListFor32ManBracket = () => {
+    labelBracketTypeInDatabase("double-elimination", divisionID);
+
     let formattedArrayOfWrestlersAndTeams = makeBracketHave32Competitors(
       dataFormatter(wrestlerList)
     );
@@ -79,7 +106,7 @@ export default function AddCompetitorsComponent(props: any) {
   };
 
   let handleSubmitWrestlerListForRoundRobinBracket = () => {
-    alert("Functionality not yet built");
+    labelBracketTypeInDatabase("round-robin", divisionID);
 
     let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
 

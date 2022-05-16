@@ -55,15 +55,22 @@ router.post("/", hasValidEventAdministratorToken, async (req, res) => {
   }
 });
 
-// router.put("/", hasValidAdminToken, async (req, res) => {
-//   try {
-//     res.json(await db.users.updateUser(req.body));
-//   } catch (error) {
-//     console.log(error);
-//     console.log("somethings messing up here");
-//     res.sendStatus(500);
-//   }
-// });
+router.put("/", hasValidEventAdministratorToken, async (req, res) => {
+  try {
+    let divisionID = req.body.divisionID;
+    let bracketType = req.body.bracketType;
+    res.json(
+      await db.divisions.updateDivisionWithItsBracketType(
+        bracketType,
+        divisionID
+      )
+    );
+  } catch (error) {
+    console.log(error);
+    console.log("somethings messing up here");
+    res.sendStatus(500);
+  }
+});
 
 router.delete("/:id", hasValidEventAdministratorToken, async (req, res) => {
   let id = Number(req.params.id);
