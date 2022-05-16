@@ -1,6 +1,6 @@
 //in order to run a round robin tournament, we use the circle method: https://en.wikipedia.org/wiki/Round-robin_tournament
 
-let roundRobinBuilder = (
+export let roundRobinBuilder = (
   arrayOfCompetitorsAndTeams: {
     name: string;
     team: string;
