@@ -28,9 +28,9 @@ export let roundRobinBuilder = (
         topLineWrestler: arrayOfCompetitorsAndTeams[0 + y],
         bottomLineWrestler:
           arrayOfCompetitorsAndTeams[arrayOfCompetitorsAndTeams.length - 1 - y],
-        winner: null,
-        loser: null,
-        score: null,
+        winner: null as null,
+        loser: null as null,
+        score: null as null,
         dispatched: false,
         round: x + 1,
       });
@@ -45,16 +45,5 @@ export let roundRobinBuilder = (
     );
   }
 
-  console.log(roundRobinBracket);
+  return roundRobinBracket;
 };
-
-let people = [
-  { name: "Wrestler Seeded1", team: "Team 1", seed: 1 },
-  { name: "Wrestler Seeded2", team: "Team 2", seed: 2 },
-  { name: "Wrestler Seeded3", team: "Team 3", seed: 3 },
-  { name: "Wrestler Seeded4", team: "Team 4", seed: 4 },
-  { name: "Wrestler Seeded5", team: "Team 5", seed: 5 },
-  { name: "Wrestler Seeded6", team: "Team 6", seed: 6 },
-];
-
-roundRobinBuilder(people);
