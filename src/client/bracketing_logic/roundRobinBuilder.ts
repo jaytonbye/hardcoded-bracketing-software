@@ -28,6 +28,7 @@ export let roundRobinBuilder = (
         topLineWrestler: arrayOfCompetitorsAndTeams[0 + y],
         bottomLineWrestler:
           arrayOfCompetitorsAndTeams[arrayOfCompetitorsAndTeams.length - 1 - y],
+        //I don't understand why typescript demands "null as null," but this fixed it.
         winner: null as null,
         loser: null as null,
         score: null as null,
