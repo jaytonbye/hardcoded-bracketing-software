@@ -22,7 +22,6 @@ export default function EventsPage() {
       });
   }, []);
 
-
   let navigateToMat = () => {
     history.push(`/events/${event}/mat/${matNumberToNavigateTo}`);
   };
