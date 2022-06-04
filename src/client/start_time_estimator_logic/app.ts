@@ -154,33 +154,13 @@ console.log(
   numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
 );
 
-let allBracketSizes = [
-  16,
-  8,
-  32,
-  14,
-  16,
-  18,
-  19,
-  23,
-  7,
-  12,
-  16,
-  8,
-  32,
-  14,
-  16,
-  18,
-  19,
-  23,
-  7,
-  12,
-];
-let averageLengthOfAMatch = 5;
-let numberOfMatsAtEvent = 8;
+let allBracketSizes = [5, 2, 7, 4, 5, 2, 3, 5, 3, 3, 3, 1];
+// fake one - let allBracketSizes = [5, 12, 7, 6, 9, 4, 10, 8, 8, 8, 8, 3];
+let averageLengthOfAMatch = 6;
+let numberOfMatsAtEvent = 3;
 let lengthOfEachTournamentRound = 30;
-let eventStartTimeInMinutes = 7 * 60;
-let lengthOfWeighins = 15;
+let eventStartTimeInMinutes = 9 * 60;
+let lengthOfWeighins = 20;
 let amountofTimeBetweenWeighinsClosingAndWrestlingBeginning = 10;
 let maximumNumberOfMatchesPerTournamentRound =
   (lengthOfEachTournamentRound / averageLengthOfAMatch) * numberOfMatsAtEvent;
@@ -246,6 +226,7 @@ let determineStartTimesForAllDivisions = (
             lengthOfEachTournamentRound / 2
           } apart.`
         );
+        console.log(" ");
         break;
       }
     }
@@ -263,4 +244,4 @@ for (let x = 0; x < allBracketSizes.length; x++) {
   totalparticipants = totalparticipants + allBracketSizes[x];
 }
 
-console.log(totalparticipants);
+console.log({ totalparticipants });
