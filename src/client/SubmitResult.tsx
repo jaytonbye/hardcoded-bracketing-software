@@ -35,7 +35,9 @@ export default function SubmitResult(props: any) {
     }
     let winner = selectedWinner;
     let areYouSureResultsAreCorrect = confirm(
-      `winner: ${selectedWinner}/nloser: ${loser}/nAre these results correct?`
+      `Are you sure ${JSON.parse(selectedWinner).name} from ${
+        JSON.parse(selectedWinner).team
+      } was the winner?`
     );
     if (areYouSureResultsAreCorrect) {
       const requestOptions = {
