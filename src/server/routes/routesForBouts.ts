@@ -1,21 +1,11 @@
 import { Router } from "express";
 import db from "../db";
-import { hasValidAdminToken } from "../utils/tokenCheck";
+import {
+  hasValidEventAdministratorToken,
+  hasValidTableWorkerToken,
+} from "../utils/tokenCheck";
 
 const router = Router();
-
-// router.get("/divisionsByEventId/:id?", async (req, res) => {
-//   let eventID = Number(req.params.id);
-//   try {
-//     if (eventID) {
-//       res.json(await db.divisions.allDivisionsForSingleEvent(eventID));
-//     } else {
-//     }
-//   } catch (e) {
-//     console.log(e);
-//     res.sendStatus(500);
-//   }
-// });
 
 router.get("/:id?", async (req, res) => {
   let boutID = Number(req.params.id);
@@ -57,7 +47,9 @@ router.get("/dispatched/:eventID&:matNumber", async (req, res) => {
   let matNumber = Number(req.params.matNumber);
   console.log(matNumber);
   try {
-    res.json(await db.bouts.getAllDispatchedBouts(eventID, matNumber));
+    res.json(
+      await db.bouts.getAllDispatchedBoutsForThisMat(eventID, matNumber)
+    );
   } catch (error) {
     console.log(req.body);
     console.log(error);
@@ -65,7 +57,31 @@ router.get("/dispatched/:eventID&:matNumber", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.get("/allDispatched/:eventID", async (req, res) => {
+  let eventID = Number(req.params.eventID);
+
+  try {
+    res.json(await db.bouts.getAllDispatchedBouts(eventID));
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/matsThatHaveBoutsAssigned/:eventID", async (req, res) => {
+  let eventID = Number(req.params.eventID);
+
+  try {
+    res.json(await db.bouts.getAllMatsThatHaveBoutsAssigned(eventID));
+  } catch (error) {
+    console.log(req.body);
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.post("/", hasValidEventAdministratorToken, async (req, res) => {
   try {
     let userID = req.body.userID;
     let eventID = req.body.eventID;
@@ -105,12 +121,16 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/editBout/:id", hasValidTableWorkerToken, async (req, res) => {
   try {
-    let boutID = req.body.boutID;
+    console.log("try");
+    console.log(req.body);
+    console.log(req.params.id);
+
+    let boutID = req.params.id;
     let userID = req.body.userID;
     let bottomLineWrestler = req.body.bottomLineWrestler;
-    let dispatched = req.body.dispatched;
+    let dispatched = (req.body.dispatched = 1 ? 1 : 0);
     let loser = req.body.loser;
     let score = req.body.score;
     let topLineWrestler = req.body.topLineWrestler;
@@ -119,8 +139,8 @@ router.put("/", async (req, res) => {
 
     res.json(
       await db.bouts.editBout(
-        boutID,
-        userID,
+        Number(boutID),
+        Number(userID),
         bottomLineWrestler,
         dispatched,
         loser,
@@ -137,7 +157,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.put("/dispatch", async (req, res) => {
+router.put("/dispatch", hasValidTableWorkerToken, async (req, res) => {
   try {
     let boutID = req.body.boutID;
     let dispatched = req.body.dispatched;
@@ -151,7 +171,7 @@ router.put("/dispatch", async (req, res) => {
   }
 });
 
-router.put("/result", async (req, res) => {
+router.put("/result", hasValidTableWorkerToken, async (req, res) => {
   try {
     let boutID = req.body.boutID;
     let userID = req.body.userID;
@@ -163,39 +183,38 @@ router.put("/result", async (req, res) => {
     let matchNumber = req.body.matchNumber;
 
     //I first update the bout result, and then I update any matches that are waiting for the result. This takes 4 database calls because I don't know how to be more efficient with my SQL.
-    await db.bouts.submitResult(boutID, userID, loser, score, winner);
+    await Promise.all([
+      db.bouts.submitResult(boutID, userID, loser, score, winner),
+      db.bouts.updateTopLineWrestlerOfDependantBoutsWithWinner(
+        userID,
+        winner,
+        eventID,
+        divisionID,
+        matchNumber
+      ),
+      db.bouts.updateTopLineWrestlerOfDependantBoutsWithLoser(
+        userID,
+        loser,
+        eventID,
+        divisionID,
+        matchNumber
+      ),
+      db.bouts.updateBottomLineWrestlerOfDependantBoutsWithWinner(
+        userID,
+        winner,
+        eventID,
+        divisionID,
+        matchNumber
+      ),
+      db.bouts.updateBottomLineWrestlerOfDependantBoutsWithLoser(
+        userID,
+        loser,
+        eventID,
+        divisionID,
+        matchNumber
+      ),
+    ]);
 
-    await db.bouts.updateTopLineWrestlerOfDependantBoutsWithWinner(
-      userID,
-      winner,
-      eventID,
-      divisionID,
-      matchNumber
-    );
-
-    await db.bouts.updateTopLineWrestlerOfDependantBoutsWithLoser(
-      userID,
-      loser,
-      eventID,
-      divisionID,
-      matchNumber
-    );
-
-    await db.bouts.updateBottomLineWrestlerOfDependantBoutsWithWinner(
-      userID,
-      winner,
-      eventID,
-      divisionID,
-      matchNumber
-    );
-
-    await db.bouts.updateBottomLineWrestlerOfDependantBoutsWithLoser(
-      userID,
-      loser,
-      eventID,
-      divisionID,
-      matchNumber
-    );
     res.json("we're hoping this worked, but it's kind of out of my hands...");
   } catch (error) {
     console.log(error);

@@ -18,7 +18,7 @@ router.get("/:id?", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", hasValidAdminToken, async (req, res) => {
   try {
     let userID = req.body.userID;
     let name = req.body.name;
@@ -46,6 +46,7 @@ router.post("/", async (req, res) => {
 router.delete("/:id", hasValidAdminToken, async (req, res) => {
   let id = Number(req.params.id);
   try {
+    await db.events.deleteCorrespondingBouts(id);
     await db.events.deleteCorrespondingDivisions(id);
     await db.events.deleteEvent(id);
     res.json(

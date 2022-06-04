@@ -32,10 +32,31 @@ const deleteDivision = async (divisionID: number) => {
   return Query("DELETE FROM divisions WHERE id=?;", [divisionID]);
 };
 
+const deleteCorrespondingBouts = async (divisionID: number) => {
+  return Query("DELETE FROM bouts WHERE division_id=?", [divisionID]);
+};
+
+const updateDivisionWithItsBracketType = async (
+  bracketType: string,
+  divisionID: number
+) => {
+  //the reason we include "and bracket_type is null" is so we don't accidentally change the bracket type of a bracket that has already been built.
+  return Query(
+    `
+  UPDATE divisions
+SET bracket_type = ?
+WHERE id=? and bracket_type is null;
+  `,
+    [bracketType, divisionID]
+  );
+};
+
 export default {
   allDivisions,
   allDivisionsForSingleEvent,
   singleDivision,
   createDivision,
   deleteDivision,
+  deleteCorrespondingBouts,
+  updateDivisionWithItsBracketType,
 };

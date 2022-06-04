@@ -1,6 +1,6 @@
 import { Router } from "express";
 import db from "../db";
-import { hasValidAdminToken } from "../utils/tokenCheck";
+import { hasValidEventAdministratorToken } from "../utils/tokenCheck";
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.get("/:id?", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", hasValidEventAdministratorToken, async (req, res) => {
   try {
     let userID = req.body.userID;
     let eventID = req.body.eventID;
@@ -55,19 +55,27 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.put("/", hasValidAdminToken, async (req, res) => {
-//   try {
-//     res.json(await db.users.updateUser(req.body));
-//   } catch (error) {
-//     console.log(error);
-//     console.log("somethings messing up here");
-//     res.sendStatus(500);
-//   }
-// });
+router.put("/", hasValidEventAdministratorToken, async (req, res) => {
+  try {
+    let divisionID = req.body.divisionID;
+    let bracketType = req.body.bracketType;
+    res.json(
+      await db.divisions.updateDivisionWithItsBracketType(
+        bracketType,
+        divisionID
+      )
+    );
+  } catch (error) {
+    console.log(error);
+    console.log("somethings messing up here");
+    res.sendStatus(500);
+  }
+});
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", hasValidEventAdministratorToken, async (req, res) => {
   let id = Number(req.params.id);
   try {
+    await db.divisions.deleteCorrespondingBouts(id);
     await db.divisions.deleteDivision(id);
     res.json("Deleted the division!");
   } catch (error) {

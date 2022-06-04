@@ -1,229 +1,180 @@
-import React, { useReducer, useState } from 'react';
-import { Button, Card, Modal, Form } from 'react-bootstrap';
+import React, { useEffect, useReducer, useState } from "react";
+import { Button, Card, Modal, Form } from "react-bootstrap";
 
 export default function ModalForDisplayBrackets(props: any) {
-    let bout = props.bouts[props.index];
-    let BoutId = bout.id;
-    console.log({ Thebout: bout });
+  let bout = props.bouts[props.index];
+  let BoutId = bout.id;
+  let token = sessionStorage.getItem("token");
 
-    const [topLineWrestler, setTopLineWrestler] = useState("");
-    const [bottomLineWrestler, setBottomLineWrestler] = useState("");
-    const [dispatched, setDispatched] = useState("");
-    const [dispatchedToMat, setDispatchedToMat] = useState("");
-    const [winner, setWinner] = useState("");
-    const [loser, setLoser] = useState("");
-    const [matchNumber, setMatchNumber] = useState("");
-    const [round, setRound] = useState("");
-    const [score, setScore] = useState("");
+  const [topLineWrestler, setTopLineWrestler] = useState(
+    bout.top_line_wrestler
+  );
+  const [bottomLineWrestler, setBottomLineWrestler] = useState(
+    bout.bottom_line_wrestler
+  );
+  // You need to remove these any's and be a big boy about it
+  const [dispatched, setDispatched] = useState<any>(bout.dispatched);
+  const [dispatchedToMat, setDispatchedToMat] = useState<any>(
+    bout.dispatched_to_mat
+  );
+  const [winner, setWinner] = useState(bout.winner);
+  const [loser, setLoser] = useState(bout.loser);
+  const [matchNumber, setMatchNumber] = useState(bout.match_number);
+  const [round, setRound] = useState(bout.round);
+  const [score, setScore] = useState(bout.score);
 
-    // Changing the winner of x or loser of x before the result has accrued will cause the 
+  // Changing the winner of x or loser of x before the result has accrued will cause the
 
-    const defaultStateObj = {
-        topLineWrestler: "",
-        bottomLineWrestler: "",
-        dispatched: "",
-        dispatchedToMat: "",
-        winner: "",
-        loser: "",
-        matchNumber: "",
-        round: "",
-        score: ""
-    }
+  const defaultStateObj = {
+    topLineWrestler,
+    bottomLineWrestler,
+    dispatched,
+    dispatchedToMat,
+    winner,
+    loser,
+    matchNumber,
+    round,
+    score,
+    userID: 1,
+  };
 
-    const [editOfBout, setEditOfBout] = useState<any>(defaultStateObj);
+  const [editOfBout, setEditOfBout] = useState<any>(defaultStateObj);
 
-    const takeInTheInputs = () => {
+  const takeInTheInputs = () => {
+    (function () {
+      let poop = {
+        topLineWrestler,
+        bottomLineWrestler,
+        dispatched,
+        dispatchedToMat: Number(dispatchedToMat),
+        winner,
+        loser,
+        matchNumber,
+        round,
+        score,
+        userID: 1,
+      };
 
-        let theFinalEditedBout = {
-            topLineWrestler,
-            bottomLineWrestler,
-            dispatched,
-            dispatchedToMat,
-            winner,
-            loser,
-            matchNumber,
-            round,
-            score
-        };
+      const requestOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(poop),
+      };
+      //
+      fetch(`/api/bouts/editBout/${BoutId}`, requestOptions).then((res) => {
+        if (res.ok) {
+          alert(
+            "We think we may have submitted the update, refresh the page to make sure"
+          );
+        } else {
+          alert("it didn't work! Coach Wayne Apologizes try again later");
+        }
+      });
+    })();
+  };
 
+  console.log(editOfBout);
 
-        (function () {
-            let arrayOfKeyValuePairs = Object.entries(theFinalEditedBout);
-            arrayOfKeyValuePairs.map((keyPair, index) => {
-                switch (index) {
-                    case 0:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.topLineWrestler = bout.top_line_wrestler;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 1:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.bottomLineWrestler = bout.bottom_line_wrestler;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 2:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.dispatched = bout.dispatched;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 3:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.dispatchedToMat = bout.dispatched_to_mat;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 4:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.winner = bout.winner;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 5:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.loser = bout.loser;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 6:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.matchNumber = bout.match_number;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 7:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.round = bout.round;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case 8:
-                        if (!keyPair[1]) {
-                            theFinalEditedBout.score = bout.score;
-                            break;
-                        } else {
-                            break;
-                        }
+  return (
+    <Form
+      style={{
+        width: "90%",
+        border: "2px solid slateGrey",
+        borderRadius: "5px",
+      }}
+      className="mx-auto bg-dark text-light mt-2 p-2"
+    >
+      <Form.Group className="mb-3">
+        <Form.Label>topLineWrestler</Form.Label>
+        <Form.Control
+          value={topLineWrestler}
+          onChange={(e) => setTopLineWrestler(e.target.value)}
+          type="text"
+          placeholder="Enter email"
+        />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
 
-                }
-            }
-            )
-            setEditOfBout(theFinalEditedBout);
+      <Form.Group className="mb-3">
+        <Form.Label>bottomLineWrestler</Form.Label>
+        <Form.Control
+          value={bottomLineWrestler}
+          onChange={(e) => setBottomLineWrestler(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // Authorization: `Bearer token`,
-                },
-                body: JSON.stringify(theFinalEditedBout),
-            };
+      <Form.Group className="mb-3">
+        <Form.Label>dispatched</Form.Label>
+        <Form.Control
+          value={dispatched}
+          onChange={(e) => setDispatched(e.target.value)}
+          type="number"
+        />
+      </Form.Group>
 
-            fetch(`/api/bouts/`, requestOptions).then((res) => {
-                if (res.ok) {
+      <Form.Group className="mb-3">
+        <Form.Label>dispatchedToMat</Form.Label>
+        <Form.Control
+          value={dispatchedToMat}
+          onChange={(e) => setDispatchedToMat(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
-                } else {
-                    alert("it didn't work! Coach Wayne Apologizes try again later");
-                }
-            });
+      <Form.Group className="mb-3">
+        <Form.Label>winner</Form.Label>
+        <Form.Control
+          value={winner}
+          onChange={(e) => setWinner(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
+      <Form.Group className="mb-3">
+        <Form.Label>loser</Form.Label>
+        <Form.Control
+          value={loser}
+          onChange={(e) => setLoser(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
-        })();
+      <Form.Group className="mb-3">
+        <Form.Label>matchNumber</Form.Label>
+        <Form.Control
+          value={matchNumber}
+          onChange={(e) => setMatchNumber(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
-    }
+      <Form.Group className="mb-3">
+        <Form.Label>Round</Form.Label>
+        <Form.Control
+          value={round}
+          onChange={(e) => setRound(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
+      <Form.Group className="mb-3">
+        <Form.Label>Score</Form.Label>
+        <Form.Control
+          value={score}
+          onChange={(e) => setScore(e.target.value)}
+          type="text"
+        />
+      </Form.Group>
 
-
-
-    const eventSubmit = (e: any) => {
-        e.preventDefault();
-
-
-
-    }
-
-
-    // const requestOptions = {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         // Authorization: `Bearer token`,
-    //     },
-    //     body: JSON.stringify({
-    //         eventname: EventNames,
-    //         eventdescription: EventDescriptions,
-    //         eventdate: EventDates,
-    //         userId: 1
-    //     }),
-    // };
-
-
-
-    return (
-        <Form style={{ width: "90%", border: "2px solid slateGrey", borderRadius: "5px" }} className="mx-auto bg-dark text-light mt-2 p-2">
-
-            <Form.Group className="mb-3" >
-                <Form.Label>topLineWrestler</Form.Label>
-                <Form.Control onChange={(e) => setTopLineWrestler(e.target.value)} type="text" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>bottomLineWrestler</Form.Label>
-                <Form.Control onChange={(e) => setBottomLineWrestler(e.target.value)} type="text" placeholder="Password" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>dispatched</Form.Label>
-                <Form.Control onChange={(e) => setDispatched(e.target.value)} type="number" placeholder="0 = false 1 = true" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>dispatchedToMat</Form.Label>
-                <Form.Control onChange={(e) => setDispatchedToMat(e.target.value)} type="text" placeholder="text" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>winner</Form.Label>
-                <Form.Control onChange={(e) => setWinner(e.target.value)} type="text" placeholder="Password" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>loser</Form.Label>
-                <Form.Control onChange={(e) => setLoser(e.target.value)} type="text" placeholder="Password" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>matchNumber</Form.Label>
-                <Form.Control onChange={(e) => setMatchNumber(e.target.value)} type="text" placeholder="Password" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>Round</Form.Label>
-                <Form.Control onChange={(e) => setRound(e.target.value)} type="text" placeholder="Password" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label>Score</Form.Label>
-                <Form.Control onChange={(e) => setScore(e.target.value)} type="text" placeholder="Password" />
-            </Form.Group>
-
-            <Button variant="primary" type="button" onClick={takeInTheInputs}>
-                Submit
-            </Button>
-        </Form>
-    );
+      <Button variant="primary" type="button" onClick={takeInTheInputs}>
+        Submit
+      </Button>
+    </Form>
+  );
 }
-

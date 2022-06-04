@@ -33,12 +33,13 @@
 //   { name: "Wrestler Seeded32", team: "Team 32", seed: 32 },
 // ];
 
+// This function will only work for full brackets (such as 2, 4, 8 16, 32, 64, etc.)
 export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
   console.log("the real hey");
   //this part of the code determines the seeding order, but only generates an array of numbers which represent the seeds. At the end we will insert the wrestlers.
   let numberOfRoundsNeeded = Math.log2(seededArray.length);
   let arrayOfWrestlers = [1]; //starts out with a single wrestler in it.
-  [seededArray[0]];
+
   for (let round = 1; round <= numberOfRoundsNeeded; round++) {
     let pairAddsTo = Math.pow(2, round) + 1;
     console.log({ round });
@@ -67,4 +68,6 @@ export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
   return finalArrayOfWrestlers;
 };
 
-console.log("hey from the outside looking in");
+console.log(
+  "hey from the outside looking in. This is running in seedingFunctionForUnlimited..."
+);

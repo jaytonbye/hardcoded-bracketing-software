@@ -66,7 +66,7 @@ const editBout = async (
   boutID: number,
   userID: number,
   bottomLineWrestler: string,
-  dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
+  dispatched: number, //TS complained when I used boolean, let's see if this messes up the code...
   loser: string,
   score: string,
   topLineWrestler: string,
@@ -110,13 +110,42 @@ const dispatchBout = async (
 };
 
 //Not currently being ordered by anything. This is an annoying issue to solve! We obviously want to order it by match number, but we also want to order it by the divisions. Maybe I should simply order them by a timestamp of when they were dispatched? That is probably the easiest way.
-const getAllDispatchedBouts = async (eventID: number, matNumber: number) => {
+const getAllDispatchedBoutsForThisMat = async (
+  eventID: number,
+  matNumber: number
+) => {
   return Query(
     `
     Select * from bouts
     WHERE event_id = ? AND dispatched = 1 AND dispatched_to_mat =?;
     `,
     [eventID, matNumber]
+  );
+};
+
+//Has the same order issue as the above function. It should be solved the same way for each of them.
+const getAllDispatchedBouts = async (eventID: number) => {
+  return Query(
+    `
+    Select * from bouts
+    WHERE event_id = ? AND dispatched = 1
+    ORDER BY dispatched_to_mat
+    ;
+    `,
+    [eventID]
+  );
+};
+
+const getAllMatsThatHaveBoutsAssigned = async (eventID: number) => {
+  return Query(
+    `
+    Select distinct dispatched_to_mat, count(*) as "count" from bouts
+Where event_id=? and dispatched_to_mat is not null
+group by dispatched_to_mat
+ORDER BY dispatched_to_mat
+;
+    `,
+    [eventID]
   );
 };
 
@@ -144,6 +173,13 @@ const updateTopLineWrestlerOfDependantBoutsWithWinner = async (
   divisionID: number,
   matchNumber: number
 ) => {
+  console.log(
+    { userID },
+    { winner },
+    { eventID },
+    { divisionID },
+    { matchNumber }
+  );
   return Query(
     `
     update bouts
@@ -205,6 +241,14 @@ const updateBottomLineWrestlerOfDependantBoutsWithLoser = async (
   );
 };
 
+const handleAllByesForThisDivision = async (
+  userID: number,
+  eventID: number,
+  divisionID: number
+) => {
+  return Query(``);
+};
+
 export default {
   allBouts,
   allBoutsForSingleEvent,
@@ -213,7 +257,9 @@ export default {
   createBout,
   editBout,
   dispatchBout,
+  getAllDispatchedBoutsForThisMat,
   getAllDispatchedBouts,
+  getAllMatsThatHaveBoutsAssigned,
   submitResult,
   updateTopLineWrestlerOfDependantBoutsWithWinner,
   updateTopLineWrestlerOfDependantBoutsWithLoser,

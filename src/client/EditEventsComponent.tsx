@@ -31,7 +31,9 @@ export default function EditEventsComponent() {
         }
       });
     } else {
-      alert('you must tyle "delete" in order to delete the event');
+      alert(
+        'you must tyle "delete" in order to delete the event. Be careful, this will delete all of the divisions and all of the bouts in the entire event. There is no undoing this operation!'
+      );
     }
   };
 

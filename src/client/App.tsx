@@ -3,17 +3,20 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
-
 import PasswordResetLandingPage from "./PasswordResetLandingPage";
 import ShowAllLogins from "./ShowAllLogins";
 import LoggedIn from "./LoggedIn";
 import EventsPage from "./EventsPage";
 import Admin from "./Admin";
 import EventAdminPage from "./EventAdminPage";
-import AddCompetitorsComponent from "./AddCompetitorsComponent";
 import SingleMatPage from "./SingleMatPage";
 import DivisionAdminPage from "./DivisionAdminPage";
 import BullShitComononet from "./BullShitComononet";
+import BracketView from "./BracketVeiw";
+import UpdateAllByes from "./UpdateAllByes";
+import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxToDisplayTheBrackets";
+import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
+import DisplayBracket from "./DisplayBracket";
 
 const App = (props: AppProps) => {
   return (
@@ -32,14 +35,24 @@ const App = (props: AppProps) => {
           <Route exact path="/createAccount">
             <CreateAccount />
           </Route>
+
+          <Route exact path="/bracketView">
+            <BracketView />
+          </Route>
+          <Route exact path="/events/:eventID/mat/:matNumber">
+            <SingleMatPage />
+          </Route>
           <Route exact path="/blah">
-            <AddCompetitorsComponent />
+            <PracticingWithFlexboxToDisplayTheBrackets />
           </Route>
           <Route exact path="/blah2">
-            <SingleMatPage />
+            <SingleBoutForDisplayBracket />
           </Route>
           <Route exact path="/blah3">
             <BullShitComononet />
+          </Route>
+          <Route exact path="/blah4">
+            <UpdateAllByes />
           </Route>
           <Route exact path="/homepage">
             <LoggedIn />
@@ -65,6 +78,10 @@ const App = (props: AppProps) => {
           <Route path="/ShowAllLoggins">
             <ShowAllLogins />
           </Route>
+          <Route path="/displayBracketsForStyling">
+            <DisplayBracket />
+          </Route>
+
           <Route path="*">
             <h1>404 not found error, you probably went to the wrong page...</h1>
             <a href="/homepage">Go back to the homepage!</a>
@@ -74,6 +91,8 @@ const App = (props: AppProps) => {
     </>
   );
 };
+
+//this is a useless comment.
 
 interface AppProps { }
 

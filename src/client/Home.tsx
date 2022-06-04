@@ -4,7 +4,18 @@ import { Link } from "react-router-dom";
 const Home = (props: HomeProps) => {
   return (
     <>
-      <h1 className="text text-center">Welcome to the Boilerplate!</h1>
+      <h1 className="text text-center">
+        Welcome to the Simple Wrestling Backeting Software!
+      </h1>
+      <h2 className="text text-center">
+        Brought to you by the creators of WAR Zone, the future of wrestling.
+      </h2>
+      <h3 className="text text-center">
+        Learn more about WAR Zone at{" "}
+        <a href="www.wellruntournaments.com/faq">
+          www.WellRunTournaments.com/faq
+        </a>
+      </h3>
       <main>
         <section className="d-flex mt-4 justify-content-center">
           <div className="d-flex">

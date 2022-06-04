@@ -34,7 +34,7 @@ export default function NavigationBar() {
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
           <button className="btn btn-outline-primary" onClick={goToHome}>
-            Home
+            Events
           </button>
           {userRole === "admin" && (
             <button className="btn btn-outline-danger" onClick={goToAdminPage}>

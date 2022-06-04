@@ -1,0 +1,69 @@
+.simpleBorder {
+  border: #000000 solid 2px;
+}
+
+.notYetWrestled {
+  background-color: lightgreen;
+}
+
+.itsBeenDispatched {
+  background-color: yellow;
+}
+
+.notReadyToBeDispatchedYet {
+  display: none;
+}
+
+.alreadyCompleted {
+  display: none;
+}
+
+.div-for-bracket_header-and-full_bracket {
+  width: fit-content;
+  background-color: pink;
+}
+
+.bracket_header {
+  border: black 10px solid;
+  size: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; //close, but not perfect
+  align-items: center;
+  align-content: center;
+}
+
+.round-title-div {
+  display: inline-block;
+  width: 1em;
+  //   flex-grow: 0;
+  flex-basis: 0;
+}
+
+// * {
+//   border: 5px solid yellow;
+// }
+
+.full_bracket {
+  border: black 10px solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: fit-content;
+}
+
+.round {
+  flex-grow: 1;
+  border: orange 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.bout {
+  background-color: red;
+  border: black 2px solid;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}

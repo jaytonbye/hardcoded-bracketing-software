@@ -1,135 +1,5 @@
 //The bracket builder
 
-// This is the data formatter. It will start by taking a tab separated list (in order of seeding from first to last) and maninpulating it into an array of objects where each object contains the wrestler's name and team name.
-let dataFormatter = (tabSeparatedWrestlersString) => {
-  let arrayOfWrestlersAndTeamsTabSeparated = tabSeparatedWrestlersString.split(
-    "\n"
-  );
-
-  let arrayOfWrestlersandTeams = [];
-  for (let x = 0; x < arrayOfWrestlersAndTeamsTabSeparated.length; x++) {
-    let indexOfSlashT = arrayOfWrestlersAndTeamsTabSeparated[x].search("\t");
-    let name = arrayOfWrestlersAndTeamsTabSeparated[x].slice(0, indexOfSlashT);
-    let team = arrayOfWrestlersAndTeamsTabSeparated[x].slice(indexOfSlashT + 1);
-
-    arrayOfWrestlersandTeams.push({ name: name, team: team, seed: x + 1 });
-  }
-
-  //Makes sure there are 32 wrestlers in the bracket by adding byes
-  for (let y = arrayOfWrestlersandTeams.length; y < 32; y++) {
-    arrayOfWrestlersandTeams.push({ name: "bye", team: "bye", seed: y + 1 });
-  }
-
-  return arrayOfWrestlersandTeams;
-};
-
-let formattedArrayOfWrestlersAndTeams = dataFormatter(`Wrestler Seeded1	Team 1
-Wrestler Seeded2	Team 2
-Wrestler Seeded3	Team 3
-Wrestler Seeded4	Team 4
-Wrestler Seeded5	Team 5
-Wrestler Seeded6	Team 6
-Wrestler Seeded7	Team 7
-Wrestler Seeded8	Team 8
-Wrestler Seeded9	Team 9
-Wrestler Seeded10	Team 10
-Wrestler Seeded11	Team 11
-Wrestler Seeded12	Team 12
-Wrestler Seeded13	Team 13
-Wrestler Seeded14	Team 14
-Wrestler Seeded15	Team 15
-Wrestler Seeded16	Team 16
-Wrestler Seeded17	Team 17
-Wrestler Seeded18	Team 18
-Wrestler Seeded19	Team 19
-Wrestler Seeded20	Team 20
-Wrestler Seeded21	Team 21
-Wrestler Seeded22	Team 22
-Wrestler Seeded23	Team 23
-Wrestler Seeded24	Team 24
-Wrestler Seeded25	Team 25
-Wrestler Seeded26	Team 26
-Wrestler Seeded27	Team 27
-Wrestler Seeded28	Team 28
-Wrestler Seeded29	Team 29
-Wrestler Seeded30	Team 30
-Wrestler Seeded31	Team 31
-Wrestler Seeded32	Team 32`);
-
-console.log({ formattedArrayOfWrestlersAndTeams });
-
-let handleSeedingFunction = (initialArrayOfCompetitorsOrderedBySeed) => {
-  let bigArray = [];
-  let binarySplitting = (initialArrayOfCompetitorsOrderedBySeed) => {
-    let topArray = [];
-    let botArray = [];
-
-    for (let x = 0; x < initialArrayOfCompetitorsOrderedBySeed.length; x++) {
-      if (x % 4 === 0 || x % 4 === 3) {
-        topArray.push(initialArrayOfCompetitorsOrderedBySeed[x]);
-      } else {
-        botArray.push(initialArrayOfCompetitorsOrderedBySeed[x]);
-      }
-    }
-
-    if (botArray.length === 2) {
-      bigArray.push(topArray);
-      bigArray.push(botArray);
-
-      return;
-    } else {
-      binarySplitting(topArray);
-      binarySplitting(botArray);
-    }
-  };
-  binarySplitting(initialArrayOfCompetitorsOrderedBySeed);
-  let bo2Array = [];
-  let newBiggestArray = [];
-
-  for (let a = 0; a < bigArray.length / 2; a++) {
-    bo2Array.unshift(bigArray[a + bigArray.length / 2]);
-  }
-  for (let a = 0; a < bigArray.length / 2; a++) {
-    newBiggestArray.push(bigArray[a]);
-  }
-  for (let a = 0; a < bigArray.length / 2; a++) {
-    newBiggestArray.push(bo2Array[a]);
-  }
-
-  let extraNewBiggestArray = [];
-
-  for (let x = 0; x < newBiggestArray.length; x++) {
-    extraNewBiggestArray.push(newBiggestArray[x][0]);
-
-    extraNewBiggestArray.push(newBiggestArray[x][1]);
-  }
-
-  let makeSureOddSeedsAreOnTopFunction = (
-    formattedArrayOfWrestlersTeamsAndSeeds
-  ) => {
-    for (let x = 0; x < formattedArrayOfWrestlersTeamsAndSeeds.length; x++) {
-      if (x % 2 === 0) {
-        if (formattedArrayOfWrestlersTeamsAndSeeds[x].seed % 2 === 0) {
-          let placeholder1 = formattedArrayOfWrestlersTeamsAndSeeds[x];
-          let placeholder2 = formattedArrayOfWrestlersTeamsAndSeeds[x + 1];
-          formattedArrayOfWrestlersTeamsAndSeeds[x] = placeholder2;
-          formattedArrayOfWrestlersTeamsAndSeeds[x + 1] = placeholder1;
-        }
-      }
-    }
-    return formattedArrayOfWrestlersTeamsAndSeeds;
-  };
-
-  //console.log(makeSureOddSeedsAreOnTopFunction(extraNewBiggestArray));
-  let Output = makeSureOddSeedsAreOnTopFunction(extraNewBiggestArray);
-  return Output;
-  return formattedArrayOfWrestlersTeamsAndSeeds;
-};
-
-let seededArrayofWrestlersAndTeams = handleSeedingFunction(
-  formattedArrayOfWrestlersAndTeams
-);
-
 // This is the bracket builder. It will start by taking a tab separated list (in order of seeding from first to last) and maninpulating it into an array of objects where each object contains the wrestler's name and team name (this function is called the dataFormatter)
 let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
   let empty32ManDoubleEliminationBracket = [
@@ -295,8 +165,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 17,
-      topLineWrestler: { name: "loserOfBout#1" },
-      bottomLineWrestler: { name: "loserOfBout#2" },
+      topLineWrestler: { name: "winnerOfBout#1" },
+      bottomLineWrestler: { name: "winnerOfBout#2" },
       winner: null,
       loser: null,
       score: null,
@@ -305,8 +175,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 18,
-      topLineWrestler: { name: "loserOfBout#3" },
-      bottomLineWrestler: { name: "loserOfBout#4" },
+      topLineWrestler: { name: "winnerOfBout#3" },
+      bottomLineWrestler: { name: "winnerOfBout#4" },
       winner: null,
       loser: null,
       score: null,
@@ -315,8 +185,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 19,
-      topLineWrestler: { name: "loserOfBout#5" },
-      bottomLineWrestler: { name: "loserOfBout#6" },
+      topLineWrestler: { name: "winnerOfBout#5" },
+      bottomLineWrestler: { name: "winnerOfBout#6" },
       winner: null,
       loser: null,
       score: null,
@@ -325,8 +195,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 20,
-      topLineWrestler: { name: "loserOfBout#7" },
-      bottomLineWrestler: { name: "loserOfBout#8" },
+      topLineWrestler: { name: "winnerOfBout#7" },
+      bottomLineWrestler: { name: "winnerOfBout#8" },
       winner: null,
       loser: null,
       score: null,
@@ -335,8 +205,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 21,
-      topLineWrestler: { name: "loserOfBout#9" },
-      bottomLineWrestler: { name: "loserOfBout#10" },
+      topLineWrestler: { name: "winnerOfBout#9" },
+      bottomLineWrestler: { name: "winnerOfBout#10" },
       winner: null,
       loser: null,
       score: null,
@@ -345,8 +215,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 22,
-      topLineWrestler: { name: "loserOfBout#11" },
-      bottomLineWrestler: { name: "loserOfBout#12" },
+      topLineWrestler: { name: "winnerOfBout#11" },
+      bottomLineWrestler: { name: "winnerOfBout#12" },
       winner: null,
       loser: null,
       score: null,
@@ -355,8 +225,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 23,
-      topLineWrestler: { name: "loserOfBout#13" },
-      bottomLineWrestler: { name: "loserOfBout#14" },
+      topLineWrestler: { name: "winnerOfBout#13" },
+      bottomLineWrestler: { name: "winnerOfBout#14" },
       winner: null,
       loser: null,
       score: null,
@@ -365,18 +235,19 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 24,
-      topLineWrestler: { name: "loserOfBout#15" },
-      bottomLineWrestler: { name: "loserOfBout#16" },
+      topLineWrestler: { name: "winnerOfBout#15" },
+      bottomLineWrestler: { name: "winnerOfBout#16" },
       winner: null,
       loser: null,
       score: null,
       dispatched: false,
       round: 2,
     },
+
     {
       matchNumber: 25,
-      topLineWrestler: { name: "winnerOfBout#1" },
-      bottomLineWrestler: { name: "winnerOfBout#2" },
+      topLineWrestler: { name: "loserOfBout#1" },
+      bottomLineWrestler: { name: "loserOfBout#2" },
       winner: null,
       loser: null,
       score: null,
@@ -385,8 +256,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 26,
-      topLineWrestler: { name: "winnerOfBout#3" },
-      bottomLineWrestler: { name: "winnerOfBout#4" },
+      topLineWrestler: { name: "loserOfBout#3" },
+      bottomLineWrestler: { name: "loserOfBout#4" },
       winner: null,
       loser: null,
       score: null,
@@ -395,8 +266,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 27,
-      topLineWrestler: { name: "winnerOfBout#5" },
-      bottomLineWrestler: { name: "winnerOfBout#6" },
+      topLineWrestler: { name: "loserOfBout#5" },
+      bottomLineWrestler: { name: "loserOfBout#6" },
       winner: null,
       loser: null,
       score: null,
@@ -405,8 +276,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 28,
-      topLineWrestler: { name: "winnerOfBout#7" },
-      bottomLineWrestler: { name: "winnerOfBout#8" },
+      topLineWrestler: { name: "loserOfBout#7" },
+      bottomLineWrestler: { name: "loserOfBout#8" },
       winner: null,
       loser: null,
       score: null,
@@ -415,8 +286,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 29,
-      topLineWrestler: { name: "winnerOfBout#9" },
-      bottomLineWrestler: { name: "winnerOfBout#10" },
+      topLineWrestler: { name: "loserOfBout#9" },
+      bottomLineWrestler: { name: "loserOfBout#10" },
       winner: null,
       loser: null,
       score: null,
@@ -425,8 +296,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 30,
-      topLineWrestler: { name: "winnerOfBout#11" },
-      bottomLineWrestler: { name: "winnerOfBout#12" },
+      topLineWrestler: { name: "loserOfBout#11" },
+      bottomLineWrestler: { name: "loserOfBout#12" },
       winner: null,
       loser: null,
       score: null,
@@ -435,8 +306,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 31,
-      topLineWrestler: { name: "winnerOfBout#13" },
-      bottomLineWrestler: { name: "winnerOfBout#14" },
+      topLineWrestler: { name: "loserOfBout#13" },
+      bottomLineWrestler: { name: "loserOfBout#14" },
       winner: null,
       loser: null,
       score: null,
@@ -445,8 +316,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 32,
-      topLineWrestler: { name: "winnerOfBout#15" },
-      bottomLineWrestler: { name: "winnerOfBout#16" },
+      topLineWrestler: { name: "loserOfBout#15" },
+      bottomLineWrestler: { name: "loserOfBout#16" },
       winner: null,
       loser: null,
       score: null,
@@ -455,8 +326,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 33,
-      topLineWrestler: { name: "winnerOfBout#17" },
-      bottomLineWrestler: { name: "loserOfBout#32" },
+      topLineWrestler: { name: "winnerOfBout#25" },
+      bottomLineWrestler: { name: "loserOfBout#24" },
       winner: null,
       loser: null,
       score: null,
@@ -465,8 +336,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 34,
-      topLineWrestler: { name: "winnerOfBout#18" },
-      bottomLineWrestler: { name: "loserOfBout#31" },
+      topLineWrestler: { name: "winnerOfBout#26" },
+      bottomLineWrestler: { name: "loserOfBout#23" },
       winner: null,
       loser: null,
       score: null,
@@ -475,8 +346,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 35,
-      topLineWrestler: { name: "winnerOfBout#19" },
-      bottomLineWrestler: { name: "loserOfBout#30" },
+      topLineWrestler: { name: "winnerOfBout#27" },
+      bottomLineWrestler: { name: "loserOfBout#22" },
       winner: null,
       loser: null,
       score: null,
@@ -485,8 +356,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 36,
-      topLineWrestler: { name: "winnerOfBout#20" },
-      bottomLineWrestler: { name: "loserOfBout#29" },
+      topLineWrestler: { name: "winnerOfBout#28" },
+      bottomLineWrestler: { name: "loserOfBout#21" },
       winner: null,
       loser: null,
       score: null,
@@ -495,8 +366,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 37,
-      topLineWrestler: { name: "winnerOfBout#21" },
-      bottomLineWrestler: { name: "loserOfBout#28" },
+      topLineWrestler: { name: "winnerOfBout#29" },
+      bottomLineWrestler: { name: "loserOfBout#20" },
       winner: null,
       loser: null,
       score: null,
@@ -505,8 +376,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 38,
-      topLineWrestler: { name: "winnerOfBout#22" },
-      bottomLineWrestler: { name: "loserOfBout#27" },
+      topLineWrestler: { name: "winnerOfBout#30" },
+      bottomLineWrestler: { name: "loserOfBout#19" },
       winner: null,
       loser: null,
       score: null,
@@ -515,8 +386,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 39,
-      topLineWrestler: { name: "winnerOfBout#23" },
-      bottomLineWrestler: { name: "loserOfBout#26" },
+      topLineWrestler: { name: "winnerOfBout#31" },
+      bottomLineWrestler: { name: "loserOfBout#18" },
       winner: null,
       loser: null,
       score: null,
@@ -525,8 +396,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 40,
-      topLineWrestler: { name: "winnerOfBout#24" },
-      bottomLineWrestler: { name: "loserOfBout#25" },
+      topLineWrestler: { name: "winnerOfBout#32" },
+      bottomLineWrestler: { name: "loserOfBout#17" },
       winner: null,
       loser: null,
       score: null,
@@ -535,8 +406,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 41,
-      topLineWrestler: { name: "winnerOfBout#25" },
-      bottomLineWrestler: { name: "winnerOfBout#26" },
+      topLineWrestler: { name: "winnerOfBout#17" },
+      bottomLineWrestler: { name: "winnerOfBout#18" },
       winner: null,
       loser: null,
       score: null,
@@ -545,8 +416,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 42,
-      topLineWrestler: { name: "winnerOfBout#27" },
-      bottomLineWrestler: { name: "winnerOfBout#28" },
+      topLineWrestler: { name: "winnerOfBout#19" },
+      bottomLineWrestler: { name: "winnerOfBout#20" },
       winner: null,
       loser: null,
       score: null,
@@ -555,8 +426,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 43,
-      topLineWrestler: { name: "winnerOfBout#29" },
-      bottomLineWrestler: { name: "winnerOfBout#30" },
+      topLineWrestler: { name: "winnerOfBout#21" },
+      bottomLineWrestler: { name: "winnerOfBout#22" },
       winner: null,
       loser: null,
       score: null,
@@ -565,8 +436,8 @@ let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
     {
       matchNumber: 44,
-      topLineWrestler: { name: "winnerOfBout#31" },
-      bottomLineWrestler: { name: "winnerOfBout#32" },
+      topLineWrestler: { name: "winnerOfBout#23" },
+      bottomLineWrestler: { name: "winnerOfBout#24" },
       winner: null,
       loser: null,
       score: null,

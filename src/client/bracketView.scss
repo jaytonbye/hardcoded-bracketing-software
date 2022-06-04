@@ -1,0 +1,190 @@
+// .thisContainer{
+//     display:flex;
+//     flex-direction:row;
+//   }
+//   .round{
+//     display:flex;
+//     flex-direction:column;
+//     justify-content:center;
+//     width:200px;
+//     list-style:none;
+//     padding:0;
+//   }
+//     .round .spacer{ flex-grow:1; }
+//     .round .spacer:first-child,
+//     .round .spacer:last-child{ flex-grow:.5; }
+
+//     .round .game-spacer{
+//       flex-grow:1;
+//     }
+
+//   /*
+//    *  General Styles
+//   */
+//   body{
+//     font-family:sans-serif;
+//     font-size:small;
+//     padding:10px;
+//     line-height:1.4em;
+//   }
+
+//   li.game{
+//     padding-left:20px;
+//   }
+
+//     li.game.winner{
+//       font-weight:bold;
+//     }
+//     li.game span{
+//       float:right;
+//       margin-right:5px;
+//     }
+
+//     li.game-top{ border-bottom:1px solid #aaa; }
+
+//     li.game-spacer{
+//       border-right:1px solid #aaa;
+//       min-height:40px;
+//     }
+
+//     li.game-bottom{
+//       border-top:1px solid #aaa;
+//     }
+
+//     // Attempt number 2
+
+// body { padding: 6%; }
+
+// .winner {
+//   font-weight: bold;
+// }
+
+// .lost {
+//   font-weight: normal;
+// }
+
+// .brackets {
+//   display: flex;
+// }
+
+// .col {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   width: 25%;
+//   padding: 0 15px;
+
+//   &:before,
+//   &:after {
+//     content: "";
+//     flex-grow: 0.5;
+//   }
+// }
+
+// .match-spacer {
+//   flex-grow: 1;
+
+//   .col:first-child & {
+//     min-height: 6px;
+//   }
+//   .col:not(:first-child) & {
+//     min-height: 24px;
+//   }
+// }
+
+// .group-spacer {
+//   min-height: 24px;
+//   flex-grow: 1;
+// }
+
+// .match {
+//   position: relative;
+//   padding: 6px;
+//   background-color: #eee;
+//   outline: 1px dotted red;
+
+//   .col &:before,
+//   .col:not(:last-child) &:after {
+//     display: block;
+//     content: "";
+//     position: absolute;
+//     background-color: #ccc;
+//     z-index: -1;
+//   }
+
+//   .col &:before {
+//     top: 50%;
+//     height: 1px;
+//     margin-top: -1px;
+//   }
+
+//   .col:not(:last-child) &:after {
+//     width: 1px;
+//     right: -15px;
+//   }
+
+//   .col:not(:last-child) &:first-child:after,
+//   .col:not(:last-child) .group-spacer + &:after { top: 50%; bottom: 0; }
+//   .col:not(:last-child) .pipe + &:after { top: 0; bottom: 50%; }
+
+//   .col:not(:first-child) &:before { left: -15px; }
+//   .col:not(:last-child) &:before { right: -15px; }
+//   .col:first-child &:before { width: 100%; }
+//   .col:last-child &:before { width: 100%; }
+// }
+
+// .pipe {
+//   position: relative;
+
+//   &:after {
+//     display: block;
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     right: -15px;
+//     bottom: 0;
+//     width: 1px;
+//     background-color: #ccc;
+//   }
+// }
+
+// .player {
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 6px;
+// }
+
+// .player__sets {
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+
+//   > li {
+//     display: inline-block;
+
+//     + li {
+//       margin-left: 12px;
+//     }
+//   }
+// }
+
+// .player__sets > li {
+//   .player + .player & {
+//     position: relative;
+
+//     &:before {
+//       display: inline-block;
+//       content: ":";
+//       position: absolute;
+//       bottom: 100%;
+//       left: 50%;
+//       font-size: 12px;
+//       font-weight: normal;
+//       transform: translateX(-50%);
+//       color: #999;
+//       //width: 1px;
+//       //height: 8px;
+//       //background-color: #bbb;
+//     }
+//   }
+// }
