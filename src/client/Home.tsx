@@ -19,8 +19,11 @@ const Home = (props: HomeProps) => {
       <main>
         <section className="d-flex mt-4 justify-content-center">
           <div className="d-flex">
-            <Link to={`/login`} className="mb-2 mr-2 btn btn-primary">
+            {/* <Link to={`/login`} className="mb-2 mr-2 btn btn-primary">
               Login
+            </Link> */}
+            <Link to={`/homepage`} className="mb-2 mr-2 btn btn-primary">
+            View brackets as spectator
             </Link>
           </div>
           <div className="d-flex">

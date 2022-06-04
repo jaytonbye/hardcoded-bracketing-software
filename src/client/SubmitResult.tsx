@@ -34,31 +34,38 @@ export default function SubmitResult(props: any) {
       loser = JSON.stringify(top_line_wrestler);
     }
     let winner = selectedWinner;
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+    let areYouSureResultsAreCorrect = confirm(
+      `winner: ${selectedWinner}/nloser: ${loser}/nAre these results correct?`
+    );
+    if (areYouSureResultsAreCorrect) {
+      const requestOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
 
-      body: JSON.stringify({
-        boutID,
-        userID,
-        loser,
-        score,
-        winner,
-        eventID,
-        divisionID,
-        matchNumber,
-      }),
-    };
-    fetch("/api/bouts/result", requestOptions).then((res) => {
-      if (res.ok) {
-        alert("Result Submitted");
-      } else {
-        alert("It didn't submit the bout! Something is not working...");
-      }
-    });
+        body: JSON.stringify({
+          boutID,
+          userID,
+          loser,
+          score,
+          winner,
+          eventID,
+          divisionID,
+          matchNumber,
+        }),
+      };
+      fetch("/api/bouts/result", requestOptions).then((res) => {
+        if (res.ok) {
+          alert("Result Submitted");
+        } else {
+          alert("It didn't submit the bout! Something is not working...");
+        }
+      });
+    } else {
+      return;
+    }
   };
   let onScoreChange = (e: any) => {
     setScore(e.target.value);
@@ -106,16 +113,30 @@ export default function SubmitResult(props: any) {
   return (
     <>
       <div className="row mx-auto">
-        <div className="p-2 my-1 row col-12  mx-auto" style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}>
+        <div
+          className="p-2 my-1 row col-12  mx-auto"
+          style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}
+        >
           <div className=" col-6">
-            <p style={{ display: "inline", margin: "1px" }}>Bout ID: {boutID} </p>
-            <p style={{ display: "inline", margin: "1px" }}> Match Number: {matchNumber} </p>
-            <p style={{ display: "inline", margin: "1px" }}> Division ID: {divisionID} </p>
+            <p style={{ display: "inline", margin: "1px" }}>
+              Bout ID: {boutID}{" "}
+            </p>
+            <p style={{ display: "inline", margin: "1px" }}>
+              {" "}
+              Match Number: {matchNumber}{" "}
+            </p>
+            <p style={{ display: "inline", margin: "1px" }}>
+              {" "}
+              Division ID: {divisionID}{" "}
+            </p>
             <br />
-            <h6 style={{ display: "inline", margin: "1px" }}> Select the winner: </h6>
+            <h6 style={{ display: "inline", margin: "1px" }}>
+              {" "}
+              Select the winner:{" "}
+            </h6>
             <label>
-              <strong>Name:</strong> {top_line_wrestler.name} <strong>Team:</strong>{" "}
-              {top_line_wrestler.team}
+              <strong>Name:</strong> {top_line_wrestler.name}{" "}
+              <strong>Team:</strong> {top_line_wrestler.team}
             </label>
             <input
               type="radio"
@@ -138,17 +159,31 @@ export default function SubmitResult(props: any) {
             <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Score: </label>
               <input className="col-2" type="text" onChange={onScoreChange} />
-              <button onClick={submitResult} className="btn btn-sm btn-primary m-1">
+              <button
+                onClick={submitResult}
+                className="btn btn-sm btn-primary m-1"
+              >
                 Submit Result
               </button>
             </div>
             <br />
             <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Move this bout to mat#: </label>
-              <input className="col-2" type="number" onChange={onDispatchChange} />
+              <input
+                className="col-2"
+                type="number"
+                onChange={onDispatchChange}
+              />
               <button
                 onClick={() => {
-                  dispatchToMatFunction(boutID, matToDispatchTo);
+                  let areYouSureYouWantToMoveMats = confirm(
+                    `Are your sure you want to move this bout to mat: ${matToDispatchTo}`
+                  );
+                  if (areYouSureYouWantToMoveMats) {
+                    dispatchToMatFunction(boutID, matToDispatchTo);
+                  } else {
+                    return;
+                  }
                 }}
                 className="btn btn-sm btn-primary m-1"
               >
