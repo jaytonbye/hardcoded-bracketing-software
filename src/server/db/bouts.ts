@@ -96,15 +96,16 @@ const editBout = async (
 const dispatchBout = async (
   boutID: number,
   dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
-  dispatchedToMat: number
+  dispatchedToMat: number,
+  dispatchTime: string
 ) => {
   return Query(
     `
     UPDATE bouts
-    SET dispatched=?, dispatched_to_mat=?
+    SET dispatched=?, dispatched_to_mat=?, time_bout_was_dispatched=?
     WHERE ID=?;
     `,
-    [dispatched, dispatchedToMat, boutID]
+    [dispatched, dispatchedToMat, dispatchTime, boutID]
   );
 };
 
@@ -116,7 +117,8 @@ const getAllDispatchedBoutsForThisMat = async (
   return Query(
     `
     Select * from bouts
-    WHERE event_id = ? AND dispatched = 1 AND dispatched_to_mat =?;
+    WHERE event_id = ? AND dispatched = 1 AND dispatched_to_mat =?
+    ORDER BY time_bout_was_dispatched;
     `,
     [eventID, matNumber]
   );

@@ -162,8 +162,16 @@ router.put("/dispatch", hasValidTableWorkerToken, async (req, res) => {
     let boutID = req.body.boutID;
     let dispatched = req.body.dispatched;
     let dispatchedToMat = req.body.dispatchedToMat;
+    let dispatchTime = req.body.dispatchTime;
 
-    res.json(await db.bouts.dispatchBout(boutID, dispatched, dispatchedToMat));
+    res.json(
+      await db.bouts.dispatchBout(
+        boutID,
+        dispatched,
+        dispatchedToMat,
+        dispatchTime
+      )
+    );
   } catch (error) {
     console.log(error);
     console.log("somethings messing up here");

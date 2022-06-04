@@ -3,6 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import ModalForDisplayBrackets from "./ModalForDisplayBrackets";
+import moment from "moment";
 
 export default function SingleBoutForDisplayBracket(props: any) {
   const [dispatchToMat, setDispatchToMat] = React.useState();
@@ -31,6 +32,7 @@ export default function SingleBoutForDisplayBracket(props: any) {
         dispatched: 1, //1 means true. 0 by default.
         dispatchedToMat,
         eventID,
+        dispatchTime: Date.now(),
       }),
     };
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
