@@ -52,7 +52,6 @@ export default function UpdateAllByes(props: any) {
             JSON.parse(results[x].top_line_wrestler).name === "bye" &&
             JSON.parse(results[x].bottom_line_wrestler).name === "bye"
           ) {
-            console.log("both byes");
             submitResult(
               results[x].id,
               '{"name":"bye"}',
@@ -61,8 +60,6 @@ export default function UpdateAllByes(props: any) {
               results[x].match_number
             );
           } else if (JSON.parse(results[x].top_line_wrestler).name === "bye") {
-            console.log("top line bye");
-
             submitResult(
               results[x].id,
               '{"name":"bye"}',
@@ -73,8 +70,6 @@ export default function UpdateAllByes(props: any) {
           } else if (
             JSON.parse(results[x].bottom_line_wrestler).name === "bye"
           ) {
-            console.log("bottom line bye");
-
             submitResult(
               results[x].id,
               '{"name":"bye"}',
@@ -90,7 +85,6 @@ export default function UpdateAllByes(props: any) {
 
   return (
     <>
-      <h1>Hey!</h1>
       <button className="btn btn-primary ml-2 mt-2" onClick={handleClick}>
         Remove 1 round of byes
       </button>

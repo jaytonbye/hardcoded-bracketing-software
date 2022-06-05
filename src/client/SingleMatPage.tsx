@@ -3,6 +3,7 @@ import SubmitResult from "./SubmitResult";
 import { useParams, Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
 import { ListGroup } from "react-bootstrap";
+import MatsForEvent from "./MatsForEvent";
 
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
@@ -53,6 +54,7 @@ export default function SingleMatPage(props: any) {
             </>
           );
         })}
+        <MatsForEvent eventID={eventID} />
       </div>
     </>
   );
