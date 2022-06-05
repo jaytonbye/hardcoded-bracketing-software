@@ -1,5 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import SingleMatPage from "./SingleMatPage";
 
 export default function SubmitResult(props: any) {
   // console.log(!props.boolUsedOnlyForReRenderingThisComponent)
@@ -7,6 +9,7 @@ export default function SubmitResult(props: any) {
 
   //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
   let currentMat = useParams<any>().matNumber;
+  const history = useHistory()
 
   const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);
   const [selectedWinner, setSelectedWinner] = React.useState();
@@ -65,7 +68,8 @@ export default function SubmitResult(props: any) {
           // !props.boolUsedOnlyForReRenderingThisComponent === false
           //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
           //   : props.boolUsedOnlyForReRenderingThisComponent(false);
-          window.location.reload();
+          history.go(0)
+          // <Route path={"/"}/>
         } else {
           alert("It didn't submit the bout! Something is not working...");
         }
@@ -110,7 +114,9 @@ export default function SubmitResult(props: any) {
         // !props.boolUsedOnlyForReRenderingThisComponent === false
         //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
         //   : props.boolUsedOnlyForReRenderingThisComponent(false);
-        window.location.reload();
+        history.go(0)
+        // window.location.reload();
+        // <Route path={"/"} component={SingleMatPage}/>
       } else {
         alert("it didn't work! Do you have the security clearance for this?");
       }
@@ -129,7 +135,7 @@ export default function SubmitResult(props: any) {
           className="p-2 my-1 row col-12  mx-auto"
           style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}
         >
-          <div className=" col-6">
+          <div className=" col-sm-6 col-12">
             <p style={{ display: "inline", margin: "1px" }}>
               Bout ID: {boutID}{" "}
             </p>
@@ -167,10 +173,10 @@ export default function SubmitResult(props: any) {
               onChange={onWinnerClicked}
             />
           </div>
-          <div className=" col-6">
+          <div className=" col-sm-6 col-12">
             <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Score: </label>
-              <input className="col-2" type="text" onChange={onScoreChange} />
+              <input className="col-sm-2 col-12" type="text" onChange={onScoreChange} />
               <button
                 onClick={submitResult}
                 className="btn btn-sm btn-primary m-1"
@@ -182,7 +188,7 @@ export default function SubmitResult(props: any) {
             <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Move this bout to mat#: </label>
               <input
-                className="col-2"
+                className="col-sm-2 col-12"
                 type="number"
                 onChange={onDispatchChange}
               />

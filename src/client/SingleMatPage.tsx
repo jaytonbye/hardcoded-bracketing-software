@@ -20,7 +20,7 @@ export default function SingleMatPage(props: any) {
       .then((results) => {
         setUpcomingBouts(results);
       });
-  }, []);
+  }, [matNumber]);
   // boolUsedOnlyForReRenderingThisComponent
 
   return (
