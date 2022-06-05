@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 export default function SubmitResult(props: any) {
+  // console.log(!props.boolUsedOnlyForReRenderingThisComponent)
   const [score, setScore] = React.useState("");
 
   //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
@@ -61,6 +62,10 @@ export default function SubmitResult(props: any) {
       fetch("/api/bouts/result", requestOptions).then((res) => {
         if (res.ok) {
           alert("Result Submitted");
+          // !props.boolUsedOnlyForReRenderingThisComponent === false
+          //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
+          //   : props.boolUsedOnlyForReRenderingThisComponent(false);
+          window.location.reload();
         } else {
           alert("It didn't submit the bout! Something is not working...");
         }
@@ -101,6 +106,11 @@ export default function SubmitResult(props: any) {
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
       if (res.ok) {
         alert(`The match was dispatched without a catch`);
+        // props.boolUsedOnlyForReRenderingThisComponent(!props.boolUsedOnlyForReRenderingThisComponent)
+        // !props.boolUsedOnlyForReRenderingThisComponent === false
+        //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
+        //   : props.boolUsedOnlyForReRenderingThisComponent(false);
+        window.location.reload();
       } else {
         alert("it didn't work! Do you have the security clearance for this?");
       }

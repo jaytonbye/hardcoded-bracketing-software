@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SubmitResult from "./SubmitResult";
 import { useParams, Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
@@ -6,6 +6,10 @@ import { ListGroup } from "react-bootstrap";
 
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
+  // const [
+  //   boolUsedOnlyForReRenderingThisComponent,
+  //   setBoolUsedOnlyForReRenderingThisComponent,
+  // ] = useState<boolean>(false);
 
   let { eventID, matNumber } = useParams<any>();
 
@@ -16,6 +20,7 @@ export default function SingleMatPage(props: any) {
         setUpcomingBouts(results);
       });
   }, []);
+  // boolUsedOnlyForReRenderingThisComponent
 
   return (
     <>
@@ -23,15 +28,28 @@ export default function SingleMatPage(props: any) {
       <h1 className="m-1">
         This is mat # {matNumber}
         <br />
-        <Link to={`/events/${eventID}`}>Click here to go back to the events page</Link>
+        <Link to={`/events/${eventID}`}>
+          Click here to go back to the events page
+        </Link>
       </h1>
       <hr />
-      <div style={{ border: "1px solid black", borderRadius: "5px" }} className="m-2 p-2">
-        <h2 className="text-center" style={{ textDecoration: "underline" }}>Upcoming Bouts </h2>
+      <div
+        style={{ border: "1px solid black", borderRadius: "5px" }}
+        className="m-2 p-2"
+      >
+        <h2 className="text-center" style={{ textDecoration: "underline" }}>
+          Upcoming Bouts{" "}
+        </h2>
         {upcomingBouts.map((bout, evenOdd) => {
           return (
             <>
-              <SubmitResult bout={bout} evenOdd={evenOdd} />
+              <SubmitResult
+                bout={bout}
+                evenOdd={evenOdd}
+                // boolUsedOnlyForReRenderingThisComponent={
+                //   setBoolUsedOnlyForReRenderingThisComponent
+                // }
+              />
             </>
           );
         })}
