@@ -22,7 +22,9 @@ export default function DisplayBracket(props: any) {
       });
   }, []);
 
-  return (false ? <h1>Ladder Bracket</h1> :
+  return false ? (
+    <h1>Ladder Bracket</h1>
+  ) : (
     <>
       <UpdateAllByes divisionID={divisionID} eventID={eventID} />
       <h3>Brackets go here:</h3>

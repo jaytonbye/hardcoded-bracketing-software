@@ -3,6 +3,7 @@ import SubmitResult from "./SubmitResult";
 import { useParams, Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
 import { ListGroup } from "react-bootstrap";
+import MatsForEvent from "./MatsForEvent";
 
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
@@ -23,11 +24,18 @@ export default function SingleMatPage(props: any) {
       <h1 className="m-1">
         This is mat # {matNumber}
         <br />
-        <Link to={`/events/${eventID}`}>Click here to go back to the events page</Link>
+        <Link to={`/events/${eventID}`}>
+          Click here to go back to the events page
+        </Link>
       </h1>
       <hr />
-      <div style={{ border: "1px solid black", borderRadius: "5px" }} className="m-2 p-2">
-        <h2 className="text-center" style={{ textDecoration: "underline" }}>Upcoming Bouts </h2>
+      <div
+        style={{ border: "1px solid black", borderRadius: "5px" }}
+        className="m-2 p-2"
+      >
+        <h2 className="text-center" style={{ textDecoration: "underline" }}>
+          Upcoming Bouts{" "}
+        </h2>
         {upcomingBouts.map((bout, evenOdd) => {
           return (
             <>
@@ -35,6 +43,7 @@ export default function SingleMatPage(props: any) {
             </>
           );
         })}
+        <MatsForEvent eventID={eventID} />
       </div>
     </>
   );

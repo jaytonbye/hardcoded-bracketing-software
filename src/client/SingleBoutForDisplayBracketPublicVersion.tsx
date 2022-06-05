@@ -3,7 +3,7 @@ import { Card, Button } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 
-export default function SingleBoutForDisplayBracket(props: any) {
+export default function SingleBoutForDisplayBracketPublicVersion(props: any) {
   const [dispatchToMat, setDispatchToMat] = React.useState();
   const [modalShow, setModalShow] = React.useState<any>({});
 
