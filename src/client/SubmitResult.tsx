@@ -1,6 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
+import { Form } from "react-bootstrap";
 import SingleMatPage from "./SingleMatPage";
 
 export default function SubmitResult(props: any) {
@@ -39,8 +40,7 @@ export default function SubmitResult(props: any) {
     }
     let winner = selectedWinner;
     let areYouSureResultsAreCorrect = confirm(
-      `Are you sure ${JSON.parse(selectedWinner).name} from ${
-        JSON.parse(selectedWinner).team
+      `Are you sure ${JSON.parse(selectedWinner).name} from ${JSON.parse(selectedWinner).team
       } was the winner?`
     );
     if (areYouSureResultsAreCorrect) {
@@ -152,26 +152,46 @@ export default function SubmitResult(props: any) {
               {" "}
               Select the winner:{" "}
             </h6>
-            <label>
-              <strong>Name:</strong> {top_line_wrestler.name}{" "}
-              <strong>Team:</strong> {top_line_wrestler.team}
-            </label>
-            <input
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label={<><strong>Name:</strong> {top_line_wrestler.name}{" "}
+                <strong>Team:</strong> {top_line_wrestler.team}</>}
+              value={JSON.stringify(top_line_wrestler)}
+              checked={selectedWinner == JSON.stringify(top_line_wrestler)}
+              onChange={onWinnerClicked}
+            >
+
+            </Form.Check>
+            <Form.Check
+              type="switch"
+              id="custom-switch-2"
+              label={<><strong>Name:</strong> {bottom_line_wrestler.name}{" "}
+                <strong>Team:</strong> {bottom_line_wrestler.team}</>}
+              value={JSON.stringify(bottom_line_wrestler)}
+              checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
+              onChange={onWinnerClicked}
+            >
+
+            </Form.Check>
+            {/* <input
+              className="form-check-input"
               type="radio"
               value={JSON.stringify(top_line_wrestler)}
               checked={selectedWinner == JSON.stringify(top_line_wrestler)}
               onChange={onWinnerClicked}
             />
-            <label>
+            <label className="form-check-label">
               <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
               <strong>Team:</strong> {bottom_line_wrestler.team}
             </label>
+
             <input
               type="radio"
               value={JSON.stringify(bottom_line_wrestler)}
               checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
               onChange={onWinnerClicked}
-            />
+            /> */}
           </div>
           <div className=" col-sm-6 col-12">
             <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
