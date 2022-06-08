@@ -153,7 +153,7 @@ export default function SubmitResult(props: any) {
               Select the winner:{" "}
             </h6>
             <Form.Check
-              type="switch"
+              type="radio"
               id="custom-switch"
               label={<><strong>Name:</strong> {top_line_wrestler.name}{" "}
                 <strong>Team:</strong> {top_line_wrestler.team}</>}
@@ -164,7 +164,7 @@ export default function SubmitResult(props: any) {
 
             </Form.Check>
             <Form.Check
-              type="switch"
+              type="radio"
               id="custom-switch-2"
               label={<><strong>Name:</strong> {bottom_line_wrestler.name}{" "}
                 <strong>Team:</strong> {bottom_line_wrestler.team}</>}
