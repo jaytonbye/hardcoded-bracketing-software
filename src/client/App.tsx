@@ -54,7 +54,7 @@ const App = (props: AppProps) => {
           <Route exact path="/blah4">
             <UpdateAllByes />
           </Route>
-          <Route exact path="/registration">
+          <Route exact path="/registrations">
             <RegistrationStartPage />
           </Route>
           <Route exact path="/homepage">

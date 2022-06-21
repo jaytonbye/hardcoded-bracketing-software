@@ -101,87 +101,6 @@ const RegistrationForm = () => {
       </div>
       <div className="d-flex justify-content-center flex-wrap">
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
-          <label className="m-0">First name:</label>
-          <input
-            onChange={(e: any) => {
-              setFirstName(e.target.value);
-            }}
-            type="text"
-            placeholder="First name"
-            maxLength={25}
-          />
-        </div>
-        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
-          <label className="m-0">Last name:</label>
-          <input
-            onChange={(e: any) => {
-              setLastName(e.target.value);
-            }}
-            type="text"
-            placeholder="Last name"
-            maxLength={25}
-          />
-        </div>
-        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
-          <label className="m-0">Email:</label>
-          <input
-            onChange={(e: any) => {
-              setEmail(e.target.value);
-            }}
-            type="email"
-            placeholder="Email"
-            maxLength={50}
-          />
-        </div>
-        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
-          <label className="m-0">
-            Phone number for text message notifications at the event:
-          </label>
-          <input
-            onChange={(e: any) => {
-              setPhoneNumber(e.target.value);
-            }}
-            type="text"
-            maxLength={10}
-            placeholder="(000)Phone number"
-          />
-        </div>
-        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
-          <label className="m-0">
-            Birthday (be sure to select the year the wrestler was born):
-          </label>
-          <input
-            onChange={(e: any) => {
-              setBirthday(e.target.value);
-            }}
-            type="date"
-          />
-        </div>
-        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
-          <label className="m-0">Team name:</label>
-          <select name="" id="">
-            <option
-              onClick={() => {
-                setTeamId(null);
-              }}
-              value=""
-            ></option>
-            {allTeams?.map((team) => {
-              return (
-                <option
-                  key={team.id}
-                  onClick={() => {
-                    setTeamId(team.id);
-                  }}
-                  value=""
-                >
-                  {team.team_name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Event:</label>
           <select
             style={{
@@ -230,6 +149,87 @@ const RegistrationForm = () => {
                   value=""
                 >
                   {division.name_of_division}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
+          <label className="m-0">Wrestlers first name:</label>
+          <input
+            onChange={(e: any) => {
+              setFirstName(e.target.value);
+            }}
+            type="text"
+            placeholder="Wrestlers first name"
+            maxLength={25}
+          />
+        </div>
+        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
+          <label className="m-0">Wrestlers last name:</label>
+          <input
+            onChange={(e: any) => {
+              setLastName(e.target.value);
+            }}
+            type="text"
+            placeholder="Wrestlers last name"
+            maxLength={25}
+          />
+        </div>
+        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
+          <label className="m-0">Email:</label>
+          <input
+            onChange={(e: any) => {
+              setEmail(e.target.value);
+            }}
+            type="email"
+            placeholder="Email"
+            maxLength={50}
+          />
+        </div>
+        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
+          <label className="m-0">
+            Phone number for text message notifications at the event:
+          </label>
+          <input
+            onChange={(e: any) => {
+              setPhoneNumber(e.target.value);
+            }}
+            type="text"
+            maxLength={10}
+            placeholder="5555555555"
+          />
+        </div>
+        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
+          <label className="m-0">
+            Birthday (be sure to select the year the wrestler was born):
+          </label>
+          <input
+            onChange={(e: any) => {
+              setBirthday(e.target.value);
+            }}
+            type="date"
+          />
+        </div>
+        <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
+          <label className="m-0">Team name:</label>
+          <select name="" id="">
+            <option
+              onClick={() => {
+                setTeamId(null);
+              }}
+              value=""
+            ></option>
+            {allTeams?.map((team) => {
+              return (
+                <option
+                  key={team.id}
+                  onClick={() => {
+                    setTeamId(team.id);
+                  }}
+                  value=""
+                >
+                  {team.team_name}
                 </option>
               );
             })}
