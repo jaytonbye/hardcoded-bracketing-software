@@ -2,6 +2,8 @@ import * as mysql from "mysql";
 import users from "./users";
 import events from "./events";
 import divisions from "./divisions";
+import teams from "./teams";
+import registrations from "./registrations";
 import bouts from "./bouts";
 import successful_logins from "./successful_logins";
 
@@ -29,6 +31,8 @@ export default {
   users,
   events,
   divisions,
+  teams,
+  registrations,
   bouts,
   successful_logins,
 };
