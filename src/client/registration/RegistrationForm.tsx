@@ -1,9 +1,10 @@
 import moment from "moment";
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { propTypes } from "react-bootstrap/esm/Image";
 import { IAllEvents, IAllDivisionsByEvent, IAllTeams } from "./interfaces";
 
-const RegistrationForm = () => {
+const RegistrationForm = (props: IProps) => {
   let [firstName, setFirstName] = useState<string>();
   let [lastName, setLastName] = useState<string>();
   let [email, setEmail] = useState<string>();
@@ -83,6 +84,9 @@ const RegistrationForm = () => {
     }).then((res) => {
       if (res.ok) {
         alert(`You have successfully registered for event`);
+        if (props.funcForRenderingFromEditAllWrestlers) {
+          props.funcForRenderingFromEditAllWrestlers();
+        }
       } else {
         alert("Something went wrong. your registration has not been accepted");
       }
@@ -247,3 +251,8 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
+
+interface IProps {
+  funcForRenderingFromEditAllWrestlers?: Function;
+  isAdmin: boolean; //this makes it free 99
+}

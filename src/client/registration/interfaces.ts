@@ -33,10 +33,14 @@ interface IRegistrations {
   birthday: string;
   team_id: number | string;
   event_id: number | string;
-  division_they_signed_up_for: number | string;
-  division_they_are_competing_at: number | string;
+  division_they_signed_up_for_id: number | string;
+  division_they_are_competing_at_id: number | string;
   weight_they_weighed_in_at: number | string;
   date_created: string;
+  name_of_event: string;
+  team_name: string;
+  division_signed_up_for_name: string | number;
+  division_competing_at_name: string | number;
 }
 
 export { IAllEvents, IAllDivisionsByEvent, IAllTeams, IRegistrations };

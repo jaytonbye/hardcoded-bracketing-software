@@ -6,7 +6,7 @@ const RegistrationStartPage = () => {
   return (
     <div>
       <NavigationBar />
-      <RegistrationForm />
+      <RegistrationForm isAdmin={false} />
     </div>
   );
 };

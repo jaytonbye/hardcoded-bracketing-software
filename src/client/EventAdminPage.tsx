@@ -10,7 +10,7 @@ export default function Admin() {
   const [
     buttonTextShowWresltersOrDivision,
     setButtonTextShowWresltersOrDivision,
-  ] = React.useState<string>("All wrestlers");
+  ] = React.useState<string>("All wrestlers in event");
   const [showAddDivision, setShowAddDivision] = React.useState(false);
   const [showAddStaff, setShowAddStaff] = React.useState(false);
   const [showEditDivisions, setShowEditDivisions] =
@@ -37,7 +37,7 @@ export default function Admin() {
       setShowEditAllWrestlersInEvent(true);
       setShowEditDivisions(false);
     } else {
-      setButtonTextShowWresltersOrDivision("All Wrestlers");
+      setButtonTextShowWresltersOrDivision("All Wrestlers in event");
       setShowEditAllWrestlersInEvent(false);
       setShowEditDivisions(true);
     }
@@ -77,7 +77,9 @@ export default function Admin() {
       {showAddStaff && <AddStaffComponent />}
 
       {showEditDivisions && <EditDivisionsComponent eventID={eventID} />}
-      {showEditAllWrestlersInEvent && <EditAllWrestlersInEvent eventID={eventID} />}
+      {showEditAllWrestlersInEvent && (
+        <EditAllWrestlersInEvent eventID={eventID} />
+      )}
     </>
   );
 }

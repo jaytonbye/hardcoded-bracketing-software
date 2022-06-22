@@ -14,14 +14,15 @@ import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 
 // @ts-ignore
 import { roundRobinBuilder } from "./bracketing_logic/roundRobinBuilder.ts";
+import EditAllWrestlersInEvent from "./EditAllWrestlersInEvent";
 
-export default function AddCompetitorsComponent(props: any) {
+export default function AddCompetitorsComponent(props: IProps) {
   const [wrestlerList, setWrestlerList] = React.useState("");
 
   let token = sessionStorage.getItem("token");
   let userID = Number(sessionStorage.getItem("UID"));
-  let eventID = props.eventID;
-  let divisionID = props.divisionID;
+  let eventID: string | number = props.eventID;
+  let divisionID: string | number | any = props.divisionID;
 
   let labelBracketTypeInDatabase = (
     bracketType: string,
@@ -60,9 +61,10 @@ export default function AddCompetitorsComponent(props: any) {
     );
     console.log({ formattedArrayOfWrestlersAndTeams });
 
-    let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
-      formattedArrayOfWrestlersAndTeams
-    );
+    let seededArrayofWrestlersAndTeams =
+      seedingFunctionForUnlimitedCompetitors2(
+        formattedArrayOfWrestlersAndTeams
+      );
     console.log({ seededArrayofWrestlersAndTeams });
 
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
@@ -157,61 +159,77 @@ export default function AddCompetitorsComponent(props: any) {
   };
 
   return (
-    <tr>
-      <td colSpan={1}>
-        <p>
-          Copy and paste the full list of copmetitors and their teams into this
-          text field. They should be "tab separated", which is the default way
-          of copying and pasting from a spread sheet with 2 columns. They will
-          be in seed order, from top to bottom. The maximum bracket size is 32
-          wrestlers. Here is a sample:{" "}
-        </p>
-      </td>
-      <td colSpan={1}>
-        <table className="table">
-          <tbody className="bg-light">
-            <tr>
-              <td>Dan Gable</td>
-              <td>Iowa</td>
-            </tr>
-            <tr>
-              <td>Jason Layton</td>
-              <td>Dynamic</td>
-            </tr>
-            <tr>
-              <td>Cael Sanderson</td>
-              <td>Penn State</td>
-            </tr>
-            <tr>
-              <td>Hulk Hogan</td>
-              <td>WWF</td>
-            </tr>
-            <tr>
-              <td>Dana White</td>
-              <td>UFC</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-      <td>
-        <label>Paste Wrestler List for this division</label>
-        <textarea className="ml-2" onChange={onWrestlerListChange} />
-      </td>
-      <td>
-        <button
-          className="btn btn-primary ml-2"
-          onClick={() => handleSubmitWrestlerListFor32ManBracket()}
-        >
-          Click this button to make a 32 Bracket!
-        </button>
-        <p>or</p>
-        <button
-          className="btn btn-primary ml-2"
-          onClick={() => handleSubmitWrestlerListForRoundRobinBracket()}
-        >
-          Click this button to make a round-robin bracket!
-        </button>
-      </td>
-    </tr>
+    <>
+      <div>
+        {
+          <EditAllWrestlersInEvent
+            eventID={props.eventID}
+            divisionID={props.divisionID}
+          />
+        }
+      </div>
+      {/* ////////////////////////////////////// */}
+      <tr>
+        <td colSpan={1}>
+          <p>
+            Copy and paste the full list of copmetitors and their teams into
+            this text field. They should be "tab separated", which is the
+            default way of copying and pasting from a spread sheet with 2
+            columns. They will be in seed order, from top to bottom. The maximum
+            bracket size is 32 wrestlers. Here is a sample:{" "}
+          </p>
+        </td>
+        <td colSpan={1}>
+          <table className="table">
+            <tbody className="bg-light">
+              <tr>
+                <td>Dan Gable</td>
+                <td>Iowa</td>
+              </tr>
+              <tr>
+                <td>Jason Layton</td>
+                <td>Dynamic</td>
+              </tr>
+              <tr>
+                <td>Cael Sanderson</td>
+                <td>Penn State</td>
+              </tr>
+              <tr>
+                <td>Hulk Hogan</td>
+                <td>WWF</td>
+              </tr>
+              <tr>
+                <td>Dana White</td>
+                <td>UFC</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <label>Paste Wrestler List for this division</label>
+          <textarea className="ml-2" onChange={onWrestlerListChange} />
+        </td>
+        <td>
+          <button
+            className="btn btn-primary ml-2"
+            onClick={() => handleSubmitWrestlerListFor32ManBracket()}
+          >
+            Click this button to make a 32 Bracket!
+          </button>
+          <p>or</p>
+          <button
+            className="btn btn-primary ml-2"
+            onClick={() => handleSubmitWrestlerListForRoundRobinBracket()}
+          >
+            Click this button to make a round-robin bracket!
+          </button>
+        </td>
+      </tr>
+    </>
   );
+}
+
+interface IProps {
+  divisionID: string | number;
+  eventID: string | number;
 }
