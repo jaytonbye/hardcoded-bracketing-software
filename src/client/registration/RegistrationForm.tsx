@@ -67,7 +67,7 @@ const RegistrationForm = () => {
   };
 
   let submitRegistration = () => {
-    fetch(`/api/registrations//postNewRegistration`, {
+    fetch(`/api/registrations/postNewRegistration`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

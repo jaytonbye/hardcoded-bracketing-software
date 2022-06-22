@@ -3,11 +3,15 @@ import { useHistory } from "react-router-dom";
 import DisplayBracket from "./DisplayBracket";
 import DisplayBracketRoundRobin from "./DisplayBracketRoundRobin";
 import DisplayBracketV2 from "./DisplayBracketV2";
+import { IAllDivisionsByEvent } from "./registration/interfaces";
 
 export default function SelectDivisionComponent(props: any) {
   const [selectedDivisionId, setSelectedDivisionId] = React.useState();
-  const [selectedDivisionBracketType, setSelectedDivisionBracketType] = React.useState();
-  const [allDivisions, setAllDivisions] = React.useState([]);
+  const [selectedDivisionBracketType, setSelectedDivisionBracketType] =
+    React.useState();
+  const [allDivisions, setAllDivisions] = React.useState<
+    IAllDivisionsByEvent[]
+  >([]);
   const [displayBracket, setDisplayBracket] = React.useState(false);
   const [displayBracketList, setDisplayBracketList] = React.useState(false);
 
@@ -48,7 +52,7 @@ export default function SelectDivisionComponent(props: any) {
       <select onChange={onEventChange}>
         <option value="">Select a weight class</option>
         {allDivisions.map((division) => {
-          let { id, bracket_type } = division
+          let { id, bracket_type } = division;
           return (
             <option key={division.id} value={bracket_type + "||" + id}>
               {division.name_of_division}
@@ -69,13 +73,14 @@ export default function SelectDivisionComponent(props: any) {
           divisionID={selectedDivisionId}
         />
       )}
-      {displayBracketList && selectedDivisionBracketType === "double-elimination" && (
-        // <DisplayBracket eventID={props.eventID} divisionID={selectedDivisionId} />
-        <DisplayBracket
-          eventID={props.eventID}
-          divisionID={selectedDivisionId}
-        />
-      )}
+      {displayBracketList &&
+        selectedDivisionBracketType === "double-elimination" && (
+          // <DisplayBracket eventID={props.eventID} divisionID={selectedDivisionId} />
+          <DisplayBracket
+            eventID={props.eventID}
+            divisionID={selectedDivisionId}
+          />
+        )}
       {displayBracket && selectedDivisionBracketType === "round-robin" && (
         // <DisplayBracket eventID={props.eventID} divisionID={selectedDivisionId} />
         <DisplayBracketRoundRobin

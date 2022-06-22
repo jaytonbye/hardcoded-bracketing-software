@@ -4,6 +4,19 @@ import { hasValidAdminToken } from "../utils/tokenCheck";
 
 const router = Router();
 
+//GET
+router.get("/getAllRegistrationsForEvent/:eventId", async (req, res) => {
+  try {
+    let eventId = req.params.eventId;
+    let allRegistrationsForEvent =
+      await db.registrations.getAllRegistrationsForEvent(eventId);
+    res.json(allRegistrationsForEvent);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 //POST
 router.post("/postNewRegistration", async (req, res) => {
   try {

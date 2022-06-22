@@ -28,6 +28,9 @@ export default function NavigationBar() {
   let goToHome = () => {
     history.push("/homepage");
   };
+  let goToRegisterForEvenetPage = () => {
+    history.push("/registrations");
+  };
 
   return (
     <>
@@ -35,6 +38,13 @@ export default function NavigationBar() {
         <div className="container-fluid">
           <button className="btn btn-outline-primary" onClick={goToHome}>
             Events
+          </button>
+          <button
+          style={{backgroundColor:"lawngreen"}}
+            className="btn btn-outline-primary"
+            onClick={goToRegisterForEvenetPage}
+          >
+            <u>Register for an event</u>
           </button>
           {userRole === "admin" && (
             <button className="btn btn-outline-danger" onClick={goToAdminPage}>

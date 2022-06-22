@@ -24,4 +24,19 @@ interface IAllTeams {
   date_created: string;
 }
 
-export { IAllEvents, IAllDivisionsByEvent, IAllTeams };
+interface IRegistrations {
+  id: number | string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  email: string;
+  birthday: string;
+  team_id: number | string;
+  event_id: number | string;
+  division_they_signed_up_for: number | string;
+  division_they_are_competing_at: number | string;
+  weight_they_weighed_in_at: number | string;
+  date_created: string;
+}
+
+export { IAllEvents, IAllDivisionsByEvent, IAllTeams, IRegistrations };

@@ -24,7 +24,8 @@ const App = (props: AppProps) => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Home />
+            {/* <Home /> */}
+            <LoggedIn />
           </Route>
           <Route exact path="/admin">
             <Admin />
@@ -88,6 +89,6 @@ const App = (props: AppProps) => {
 
 //this is a useless comment.
 
-interface AppProps { }
+interface AppProps {}
 
 export default App;

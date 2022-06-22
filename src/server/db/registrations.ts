@@ -1,5 +1,16 @@
 import { Query } from "./index";
 
+//GETS
+let getAllRegistrationsForEvent = async (eventId: number | string) => {
+  return Query(
+    `
+  select * from registrations 
+  where event_id = ? 
+  order by division_they_are_competing_at;`,
+    [eventId]
+  );
+};
+
 //post
 let postNewRegistration = async (
   firstName: string,
@@ -35,6 +46,8 @@ let postNewRegistration = async (
 };
 
 export default {
+  //  GET
+  getAllRegistrationsForEvent,
   //  POST
   postNewRegistration,
 };

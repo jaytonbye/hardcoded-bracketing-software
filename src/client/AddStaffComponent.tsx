@@ -1,28 +1,29 @@
 import React, { EventHandler } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { apiService } from "./services/api-services";
 
 function AddStaffComponent() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [userEventPriviliges, setUserEventPriviliges] = React.useState("");
-  const [createdAccountsRoll, setCreatedAccountsRoll] = React.useState(
-    "tableWorker"
-  );
-
+  const [userEventPriviliges, setUserEventPriviliges] = React.useState(
+    useParams<any>().eventID
+  ); //probably better to pass this down with props
+  const [createdAccountsRoll, setCreatedAccountsRoll] =
+    React.useState("tableWorker");
   let UID = Number(sessionStorage.getItem("UID"));
 
+  //whuuuuttt is going on here?? this useEffect returns all of YOUR user info
   //gets the user's event, so that the created accounts can only edit the correct events.
-  React.useEffect(() => {
-    fetch(`/api/users/${UID}`)
-      .then((res) => res.json())
-      .then((results) => {
-        console.log({ results });
-        setUserEventPriviliges(results[0].priviliges_for_event_ID);
-      });
-  });
+  // React.useEffect(() => {
+  //   fetch(`/api/users/${UID}`)
+  //     .then((res) => res.json())
+  //     .then((results) => {
+  //       console.log({ results });
+  //       setUserEventPriviliges(results[0].priviliges_for_event_ID);
+  //     });
+  // }),[];
 
-  let history = useHistory();
+  let history = useHistory(); // harry needs to do the ole fixaroo and get rid of all useHistories for rerender
 
   const handleCreateAccount = (e: any) => {
     e.preventDefault();
