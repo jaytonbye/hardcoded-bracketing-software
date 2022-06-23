@@ -46,7 +46,7 @@ router.get(
   }
 );
 
-router.get("/getDateOfEventByEventId/:evetnId", async (req, res) => {
+router.get("/getDateOfEventByEventId/:eventId", async (req, res) => {
   try {
     let eventId = req.params.eventId;
     let dateOfEvent = await db.registrations.getDateOfEventByEventId(eventId);

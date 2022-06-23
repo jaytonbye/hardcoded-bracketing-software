@@ -43,6 +43,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
     string | number | any
   >(props.registrationInfo.weight_they_weighed_in_at);
   //
+  let [eventDateDropDown, setEventDateDropDown] = React.useState<string>();
   let [editPopUpDisplay, setEditPopUpDisplay] = React.useState<string>("none");
   let [showWieghtSubmitButton, setShowWieghtSubmitButton] =
     React.useState<boolean>(false);
@@ -51,10 +52,18 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
     if (editPopUpDisplay !== "none") {
       if (!eventId) {
         setAlldivisionsInEvent(null);
+        setEventDateDropDown("");
       } else {
         fetch(`/api/divisions/divisionsByEventId/${eventId}`)
           .then((res) => res.json())
           .then((res) => setAlldivisionsInEvent(res));
+        fetch(`/api/registrations/getDateOfEventByEventId/${eventId}`)
+          .then((res) => res.json())
+          .then((res: any) => {
+            setEventDateDropDown(
+              moment(res[0].date_of_event).format("MMMM, DD, YYYY")
+            );
+          });
       }
     } else {
       // console.log("not yet");
@@ -314,6 +323,11 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
               );
             })}
           </select>
+          {eventDateDropDown && (
+            <label className="col-12">
+              <strong>Event date:</strong> {eventDateDropDown}
+            </label>
+          )}
           <br />
           <label>
             <strong>Division they signed up for</strong>

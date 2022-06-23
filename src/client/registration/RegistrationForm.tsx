@@ -35,15 +35,14 @@ const RegistrationForm = (props: IProps) => {
         .then((res) => res.json())
         .then((res) => setAllDivisionsBasedOnEventId(res));
       fetch(`/api/registrations/getDateOfEventByEventId/${eventId}`)
-        .then((res) => {
-          res.json();
-        })
-        .then((res:any) => {
-          setEventDateDropDown(moment(res).format("MMMM, DD, YYYY"));
+        .then((res) => res.json())
+        .then((res: any) => {
+          // console.log(res[0].date_of_event);
+          setEventDateDropDown(moment(res[0].date_of_event).format("MMMM, DD, YYYY"));
         });
     } else {
       setAllDivisionsBasedOnEventId(null);
-      setEventDateDropDown("")
+      setEventDateDropDown("");
     }
   }, [eventId]);
 
