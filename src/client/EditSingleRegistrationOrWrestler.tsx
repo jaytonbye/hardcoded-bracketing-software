@@ -51,6 +51,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
   React.useEffect(() => {
     if (editPopUpDisplay !== "none") {
       if (!eventId) {
+        setDivisionTheyAreCompetingAtId(null);
         setAlldivisionsInEvent(null);
         setEventDateDropDown("");
       } else {

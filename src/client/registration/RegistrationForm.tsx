@@ -12,7 +12,7 @@ const RegistrationForm = (props: IProps) => {
   let [birthday, setBirthday] = useState<string>();
   let [teamId, setTeamId] = useState<string | number | null>();
   let [eventId, setEventId] = useState<string | number>();
-  let [divisionId, setDivisionId] = useState<string | number>();
+  let [divisionId, setDivisionId] = useState<string | number | null>();
   let [allTeams, setAllTeams] = useState<IAllTeams[]>();
   let [allEvents, setAllEvents] = useState<IAllEvents[]>();
   let [eventDateDropDown, setEventDateDropDown] = useState<string>();
@@ -31,6 +31,7 @@ const RegistrationForm = (props: IProps) => {
 
   useEffect(() => {
     if (eventId) {
+      setDivisionId(null)
       fetch(`/api/divisions/divisionsByEventId/${eventId}`)
         .then((res) => res.json())
         .then((res) => setAllDivisionsBasedOnEventId(res));
@@ -42,6 +43,7 @@ const RegistrationForm = (props: IProps) => {
         });
     } else {
       setAllDivisionsBasedOnEventId(null);
+      setDivisionId(null)
       setEventDateDropDown("");
     }
   }, [eventId]);
