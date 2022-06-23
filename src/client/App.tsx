@@ -17,6 +17,7 @@ import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxTo
 import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
 import DisplayBracket from "./DisplayBracket";
 import RegistrationStartPage from "./registration/RegistrationStartPage";
+import AdminFacingStartTimeEstimator from "./start_time_estimator/AdminFacingStartTimeEstimator";
 
 const App = (props: AppProps) => {
   return (
@@ -60,6 +61,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/homepage">
             <LoggedIn />
+          </Route>
+          <Route exact path="/AdminFacingStartTimeEstimator">
+            <AdminFacingStartTimeEstimator />
           </Route>
           <Route exact path="/events/:event">
             <EventsPage />
