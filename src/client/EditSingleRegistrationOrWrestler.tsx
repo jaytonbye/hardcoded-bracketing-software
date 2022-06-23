@@ -74,7 +74,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        weight: weightTheyWeighedInAt,
+        weight: weightTheyWeighedInAt === "" ? null : weightTheyWeighedInAt,
         registrationId: props.registrationInfo.id,
       }),
     }).then((res) => {
@@ -125,7 +125,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
         phoneNumber,
         email,
         birthday,
-        teamId,
+        teamId: teamId === "" ? null : teamId,
         eventId,
         divisionTheyAreCompetingAtId,
         weightTheyWeighedInAt:
@@ -261,19 +261,24 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             <strong>Team</strong>
           </label>{" "}
           <br />
-          <select defaultValue={props.registrationInfo.team_id}>
+          <select
+            defaultValue={props.registrationInfo.team_id}
+            onChange={(e: any) => {
+              setTeamId(e.target.value);
+            }}
+          >
             <option
               value=""
-              onClick={() => {
-                setTeamId(null);
-              }}
+              // onClick={() => {
+              //   setTeamId(null);
+              // }}
             ></option>
             {props.allTeams.map((team) => {
               return (
                 <option
                   key={team.id}
                   value={team.id}
-                  onClick={() => setTeamId(team.id)}
+                  // onClick={() => setTeamId(team.id)}
                 >
                   {team.team_name}
                 </option>
@@ -282,22 +287,27 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
           </select>
           <br />
           <label>
-            <strong>event</strong>
+            <strong>Event</strong>
           </label>{" "}
           <br />
-          <select defaultValue={props.registrationInfo.event_id}>
+          <select
+            onChange={(e: any) => {
+              setEventId(e.target.value);
+            }}
+            defaultValue={props.registrationInfo.event_id}
+          >
             <option
               value=""
-              onClick={() => {
-                setEventId(null);
-              }}
+              // onClick={() => {
+              //   setEventId(null);
+              // }}
             ></option>
             {props.allEvents.map((event) => {
               return (
                 <option
                   key={event.id}
                   value={event.id}
-                  onClick={() => setEventId(event.id)}
+                  // onClick={() => setEventId(event.id)}
                 >
                   {event.name_of_event}
                 </option>
@@ -320,18 +330,21 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
           </label>{" "}
           <br />
           <select
-          // defaultValue={props.registrationInfo.division_they_are_competing_at}
+            // defaultValue={props.registrationInfo.division_they_are_competing_at}
+            onChange={(e: any) => {
+              setDivisionTheyAreCompetingAtId(e.target.value);
+            }}
           >
             <option
               value=""
-              onClick={() => setDivisionTheyAreCompetingAtId(null)}
+              // onClick={() => setDivisionTheyAreCompetingAtId(null)}
             ></option>
             {alldivisionsInEvent?.map((division) => {
               return (
                 <option
                   key={division.id}
                   value={division.id}
-                  onClick={() => setDivisionTheyAreCompetingAtId(division.id)}
+                  // onClick={() => setDivisionTheyAreCompetingAtId(division.id)}
                 >
                   {division.name_of_division}
                 </option>

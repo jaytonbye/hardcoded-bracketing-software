@@ -3,7 +3,7 @@ import NavigationBar from "./NavigationBar";
 import AddEventComponent from "./AddEventComponent";
 import EditEventsComponent from "./EditEventsComponent";
 import AddStaffComponent from "./AddStaffComponent";
-import EditAllWrestlersInEvent from "./EditAllWrestlersInEvent";
+import EditAllWrestlersOrAllInEvent from "./EditAllWrestlersOrAllInEvent";
 
 export default function Admin() {
   const [showAddEvent, setShowAddEvent] = React.useState(false);
@@ -62,7 +62,7 @@ export default function Admin() {
       {showAddEvent && <AddEventComponent />}
       {showEditEvents && <EditEventsComponent />}
       {showAllAndAddRegisters && (
-        <EditAllWrestlersInEvent showAllThatAreRegistered={true} />
+        <EditAllWrestlersOrAllInEvent showAllThatAreRegistered={true} />
       )}
       {/* {showAddStaff && <AddStaffComponent />} */}
     </>

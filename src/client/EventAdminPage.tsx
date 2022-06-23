@@ -4,7 +4,7 @@ import AddDivisionComponent from "./AddDivisionComponent";
 import EditDivisionsComponent from "./EditDivisionsComponent";
 import { useParams } from "react-router-dom";
 import AddStaffComponent from "./AddStaffComponent";
-import EditAllWrestlersInEvent from "./EditAllWrestlersInEvent";
+import EditAllWrestlersOrAllInEvent from "./EditAllWrestlersOrAllInEvent";
 
 export default function Admin() {
   const [
@@ -78,7 +78,7 @@ export default function Admin() {
 
       {showEditDivisions && <EditDivisionsComponent eventID={eventID} />}
       {showEditAllWrestlersInEvent && (
-        <EditAllWrestlersInEvent eventID={eventID} />
+        <EditAllWrestlersOrAllInEvent eventID={eventID} />
       )}
     </>
   );

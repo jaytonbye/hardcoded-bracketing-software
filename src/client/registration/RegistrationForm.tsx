@@ -107,28 +107,36 @@ const RegistrationForm = (props: IProps) => {
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Event:</label>
           <select
+            onChange={(e: any) => {
+              setEventId(e.target.value);
+              setEventDateDropDown(
+                moment(e.target.id).format("MMMM, DD, YYYY")
+              );
+            }}
             style={{
               width: "15rem",
             }}
           >
             <option
-              onClick={() => {
-                setEventId("");
-                setEventDateDropDown("");
-              }}
               value=""
+              id=""
+              // onClick={() => {
+              //   setEventId("");
+              //   setEventDateDropDown("");
+              // }}
             ></option>
             {allEvents?.map((event) => {
               return (
                 <option
                   key={event.id}
                   onClick={() => {
-                    setEventId(event.id);
-                    setEventDateDropDown(
-                      moment(event.date_of_event).format("MMMM, DD, YYYY")
-                    );
+                    // setEventId(event.id);
+                    // setEventDateDropDown(
+                    //   moment(event.date_of_event).format("MMMM, DD, YYYY")
+                    // );
                   }}
-                  value=""
+                  value={event.id}
+                  id={event.date_of_event}
                 >
                   {event.name_of_event}
                 </option>
@@ -143,14 +151,23 @@ const RegistrationForm = (props: IProps) => {
         </div>
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Division:</label>
-          <select name="" id="">
-            <option onClick={() => setDivisionId("")} value=""></option>
+          <select
+            onChange={(e: any) => {
+              setDivisionId(e.target.value);
+            }}
+            name=""
+            id=""
+          >
+            <option
+              // onClick={() => setDivisionId("")}
+              value={""}
+            ></option>
             {allDivisionsBasedOnEventId?.map((division) => {
               return (
                 <option
-                  onClick={() => setDivisionId(division.id)}
+                  // onClick={() => setDivisionId(division.id)}
                   key={division.id}
-                  value=""
+                  value={division.id}
                 >
                   {division.name_of_division}
                 </option>

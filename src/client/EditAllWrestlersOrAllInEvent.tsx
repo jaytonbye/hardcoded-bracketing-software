@@ -8,7 +8,7 @@ import EditSingleRegistrationOrWrestler from "./EditSingleRegistrationOrWrestler
 import { Button, ButtonToolbar } from "react-bootstrap";
 import RegistrationForm from "./registration/RegistrationForm";
 
-const EditAllWrestlersInEvent = (props: IProps) => {
+const EditAllWrestlersOrAllInEvent = (props: IProps) => {
   const [showRegisterForAdminForm, setShowRegisterForAdminForm] =
     React.useState<boolean>(false);
   const [
@@ -104,7 +104,7 @@ const EditAllWrestlersInEvent = (props: IProps) => {
   );
 };
 
-export default EditAllWrestlersInEvent;
+export default EditAllWrestlersOrAllInEvent;
 
 interface IProps {
   eventID?: number | string;
