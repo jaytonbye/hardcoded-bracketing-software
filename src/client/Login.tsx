@@ -9,6 +9,18 @@ function Login() {
   const history = useHistory();
   const [showPasswordReset, setShowPasswordReset] = React.useState(false);
 
+  //This is for testing john's api, and not related to this project. Ultra hacky.
+  React.useEffect(() => {
+    fetch(
+      `https://api.wrestlingrating.com/api/services/app/Event/GetCountryList`
+    )
+      .then((res) => res.json())
+      .then((results) => {
+        console.log("hey!");
+        console.log(results);
+      });
+  }, []);
+
   const forgotPassword = () => {
     setShowPasswordReset(!showPasswordReset);
   };

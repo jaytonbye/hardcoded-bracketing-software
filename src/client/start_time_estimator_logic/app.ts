@@ -154,11 +154,35 @@ console.log(
   numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
 );
 
-let allBracketSizes = [5, 2, 7, 4, 5, 2, 3, 5, 3, 3, 3, 1];
-// fake one - let allBracketSizes = [5, 12, 7, 6, 9, 4, 10, 8, 8, 8, 8, 3];
+let allBracketSizes = [
+  5,
+  12,
+  17,
+  9,
+  5,
+  21,
+  3,
+  5,
+  14,
+  3,
+  3,
+  11,
+  8,
+  12,
+  7,
+  6,
+  9,
+  4,
+  10,
+  8,
+  8,
+  8,
+  8,
+  3,
+];
 let averageLengthOfAMatch = 6;
-let numberOfMatsAtEvent = 3;
-let lengthOfEachTournamentRound = 30;
+let numberOfMatsAtEvent = 4;
+let lengthOfEachTournamentRound = 35;
 let eventStartTimeInMinutes = 9 * 60;
 let lengthOfWeighins = 20;
 let amountofTimeBetweenWeighinsClosingAndWrestlingBeginning = 10;
