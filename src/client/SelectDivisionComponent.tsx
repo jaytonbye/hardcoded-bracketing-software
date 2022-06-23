@@ -46,7 +46,7 @@ export default function SelectDivisionComponent(props: any) {
     <div className="m-2">
       <h4>To view the brackets, select the division you would like to view:</h4>
       <select onChange={onEventChange}>
-        <option value="">Select a division</option>
+        <option value="">Select a weight class</option>
         {allDivisions.map((division) => {
           let { id, bracket_type } = division
           return (

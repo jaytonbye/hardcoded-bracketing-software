@@ -158,6 +158,7 @@ router.put("/editBout/:id", hasValidTableWorkerToken, async (req, res) => {
 });
 
 router.put("/dispatch", hasValidTableWorkerToken, async (req, res) => {
+  // or put the 'isAdmin' here and do to select from 2 differenct sql updates
   try {
     let boutID = req.body.boutID;
     let dispatched = req.body.dispatched;

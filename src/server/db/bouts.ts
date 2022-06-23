@@ -94,6 +94,7 @@ const editBout = async (
 };
 
 const dispatchBout = async (
+  //we want this to only update time_bout when admin dispatches...we could duplicate call for workers or make this one optional param or make 'isAdmin' param and an if statment here
   boutID: number,
   dispatched: string, //TS complained when I used boolean, let's see if this messes up the code...
   dispatchedToMat: number,
