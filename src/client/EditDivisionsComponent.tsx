@@ -1,13 +1,12 @@
 import React from "react";
 import AddCompetitorsComponent from "./AddCompetitorsComponent";
+import { IAllDivisionsByEvent } from "./registration/interfaces";
 
 export default function EditDivisionsComponent(props: any) {
-  const [divisions, setDivisions] = React.useState([]);
+  const [divisions, setDivisions] = React.useState<IAllDivisionsByEvent[]>([]);
   const [deleteText, setDeleteText] = React.useState("");
-  const [
-    showInputCompetitorsComponent,
-    setShowInputCompetitorsComponent,
-  ] = React.useState<any>({});
+  const [showInputCompetitorsComponent, setShowInputCompetitorsComponent] =
+    React.useState<any>({});
 
   let onClickRevealInputCompetitorsComponent = (e: any) => {
     setShowInputCompetitorsComponent((prev: {}) => {
@@ -22,7 +21,7 @@ export default function EditDivisionsComponent(props: any) {
     setDeleteText(e.target.value);
   };
 
-  let handleDeleteClick = (divisionID: number) => {
+  let handleDeleteClick = (divisionID: number | string) => {
     if (deleteText.toLocaleLowerCase() === "delete") {
       let token = sessionStorage.getItem("token");
       const requestOptions = {
@@ -76,7 +75,7 @@ export default function EditDivisionsComponent(props: any) {
             return (
               <>
                 <tr key={division.id}>
-                  <td>{division.name_of_division}</td>
+                  <td>{division.name_of_division} </td>
 
                   <td>
                     <button

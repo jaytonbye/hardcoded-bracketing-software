@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import MatsForEvent from "./MatsForEvent";
 import SelectDivisionComponent from "./SelectDivisionComponent";
 import NavigationBar from "./NavigationBar";
+import { IAllEvents } from "./registration/interfaces";
+import BracketView from "./BracketVeiw";
 
 export default function EventsPage() {
   let { event } = useParams<any>();
   const [matNumberToNavigateTo, setMatNumberToNavigateTo] = React.useState();
-  const [eventInfo, setEventinfo] = React.useState([]);
+  const [eventInfo, setEventinfo] = React.useState<IAllEvents[]>([]);
   const [eventLoaded, setEventLoaded] = React.useState(false);
-  const [showMats, setShowMats] = React.useState(true);
-
+  const [showMats, setShowMats] = React.useState(false);
+  const [showBracketsView, setShowBracketsView] =
+    React.useState<boolean>(false);
+  const [showSearchByWrestlerView, setShowSearchByWrestlerView] =
+    React.useState<boolean>(false);
   let history = useHistory();
 
   React.useEffect(() => {
@@ -32,25 +37,49 @@ export default function EventsPage() {
 
   let onRevealMats = () => {
     setShowMats(!showMats);
+    setShowBracketsView(false);
+  };
+  let onRevealBrackets = () => {
+    setShowBracketsView(!showBracketsView);
+    setShowMats(false);
   };
 
   return (
     <>
       <NavigationBar />
-      <div className="m-2 p-2" style={{ border: "solid 1px black" }}>
-        {eventLoaded && <h4>Event: {eventInfo[0].name_of_event}</h4>}
-        <button className="btn btn-primary" onClick={onRevealMats}>
-          Show/Hide mats
-        </button>
-        {showMats && <MatsForEvent eventID={event} />}
+      {/* style={{ border: "solid 1px black" }} */}
+      <div className="m-2 p-2" >
+        <div>
+          {eventLoaded && <h4>Event: {eventInfo[0].name_of_event}</h4>}
+          <button className="btn btn-primary m-2" onClick={onRevealMats}>
+            Mat view
+          </button>
+          <button className="btn btn-primary m-2" onClick={onRevealBrackets}>
+            Bracket view
+          </button>
+          <button className="btn btn-primary m-2" >
+            Search by wrestler
+          </button>
+          {showMats && (
+            <div>
+              <MatsForEvent eventID={event} />
+              <label className="m-2 mt-3">Take me to mat #:</label>
+              <input type="number" onChange={onMatNumberChange} />
+              <button
+                onClick={navigateToMat}
+                className="btn btn-secondary ml-1"
+              >
+                Go!
+              </button>
+            </div>
+          )}
+        </div>
+        {showBracketsView && (
+          <div>
+            <SelectDivisionComponent eventID={event} />
+          </div>
+        )}
       </div>
-      <label className="m-2 mt-3">Take me to mat #:</label>
-      <input type="number" onChange={onMatNumberChange} />
-      <button onClick={navigateToMat} className="btn btn-secondary ml-1">
-        Go!
-      </button>
-
-      <SelectDivisionComponent eventID={event} />
     </>
   );
 }

@@ -16,6 +16,7 @@ import UpdateAllByes from "./UpdateAllByes";
 import PracticingWithFlexboxToDisplayTheBrackets from "./PracticingWithFlexboxToDisplayTheBrackets";
 import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
 import DisplayBracket from "./DisplayBracket";
+import RegistrationStartPage from "./registration/RegistrationStartPage";
 
 const App = (props: AppProps) => {
   return (
@@ -23,7 +24,8 @@ const App = (props: AppProps) => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Home />
+            {/* <Home /> */}
+            <LoggedIn />
           </Route>
           <Route exact path="/admin">
             <Admin />
@@ -52,6 +54,9 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path="/blah4">
             <UpdateAllByes />
+          </Route>
+          <Route exact path="/registrations">
+            <RegistrationStartPage />
           </Route>
           <Route exact path="/homepage">
             <LoggedIn />
@@ -84,6 +89,6 @@ const App = (props: AppProps) => {
 
 //this is a useless comment.
 
-interface AppProps { }
+interface AppProps {}
 
 export default App;
