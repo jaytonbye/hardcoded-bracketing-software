@@ -234,21 +234,27 @@ const RegistrationForm = (props: IProps) => {
         </div>
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Team name:</label>
-          <select name="" id="">
+          <select
+            onChange={(e: any) => {
+              setTeamId(e.target.value);
+            }}
+            name=""
+            id=""
+          >
             <option
-              onClick={() => {
-                setTeamId(null);
-              }}
               value=""
+              // onClick={() => {
+              //   setTeamId(null);
+              // }}
             ></option>
             {allTeams?.map((team) => {
               return (
                 <option
                   key={team.id}
-                  onClick={() => {
-                    setTeamId(team.id);
-                  }}
-                  value=""
+                  // onClick={() => {
+                  //   setTeamId(team.id);
+                  // }}
+                  value={team.id}
                 >
                   {team.team_name}
                 </option>
