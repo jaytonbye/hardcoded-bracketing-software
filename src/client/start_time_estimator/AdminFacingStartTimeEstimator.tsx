@@ -37,7 +37,35 @@ export default function AdminFacingStartTimeEstimator(props: any) {
   };
 
   let handleButtonClick = () => {
-    alert("clicked");
+    let token = sessionStorage.getItem("token");
+    let userID = 3; //hardcoded //Number(sessionStorage.getItem("UID"));
+    let eventID = 32; //hardcoded //props.eventID;
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        userID,
+        eventID,
+        startTimeOfEvent,
+        endTimeOfEvent,
+        averageMatchLength,
+        desiredTimeBetweenMatches,
+        lengthOfWeighins,
+        timeBetweenWeighinsAndWrestling,
+        numberOfMatsAvailable,
+      }),
+    };
+    fetch("/api/startTimeEstimatorSettings", requestOptions).then((res) => {
+      if (res.ok) {
+        alert("Start time estimator set!");
+      } else {
+        alert("it didn't work!");
+      }
+    });
   };
 
   return (

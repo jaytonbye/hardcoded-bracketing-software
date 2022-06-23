@@ -26,9 +26,9 @@ router.post("/", hasValidAdminToken, async (req, res) => {
     let endTimeOfEvent = req.body.endTimeOfEvent;
     let averageMatchLength = req.body.averageMatchLength;
     let desiredTimeBetweenMatches = req.body.desiredTimeBetweenMatches;
-    let lengthOfWeighIns = req.body.lengthOfWeighIns;
-    let timeBetweenWeighInsAndWrestling =
-      req.body.timeBetweenWeighInsAndWrestling;
+    let lengthOfWeighins = req.body.lengthOfWeighins;
+    let timeBetweenWeighinsAndWrestling =
+      req.body.timeBetweenWeighinsAndWrestling;
     let numberOfMatsAvailable = req.body.numberOfMatsAvailable;
 
     res.json(
@@ -39,8 +39,8 @@ router.post("/", hasValidAdminToken, async (req, res) => {
         endTimeOfEvent,
         averageMatchLength,
         desiredTimeBetweenMatches,
-        lengthOfWeighIns,
-        timeBetweenWeighInsAndWrestling,
+        lengthOfWeighins,
+        timeBetweenWeighinsAndWrestling,
         numberOfMatsAvailable
       )
     );
