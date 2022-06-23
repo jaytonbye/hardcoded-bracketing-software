@@ -46,6 +46,17 @@ router.get(
   }
 );
 
+router.get("/getDateOfEventByEventId/:evetnId", async (req, res) => {
+  try {
+    let eventId = req.params.eventId;
+    let dateOfEvent = await db.registrations.getDateOfEventByEventId(eventId);
+    res.json(dateOfEvent);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 //POST
 router.post("/postNewRegistration", async (req, res) => {
   try {

@@ -73,6 +73,10 @@ let getAllRegistrationsForDivision = async (
   );
 };
 
+let getDateOfEventByEventId = async (eventId: string | number) => {
+  return Query(`select date_of_event from events where id = ?;`, [eventId]);
+};
+
 //post
 let postNewRegistration = async (
   firstName: string,
@@ -163,6 +167,7 @@ export default {
   getAllThatAreRegistered,
   getAllRegistrationsForEvent,
   getAllRegistrationsForDivision,
+  getDateOfEventByEventId,
   //  POST
   postNewRegistration,
   // PUT

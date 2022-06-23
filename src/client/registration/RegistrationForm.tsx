@@ -34,8 +34,16 @@ const RegistrationForm = (props: IProps) => {
       fetch(`/api/divisions/divisionsByEventId/${eventId}`)
         .then((res) => res.json())
         .then((res) => setAllDivisionsBasedOnEventId(res));
+      fetch(`/api/registrations/getDateOfEventByEventId/${eventId}`)
+        .then((res) => {
+          res.json();
+        })
+        .then((res:any) => {
+          setEventDateDropDown(moment(res).format("MMMM, DD, YYYY"));
+        });
     } else {
       setAllDivisionsBasedOnEventId(null);
+      setEventDateDropDown("")
     }
   }, [eventId]);
 
@@ -109,9 +117,10 @@ const RegistrationForm = (props: IProps) => {
           <select
             onChange={(e: any) => {
               setEventId(e.target.value);
-              setEventDateDropDown(
-                moment(e.target.id).format("MMMM, DD, YYYY")
-              );
+              // console.log(e.target)
+              // setEventDateDropDown(
+              // console.log(e.target.id))
+              // ;
             }}
             style={{
               width: "15rem",
@@ -129,14 +138,14 @@ const RegistrationForm = (props: IProps) => {
               return (
                 <option
                   key={event.id}
-                  onClick={() => {
-                    // setEventId(event.id);
-                    // setEventDateDropDown(
-                    //   moment(event.date_of_event).format("MMMM, DD, YYYY")
-                    // );
-                  }}
-                  value={event.id}
+                  // onClick={() => {
+                  // setEventId(event.id);
+                  // setEventDateDropDown(
+                  //   moment(event.date_of_event).format("MMMM, DD, YYYY")
+                  // );
+                  // }}
                   id={event.date_of_event}
+                  value={event.id}
                 >
                   {event.name_of_event}
                 </option>
