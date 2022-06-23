@@ -9,6 +9,7 @@ import routesForDivisions from "./routes/routesForDivisions";
 import routesForTeams from "./routes/routesForTeams";
 import routesForRegistrations from "./routes/routesForRegistrations";
 import routesForBouts from "./routes/routesForBouts";
+import routesForStartTimeEstimatorSettings from "./routes/routesForStartTimeEstimatorSettings";
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.use("/divisions", routesForDivisions);
 router.use("/teams", routesForTeams);
 router.use("/registrations", routesForRegistrations);
 router.use("/bouts", routesForBouts);
+router.use("/startTimeEstimatorSettings", routesForStartTimeEstimatorSettings);
 
 export default router;

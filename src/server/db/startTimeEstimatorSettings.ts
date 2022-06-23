@@ -4,22 +4,42 @@ const allEstimators = async () => {
   return Query(`Select * from start_time_estimator_settings;`);
 };
 
-const singleEstimator = async (id: number) => {
-  return Query(`Select * from start_time_estimator_settings WHERE id=?;`, [id]);
+const mostRecenetEstimator = async (eventID: number) => {
+  return Query(
+    `select * from start_time_estimator_settings where event_id=?
+  Order By date_created DESC limit 1;`,
+    [eventID]
+  );
 };
 
 const createEstimator = async (
   userID: number,
-  name: string,
-  date: string, //why can't I use date here?
-  location: string
+  eventID: number,
+  startTimeOfEvent: any, //I think these can both be strings?
+  endTimeOfEvent: any,
+  averageMatchLength: number,
+  desiredTimeBetweenMatches: number,
+  lengthOfWeighIns: number,
+  timeBetweenWeighInsAndWrestling: number,
+  numberOfMatsAvailable: number
 ) => {
   return Query(
     `
-  INSERT INTO start_time_estimator_settings ()
-VALUES (?,);
+    INSERT into start_time_estimator_settings (event_id, added_by_user_id, start_time_of_event,end_time_of_event,
+        average_match_length,desired_time_between_matches,length_of_weigh_ins,time_between_weighins_and_wrestling,number_of_mats_available)
+                values(?, ?,?,?,?,?,?,?,?);
   `,
-    [name, date, location, userID]
+    [
+      eventID,
+      userID,
+      startTimeOfEvent,
+      endTimeOfEvent,
+      averageMatchLength,
+      desiredTimeBetweenMatches,
+      lengthOfWeighIns,
+      timeBetweenWeighInsAndWrestling,
+      numberOfMatsAvailable,
+    ]
   );
 };
 
@@ -30,5 +50,8 @@ const deleteEstimator = async (eventID: number) => {
 };
 
 export default {
-  allEvents,
+  allEstimators,
+  mostRecenetEstimator,
+  createEstimator,
+  deleteEstimator,
 };

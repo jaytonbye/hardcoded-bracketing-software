@@ -6,6 +6,7 @@ import teams from "./teams";
 import registrations from "./registrations";
 import bouts from "./bouts";
 import successful_logins from "./successful_logins";
+import startTimeEstimatorSettings from "./startTimeEstimatorSettings";
 
 import config from "../config";
 
@@ -35,4 +36,5 @@ export default {
   registrations,
   bouts,
   successful_logins,
+  startTimeEstimatorSettings,
 };
