@@ -2,6 +2,25 @@ import { Query } from "./index";
 
 //GETS
 // added for twilio but usefull
+let getNameAndTeamNameOnly = async (
+  eventId: string,
+  divisionId: string
+) => {
+  return Query(
+    `
+  select
+  reg.first_name,
+  reg.last_name, 
+  (select t.team_name from teams t
+    where reg.team_id = t.id) as team_name
+  from registrations reg
+  join events e on reg.event_id = e.id
+  where reg.event_id = ? and reg.division_they_are_competing_at_id = ?
+`,
+    [eventId, divisionId]
+  );
+};
+
 let getSingleRegistrationInfo = async (registrationId: string | number) => {
   return Query(
     `
@@ -198,6 +217,7 @@ let deleteSingleRegistration = async (registrationId: string | number) => {
 
 export default {
   //  GET
+  getNameAndTeamNameOnly,
   getSingleRegistrationInfo,
   getAllThatAreRegistered,
   getAllRegistrationsForEvent,

@@ -137,11 +137,11 @@ const RegistrationForm = (props: IProps) => {
           history.push("/");
           return res.json();
         } else {
-          alert("Problems occured. Registration may not have been accepted");
+          // alert("Problems occured. Registration may not have been accepted");
         }
       })
       .then((res) => {
-        if (res > 1) {
+        if (res > 0) {
           if (phoneNumber) {
             //maybne another calsue here?
             fetch(`/api/registrations/getSingleRegistrationInfo/${res}`)
