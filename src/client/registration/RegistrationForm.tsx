@@ -131,8 +131,9 @@ const RegistrationForm = (props: IProps) => {
       .then((res) => {
         if (res > 1) {
           // console.log(res);
-          alert(`You have successfully registered for event`);
+          alert(`You have successfully registered for event`); //put this before we parse json the res for the insert id and make sure status was 200ok and then put alert up .. deal with the text after that
           if (phoneNumber) {
+            //maybne another calsue here?
             fetch(`/api/registrations/getSingleRegistrationInfo/${res}`)
               .then((res) => res.json())
               .then((res: IRegistrations[]) => {
