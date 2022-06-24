@@ -439,6 +439,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
           </div>
         </div>
       </div>
+          <hr className="m-0" />
     </div>
   );
 };

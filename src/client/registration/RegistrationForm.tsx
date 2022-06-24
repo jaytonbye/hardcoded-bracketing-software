@@ -1,5 +1,6 @@
 import moment from "moment";
 import * as React from "react";
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
 import {
@@ -11,6 +12,7 @@ import {
 } from "./interfaces";
 
 const RegistrationForm = (props: IProps) => {
+  let history = useHistory();
   let [firstName, setFirstName] = useState<string>();
   let [lastName, setLastName] = useState<string>();
   let [email, setEmail] = useState<string>();
@@ -127,11 +129,19 @@ const RegistrationForm = (props: IProps) => {
         divisionTheySignedUpFor: divisionId,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 200) {
+          alert(
+            `You have successfully registered for the event. If you provided a phone number you should recieve a text shortly.`
+          ); //put this before we parse json the res for the insert id and make sure status was 200ok and then put alert up .. deal with the text after that
+          history.push("/");
+          return res.json();
+        } else {
+          alert("Problems occured. Registration may not have been accepted");
+        }
+      })
       .then((res) => {
         if (res > 1) {
-          // console.log(res);
-          alert(`You have successfully registered for event`); //put this before we parse json the res for the insert id and make sure status was 200ok and then put alert up .. deal with the text after that
           if (phoneNumber) {
             //maybne another calsue here?
             fetch(`/api/registrations/getSingleRegistrationInfo/${res}`)
@@ -175,7 +185,7 @@ const RegistrationForm = (props: IProps) => {
           }
         } else {
           alert(
-            "Something went wrong. your registration has not been accepted"
+            "Something went wrong. Your registration has not been accepted"
           );
         }
       });
