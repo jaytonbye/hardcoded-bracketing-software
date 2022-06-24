@@ -130,4 +130,17 @@ router.put("/updateRegistrationsWieght", async (req, res) => {
   }
 });
 
+//DELETE
+router.delete("/deleteSingleRegistration/:registrationId", async (req, res) => {
+  try {
+    let registrationId = req.params.registrationId;
+    let deleteSingleRegistration =
+      await db.registrations.deleteSingleRegistration(registrationId);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 export default router;

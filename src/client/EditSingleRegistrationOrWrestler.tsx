@@ -92,6 +92,11 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
         alert(`Weigh-in successful`);
         setEditPopUpDisplay("none");
         setShowWieghtSubmitButton(false);
+        //this removes the text from the input field after it is submitted i can remove this if we have probelms
+        // let wieghtInput:any = document.getElementById("submitWeightInput")
+        // wieghtInput.value = ""
+        // setWeightTheyWeighedInAt("")
+        //
         props.funForReRenderFromEditAllWrestlers();
       } else {
         alert(
@@ -153,6 +158,26 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
     });
   };
 
+  let deleteRegistrationFunc = () => {
+    let areYouSure = confirm(
+      "Are you sure you want to delete this registration?"
+    );
+    if (areYouSure) {
+      fetch(
+        `/api/registrations/deleteSingleRegistration/${props.registrationInfo.id}`,
+        { method: "DELETE", headers: { "Content-Type": "application/json" } }
+      ).then((res) => {
+        if (res.ok) {
+          alert(`Registration has been deleted`);
+          setEditPopUpDisplay("none");
+          props.funForReRenderFromEditAllWrestlers();
+        } else {
+          alert("Something went wrong. Failed to delete registration");
+        }
+      });
+    }
+  };
+
   ////////////////////////////////////////////////  HTML BELOW
   return (
     <div>
@@ -164,18 +189,25 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
               {props.registrationInfo.last_name}
             </p>
             <input
+            id="submitWeightInput"
+              style={{ width: "60px" }}
               type="text"
-              placeholder={weightTheyWeighedInAt}
+              // placeholder={weightTheyWeighedInAt}
               // defaultValue={props.registrationInfo.weight_they_weighed_in_at}
               onChange={(e: any) => {
                 setWeightTheyWeighedInAt(e.target.value);
                 setShowWieghtSubmitButton(true);
               }}
             />
-            {showWieghtSubmitButton && (
+            {showWieghtSubmitButton && weightTheyWeighedInAt && (
               <button className="btn-success" onClick={submitWeight}>
                 Submit weight
               </button>
+            )}
+            {props.registrationInfo.weight_they_weighed_in_at> 0 && (
+              <p>
+                wieghed-in: {props.registrationInfo.weight_they_weighed_in_at}
+              </p>
             )}
           </div>
         )}
@@ -223,6 +255,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.first_name}
             onChange={(e: any) => setFirstName(e.target.value)}
+            maxLength={25}
           />
           <br />
           <label>
@@ -233,6 +266,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.last_name}
             onChange={(e: any) => setLastName(e.target.value)}
+            maxLength={25}
           />{" "}
           <br />
           <label>
@@ -243,6 +277,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.phone_number}
             onChange={(e: any) => setPhoneNumber(e.target.value)}
+            maxLength={10}
           />
           <br />
           <label>
@@ -253,6 +288,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.email}
             onChange={(e: any) => setEmail(e.target.value)}
+            maxLength={50}
           />
           <br />
           <label>
@@ -391,6 +427,14 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
               onClick={handleGrayedOutDivClick}
             >
               Cancel
+            </button>
+          </div>
+          <div
+            style={{ marginTop: "2rem" }}
+            className="d-flex justify-content-center"
+          >
+            <button onClick={deleteRegistrationFunc} className="btn-danger">
+              Delete registration
             </button>
           </div>
         </div>

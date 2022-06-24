@@ -19,6 +19,10 @@ const RegistrationForm = (props: IProps) => {
   let [allDivisionsBasedOnEventId, setAllDivisionsBasedOnEventId] = useState<
     IAllDivisionsByEvent[] | null
   >();
+  let [eventNameForText, setEventNameForText] = React.useState<string>();
+  let [eventLocationForText, setEventLocationForText] =
+    React.useState<string>();
+  let [divisionNameForText, setDivisionNameForText] = React.useState<string>();
 
   useEffect(() => {
     fetch("/api/events/")
@@ -31,7 +35,15 @@ const RegistrationForm = (props: IProps) => {
 
   useEffect(() => {
     if (eventId) {
-      setDivisionId(null)
+      setDivisionId(null);
+      fetch(`/api/events/${eventId}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res[0]) {
+            setEventNameForText(res[0].name_of_event);
+            setEventLocationForText(res[0].location_of_event);
+          }
+        });
       fetch(`/api/divisions/divisionsByEventId/${eventId}`)
         .then((res) => res.json())
         .then((res) => setAllDivisionsBasedOnEventId(res));
@@ -39,14 +51,32 @@ const RegistrationForm = (props: IProps) => {
         .then((res) => res.json())
         .then((res: any) => {
           // console.log(res[0].date_of_event);
-          setEventDateDropDown(moment(res[0].date_of_event).format("MMMM, DD, YYYY"));
+          setEventDateDropDown(
+            moment(res[0].date_of_event).format("MMMM, DD, YYYY")
+          );
         });
     } else {
       setAllDivisionsBasedOnEventId(null);
-      setDivisionId(null)
+      setDivisionId(null);
       setEventDateDropDown("");
+      setEventNameForText("");
+      setEventLocationForText("");
     }
   }, [eventId]);
+
+  useEffect(() => {
+    if (divisionId) {
+      fetch(`/api/divisions/${divisionId}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res[0]) {
+            setDivisionNameForText(res[0].name_of_division);
+          }
+        });
+    } else {
+      setDivisionNameForText("");
+    }
+  }, [divisionId]);
 
   let checkRegistrationInfo = () => {
     if (
@@ -93,6 +123,21 @@ const RegistrationForm = (props: IProps) => {
     }).then((res) => {
       if (res.ok) {
         alert(`You have successfully registered for event`);
+        if (phoneNumber) {
+          fetch("/api/twilio/twilioEventRegistrationSuccessful", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              registrationPhoneNumber: phoneNumber,
+              firstName,
+              lastName,
+              eventName: eventNameForText,
+              eventDate: eventDateDropDown,
+              divisionName: divisionNameForText,
+              eventLocation: eventLocationForText,
+            }),
+          });
+        }
         if (props.funcForRenderingFromEditAllWrestlers) {
           props.funcForRenderingFromEditAllWrestlers();
         }
@@ -226,7 +271,7 @@ const RegistrationForm = (props: IProps) => {
             onChange={(e: any) => {
               setPhoneNumber(e.target.value);
             }}
-            type="text"
+            type="tel"
             maxLength={10}
             placeholder="5555555555"
           />

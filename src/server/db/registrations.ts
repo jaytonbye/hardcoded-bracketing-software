@@ -162,6 +162,11 @@ let putEditRegistrationWeight = async (
   );
 };
 
+//  DELETE
+let deleteSingleRegistration = async (registrationId: string | number) => {
+  await Query(`delete from registrations where id = ?;`, [registrationId]);
+};
+
 export default {
   //  GET
   getAllThatAreRegistered,
@@ -173,4 +178,5 @@ export default {
   // PUT
   putEditRegistrationInfo,
   putEditRegistrationWeight,
+  deleteSingleRegistration,
 };

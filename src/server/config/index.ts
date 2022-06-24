@@ -16,4 +16,8 @@ export default {
     domain: process.env.MAILGUN_DOMAIN,
     fromEmail: process.env.MAILGUN_FROM_EMAIL,
   },
+  twilio: {
+    twilioAccountSid: process.env.TWILIO_ACCOUNT_SID,
+    twilioAuthToken: process.env.TWILIO_AUTH_TOKEN,
+  },
 };
