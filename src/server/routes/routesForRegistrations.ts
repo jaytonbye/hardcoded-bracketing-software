@@ -5,6 +5,21 @@ import { hasValidAdminToken } from "../utils/tokenCheck";
 const router = Router();
 
 //GET
+router.get("/getNameAndTeamNameOnly/:eventId/:divisionId", async (req, res) => {
+  try {
+    let eventId = req.params.eventId;
+    let divisionId = req.params.divisionId;
+    let nameAndTeamNameOnly = await db.registrations.getNameAndTeamNameOnly(
+      eventId,
+      divisionId
+    );
+    res.json(nameAndTeamNameOnly);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 router.get(`/getSingleRegistrationInfo/:registrationId`, async (req, res) => {
   try {
     let registrationId = req.params.registrationId;
@@ -92,7 +107,7 @@ router.post("/postNewRegistration", async (req, res) => {
         divisionTheySignedUpFor
       );
     // console.log(newRegistrationResponseInfo.insertId);
-    res.json(newRegistrationResponseInfo.insertId)
+    res.json(newRegistrationResponseInfo.insertId);
     res.status(200);
   } catch (error) {
     console.log(error);
