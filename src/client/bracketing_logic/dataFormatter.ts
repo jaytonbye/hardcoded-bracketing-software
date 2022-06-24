@@ -1,9 +1,9 @@
-export let dataFormatter = (tabSeparatedWrestlersString) => {
-  let arrayOfWrestlersAndTeamsTabSeparated = tabSeparatedWrestlersString.split(
+export let dataFormatter = (tabSeparatedWrestlersString: string) => {
+  let arrayOfWrestlersAndTeamsTabSeparated: string[] = tabSeparatedWrestlersString.split(
     "\n"
   );
   console.log("the data formatter");
-  let arrayOfWrestlersandTeams = [];
+  let arrayOfWrestlersandTeams: IArrayOfWrestlersAndTeams[] = [];
   for (let x = 0; x < arrayOfWrestlersAndTeamsTabSeparated.length; x++) {
     let indexOfSlashT = arrayOfWrestlersAndTeamsTabSeparated[x].search("\t");
     let name = arrayOfWrestlersAndTeamsTabSeparated[x].slice(0, indexOfSlashT);
@@ -19,3 +19,9 @@ export let dataFormatter = (tabSeparatedWrestlersString) => {
 
   return arrayOfWrestlersandTeams;
 };
+
+interface IArrayOfWrestlersAndTeams {
+  name: string;
+  team: string;
+  seed: number;
+}

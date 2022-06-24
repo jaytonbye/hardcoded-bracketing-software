@@ -4,8 +4,6 @@
 
 **Simple tasks not necessary for MVP:**
 
-- Integrate round-robin brackets into software.
-
 - Highlight the winner on the display brackets page.
 - When a bout is edited, the component should rerender (on the display brackets page).
 - When a bout is dispatched to a mat, the component should rerender (on the display brackets page).

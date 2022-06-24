@@ -5,6 +5,8 @@ import EditDivisionsComponent from "./EditDivisionsComponent";
 import { useParams } from "react-router-dom";
 import AddStaffComponent from "./AddStaffComponent";
 import EditAllWrestlersOrAllInEvent from "./EditAllWrestlersOrAllInEvent";
+// import EditAllWrestlersInEvent from "./EditAllWrestlersInEvent";
+import AdminFacingStartTimeEstimator from "./start_time_estimator/AdminFacingStartTimeEstimator";
 
 export default function Admin() {
   const [
@@ -13,10 +15,16 @@ export default function Admin() {
   ] = React.useState<string>("All wrestlers in event");
   const [showAddDivision, setShowAddDivision] = React.useState(false);
   const [showAddStaff, setShowAddStaff] = React.useState(false);
-  const [showEditDivisions, setShowEditDivisions] =
-    React.useState<boolean>(true);
-  const [showEditAllWrestlersInEvent, setShowEditAllWrestlersInEvent] =
-    React.useState<boolean>(false);
+  const [showEditDivisions, setShowEditDivisions] = React.useState<boolean>(
+    true
+  );
+  const [
+    showEditAllWrestlersInEvent,
+    setShowEditAllWrestlersInEvent,
+  ] = React.useState<boolean>(false);
+  const [showStartTimeEstimator, setShowStartTimeEstimator] = React.useState(
+    false
+  );
   //const [showEditDivisions, setShowEditDivisions] = React.useState(false);
 
   let { eventID } = useParams<any>();
@@ -26,10 +34,17 @@ export default function Admin() {
   let showOrHideTheAddDivisionComponent = () => {
     setShowAddDivision(!showAddDivision);
     setShowAddStaff(false);
+    setShowStartTimeEstimator(false);
   };
   let showOrHideTheAddStaffComponent = () => {
     setShowAddStaff(!showAddStaff);
     setShowAddDivision(false);
+    setShowStartTimeEstimator(false);
+  };
+  let showOrHideTheStartTimeEstimator = () => {
+    setShowStartTimeEstimator(!showStartTimeEstimator);
+    setShowAddDivision(false);
+    setShowAddStaff(false);
   };
   let showOrHideAllWrestlers = () => {
     if (showEditDivisions) {
@@ -62,6 +77,12 @@ export default function Admin() {
         Add New Staff Login
       </button>
       <button
+        className="btn btn-primary ml-2 mt-2"
+        onClick={showOrHideTheStartTimeEstimator}
+      >
+        View Start Time Estimator
+      </button>
+      <button
         className="btn btn-success ml-2 mt-2"
         onClick={showOrHideAllWrestlers}
       >
@@ -75,7 +96,9 @@ export default function Admin() {
       </button> */}
       {showAddDivision && <AddDivisionComponent eventID={eventID} />}
       {showAddStaff && <AddStaffComponent />}
-
+      {showStartTimeEstimator && (
+        <AdminFacingStartTimeEstimator eventID={eventID} />
+      )}
       {showEditDivisions && <EditDivisionsComponent eventID={eventID} />}
       {showEditAllWrestlersInEvent && (
         <EditAllWrestlersOrAllInEvent eventID={eventID} />

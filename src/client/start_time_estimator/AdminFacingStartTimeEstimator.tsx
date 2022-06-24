@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function AdminFacingStartTimeEstimator(props: any) {
-  let eventID = 32; //hardcoded
+  let eventID = props.eventID;
 
   const [startTimeOfEvent, setStartTimeOfEvent] = useState();
   const [endTimeOfEvent, setEndTimeOfEvent] = useState();
@@ -12,6 +12,7 @@ export default function AdminFacingStartTimeEstimator(props: any) {
     timeBetweenWeighinsAndWrestling,
     setTimeBetweenWeighinsAndWrestling,
   ] = useState();
+  const [numberOfMatsAvailable, setNumberOfMatsAvailable] = useState();
 
   let onStartTimeOfEventChange = (e: any) => {
     setStartTimeOfEvent(e.target.value);
@@ -31,9 +32,40 @@ export default function AdminFacingStartTimeEstimator(props: any) {
   let onTimeBetweenWeighinsAndWrestlingChange = (e: any) => {
     setTimeBetweenWeighinsAndWrestling(e.target.value);
   };
+  let onNumberOfMatsAvailableChange = (e: any) => {
+    setNumberOfMatsAvailable(e.target.value);
+  };
 
   let handleButtonClick = () => {
-    alert("clicked");
+    let token = sessionStorage.getItem("token");
+    let userID = 3; //hardcoded //Number(sessionStorage.getItem("UID"));
+    let eventID = 32; //hardcoded //props.eventID;
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        userID,
+        eventID,
+        startTimeOfEvent,
+        endTimeOfEvent,
+        averageMatchLength,
+        desiredTimeBetweenMatches,
+        lengthOfWeighins,
+        timeBetweenWeighinsAndWrestling,
+        numberOfMatsAvailable,
+      }),
+    };
+    fetch("/api/startTimeEstimatorSettings", requestOptions).then((res) => {
+      if (res.ok) {
+        alert("Start time estimator set!");
+      } else {
+        alert("it didn't work!");
+      }
+    });
   };
 
   return (
@@ -53,6 +85,8 @@ export default function AdminFacingStartTimeEstimator(props: any) {
         Time between weighins closing and wrestling beginning (in minutes):{" "}
       </label>
       <input type="number" onChange={onTimeBetweenWeighinsAndWrestlingChange} />
+      <label>Number of mats available: </label>
+      <input type="number" onChange={onNumberOfMatsAvailableChange} />
       <button onClick={handleButtonClick} className="btn btn-primary ml-2 mt-2">
         Submit
       </button>

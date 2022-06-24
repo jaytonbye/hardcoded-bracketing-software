@@ -34,18 +34,16 @@
 // ];
 
 // This function will only work for full brackets (such as 2, 4, 8 16, 32, 64, etc.)
-export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
-  console.log("the real hey");
+export let seedingFunctionForUnlimitedCompetitors2 = (
+  seededArray: IArrayOfWrestlersAndTeams[]
+) => {
   //this part of the code determines the seeding order, but only generates an array of numbers which represent the seeds. At the end we will insert the wrestlers.
   let numberOfRoundsNeeded = Math.log2(seededArray.length);
   let arrayOfWrestlers = [1]; //starts out with a single wrestler in it.
 
   for (let round = 1; round <= numberOfRoundsNeeded; round++) {
     let pairAddsTo = Math.pow(2, round) + 1;
-    console.log({ round });
-    console.log({ pairAddsTo });
     for (let x = Math.pow(2, round - 1) + 1; x <= Math.pow(2, round); x++) {
-      console.log({ x });
       let indexOfCompliment = arrayOfWrestlers.indexOf(pairAddsTo - x);
       if (x % 2 === 0) {
         //evens
@@ -59,7 +57,9 @@ export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
   }
 
   //this part of the code actually places the wrestlers into the proper order
-  let finalArrayOfWrestlers = new Array(seededArray.length);
+  let finalArrayOfWrestlers: IArrayOfWrestlersAndTeams[] = new Array(
+    seededArray.length
+  );
   for (let z = 0; z < arrayOfWrestlers.length; z++) {
     let currentNumber = arrayOfWrestlers[z];
     finalArrayOfWrestlers.splice(currentNumber - 1, 1, seededArray[z]);
@@ -68,6 +68,13 @@ export let seedingFunctionForUnlimitedCompetitors2 = (seededArray) => {
   return finalArrayOfWrestlers;
 };
 
+//why is this function running?
 console.log(
   "hey from the outside looking in. This is running in seedingFunctionForUnlimited..."
 );
+
+interface IArrayOfWrestlersAndTeams {
+  name: string;
+  team: string;
+  seed: number;
+}
