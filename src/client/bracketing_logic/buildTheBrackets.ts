@@ -1,5 +1,7 @@
-export let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
-  let empty32ManDoubleEliminationBracket = [
+export let bracketBuilder = (
+  formattedArrayOfWrestlersAndTeams: IArrayOfWrestlersAndTeams[]
+) => {
+  let empty32ManDoubleEliminationBracket: IEmpty32ManDoubleEliminationBracket[] = [
     {
       matchNumber: 1,
       topLineWrestler: { name: "bye" },
@@ -623,7 +625,9 @@ export let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
     },
   ];
 
-  let populateBrackets = (arrayOfWrestlersandTeams2) => {
+  let populateBrackets = (
+    arrayOfWrestlersandTeams2: IArrayOfWrestlersAndTeams[]
+  ) => {
     console.log({ arrayOfWrestlersandTeams2 });
 
     for (let x = 0; x < empty32ManDoubleEliminationBracket.length; x++) {
@@ -643,3 +647,20 @@ export let bracketBuilder = (formattedArrayOfWrestlersAndTeams) => {
 
   return populateBrackets(formattedArrayOfWrestlersAndTeams);
 };
+
+interface IArrayOfWrestlersAndTeams {
+  name: string;
+  team: string;
+  seed: number;
+}
+
+interface IEmpty32ManDoubleEliminationBracket {
+  matchNumber: number;
+  topLineWrestler: { name: string } | IArrayOfWrestlersAndTeams;
+  bottomLineWrestler: { name: string } | IArrayOfWrestlersAndTeams;
+  winner: null | IArrayOfWrestlersAndTeams;
+  loser: null | IArrayOfWrestlersAndTeams;
+  score: null | string;
+  dispatched: boolean;
+  round: number;
+}

@@ -61,10 +61,9 @@ export default function AddCompetitorsComponent(props: IProps) {
     );
     console.log({ formattedArrayOfWrestlersAndTeams });
 
-    let seededArrayofWrestlersAndTeams =
-      seedingFunctionForUnlimitedCompetitors2(
-        formattedArrayOfWrestlersAndTeams
-      );
+    let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
+      formattedArrayOfWrestlersAndTeams
+    );
     console.log({ seededArrayofWrestlersAndTeams });
 
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
