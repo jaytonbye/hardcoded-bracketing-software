@@ -38,9 +38,36 @@ interface IRegistrations {
   weight_they_weighed_in_at: number | string;
   date_created: string;
   name_of_event: string;
+  location_of_event: string;
+  date_of_event: string;
   team_name: string;
   division_signed_up_for_name: string | number;
   division_competing_at_name: string | number;
 }
 
-export { IAllEvents, IAllDivisionsByEvent, IAllTeams, IRegistrations };
+// interface IRegistrations {
+//   id: number | string;
+//   first_name: string;
+//   last_name: string;
+//   phone_number: string;
+//   email: string;
+//   birthday: string;
+//   team_id: number | string;
+//   event_id: number | string;
+//   division_they_signed_up_for_id: number | string;
+//   division_they_are_competing_at_id: number | string;
+//   weight_they_weighed_in_at: number | string;
+//   date_created: string;
+//   name_of_event: string;
+//   team_name: string;
+//   division_signed_up_for_name: string | number;
+//   division_competing_at_name: string | number;
+// }
+
+export {
+  IAllEvents,
+  IAllDivisionsByEvent,
+  IAllTeams,
+  // ISingleRegistration,
+  IRegistrations,
+};

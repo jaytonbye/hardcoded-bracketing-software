@@ -43,6 +43,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
     string | number | any
   >(props.registrationInfo.weight_they_weighed_in_at);
   //
+  let [eventDateDropDown, setEventDateDropDown] = React.useState<string>();
   let [editPopUpDisplay, setEditPopUpDisplay] = React.useState<string>("none");
   let [showWieghtSubmitButton, setShowWieghtSubmitButton] =
     React.useState<boolean>(false);
@@ -50,11 +51,20 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
   React.useEffect(() => {
     if (editPopUpDisplay !== "none") {
       if (!eventId) {
+        setDivisionTheyAreCompetingAtId(null);
         setAlldivisionsInEvent(null);
+        setEventDateDropDown("");
       } else {
         fetch(`/api/divisions/divisionsByEventId/${eventId}`)
           .then((res) => res.json())
           .then((res) => setAlldivisionsInEvent(res));
+        fetch(`/api/registrations/getDateOfEventByEventId/${eventId}`)
+          .then((res) => res.json())
+          .then((res: any) => {
+            setEventDateDropDown(
+              moment(res[0].date_of_event).format("MMMM, DD, YYYY")
+            );
+          });
       }
     } else {
       // console.log("not yet");
@@ -74,7 +84,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        weight: weightTheyWeighedInAt,
+        weight: weightTheyWeighedInAt === "" ? null : weightTheyWeighedInAt,
         registrationId: props.registrationInfo.id,
       }),
     }).then((res) => {
@@ -82,6 +92,11 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
         alert(`Weigh-in successful`);
         setEditPopUpDisplay("none");
         setShowWieghtSubmitButton(false);
+        //this removes the text from the input field after it is submitted i can remove this if we have probelms
+        // let wieghtInput:any = document.getElementById("submitWeightInput")
+        // wieghtInput.value = ""
+        // setWeightTheyWeighedInAt("")
+        //
         props.funForReRenderFromEditAllWrestlers();
       } else {
         alert(
@@ -125,7 +140,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
         phoneNumber,
         email,
         birthday,
-        teamId,
+        teamId: teamId === "" ? null : teamId,
         eventId,
         divisionTheyAreCompetingAtId,
         weightTheyWeighedInAt:
@@ -143,6 +158,26 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
     });
   };
 
+  let deleteRegistrationFunc = () => {
+    let areYouSure = confirm(
+      "Are you sure you want to delete this registration?"
+    );
+    if (areYouSure) {
+      fetch(
+        `/api/registrations/deleteSingleRegistration/${props.registrationInfo.id}`,
+        { method: "DELETE", headers: { "Content-Type": "application/json" } }
+      ).then((res) => {
+        if (res.ok) {
+          alert(`Registration has been deleted`);
+          setEditPopUpDisplay("none");
+          props.funForReRenderFromEditAllWrestlers();
+        } else {
+          alert("Something went wrong. Failed to delete registration");
+        }
+      });
+    }
+  };
+
   ////////////////////////////////////////////////  HTML BELOW
   return (
     <div>
@@ -154,18 +189,25 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
               {props.registrationInfo.last_name}
             </p>
             <input
+              // id="submitWeightInput"
+              style={{ width: "60px" }}
               type="text"
-              placeholder={weightTheyWeighedInAt}
+              // placeholder={weightTheyWeighedInAt}
               // defaultValue={props.registrationInfo.weight_they_weighed_in_at}
               onChange={(e: any) => {
                 setWeightTheyWeighedInAt(e.target.value);
                 setShowWieghtSubmitButton(true);
               }}
             />
-            {showWieghtSubmitButton && (
+            {showWieghtSubmitButton && weightTheyWeighedInAt && (
               <button className="btn-success" onClick={submitWeight}>
                 Submit weight
               </button>
+            )}
+            {props.registrationInfo.weight_they_weighed_in_at > 0 && (
+              <p>
+                wieghed-in: {props.registrationInfo.weight_they_weighed_in_at}
+              </p>
             )}
           </div>
         )}
@@ -213,6 +255,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.first_name}
             onChange={(e: any) => setFirstName(e.target.value)}
+            maxLength={25}
           />
           <br />
           <label>
@@ -223,6 +266,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.last_name}
             onChange={(e: any) => setLastName(e.target.value)}
+            maxLength={25}
           />{" "}
           <br />
           <label>
@@ -233,6 +277,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.phone_number}
             onChange={(e: any) => setPhoneNumber(e.target.value)}
+            maxLength={10}
           />
           <br />
           <label>
@@ -243,6 +288,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             type="text"
             defaultValue={props.registrationInfo.email}
             onChange={(e: any) => setEmail(e.target.value)}
+            maxLength={50}
           />
           <br />
           <label>
@@ -261,19 +307,24 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
             <strong>Team</strong>
           </label>{" "}
           <br />
-          <select defaultValue={props.registrationInfo.team_id}>
+          <select
+            defaultValue={props.registrationInfo.team_id}
+            onChange={(e: any) => {
+              setTeamId(e.target.value);
+            }}
+          >
             <option
               value=""
-              onClick={() => {
-                setTeamId(null);
-              }}
+              // onClick={() => {
+              //   setTeamId(null);
+              // }}
             ></option>
             {props.allTeams.map((team) => {
               return (
                 <option
                   key={team.id}
                   value={team.id}
-                  onClick={() => setTeamId(team.id)}
+                  // onClick={() => setTeamId(team.id)}
                 >
                   {team.team_name}
                 </option>
@@ -282,28 +333,38 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
           </select>
           <br />
           <label>
-            <strong>event</strong>
+            <strong>Event</strong>
           </label>{" "}
           <br />
-          <select defaultValue={props.registrationInfo.event_id}>
+          <select
+            onChange={(e: any) => {
+              setEventId(e.target.value);
+            }}
+            defaultValue={props.registrationInfo.event_id}
+          >
             <option
               value=""
-              onClick={() => {
-                setEventId(null);
-              }}
+              // onClick={() => {
+              //   setEventId(null);
+              // }}
             ></option>
             {props.allEvents.map((event) => {
               return (
                 <option
                   key={event.id}
                   value={event.id}
-                  onClick={() => setEventId(event.id)}
+                  // onClick={() => setEventId(event.id)}
                 >
                   {event.name_of_event}
                 </option>
               );
             })}
           </select>
+          {eventDateDropDown && (
+            <label className="col-12">
+              <strong>Event date:</strong> {eventDateDropDown}
+            </label>
+          )}
           <br />
           <label>
             <strong>Division they signed up for</strong>
@@ -320,18 +381,21 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
           </label>{" "}
           <br />
           <select
-          // defaultValue={props.registrationInfo.division_they_are_competing_at}
+            // defaultValue={props.registrationInfo.division_they_are_competing_at}
+            onChange={(e: any) => {
+              setDivisionTheyAreCompetingAtId(e.target.value);
+            }}
           >
             <option
               value=""
-              onClick={() => setDivisionTheyAreCompetingAtId(null)}
+              // onClick={() => setDivisionTheyAreCompetingAtId(null)}
             ></option>
             {alldivisionsInEvent?.map((division) => {
               return (
                 <option
                   key={division.id}
                   value={division.id}
-                  onClick={() => setDivisionTheyAreCompetingAtId(division.id)}
+                  // onClick={() => setDivisionTheyAreCompetingAtId(division.id)}
                 >
                   {division.name_of_division}
                 </option>
@@ -365,8 +429,17 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
               Cancel
             </button>
           </div>
+          <div
+            style={{ marginTop: "2rem" }}
+            className="d-flex justify-content-center"
+          >
+            <button onClick={deleteRegistrationFunc} className="btn-danger">
+              Delete registration
+            </button>
+          </div>
         </div>
       </div>
+          <hr className="m-0" />
     </div>
   );
 };

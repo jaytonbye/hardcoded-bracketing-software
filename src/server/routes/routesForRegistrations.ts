@@ -5,6 +5,18 @@ import { hasValidAdminToken } from "../utils/tokenCheck";
 const router = Router();
 
 //GET
+router.get(`/getSingleRegistrationInfo/:registrationId`, async (req, res) => {
+  try {
+    let registrationId = req.params.registrationId;
+    let singleRegistrationInfo =
+      await db.registrations.getSingleRegistrationInfo(registrationId);
+    res.json(singleRegistrationInfo);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 router.get("/getAllThatAreRegiatered", async (req, res) => {
   try {
     let allThatAreRegistered = await db.registrations.getAllThatAreRegistered();
@@ -46,6 +58,17 @@ router.get(
   }
 );
 
+router.get("/getDateOfEventByEventId/:eventId", async (req, res) => {
+  try {
+    let eventId = req.params.eventId;
+    let dateOfEvent = await db.registrations.getDateOfEventByEventId(eventId);
+    res.json(dateOfEvent);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 //POST
 router.post("/postNewRegistration", async (req, res) => {
   try {
@@ -57,17 +80,20 @@ router.post("/postNewRegistration", async (req, res) => {
     let teamId: number = req.body.teamId;
     let eventId: number = req.body.eventId;
     let divisionTheySignedUpFor: number = req.body.divisionTheySignedUpFor;
-    await db.registrations.postNewRegistration(
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      birthday,
-      teamId,
-      eventId,
-      divisionTheySignedUpFor
-    );
-    res.sendStatus(200);
+    let newRegistrationResponseInfo: any =
+      await db.registrations.postNewRegistration(
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        birthday,
+        teamId,
+        eventId,
+        divisionTheySignedUpFor
+      );
+    // console.log(newRegistrationResponseInfo.insertId);
+    res.json(newRegistrationResponseInfo.insertId)
+    res.status(200);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -112,6 +138,19 @@ router.put("/updateRegistrationsWieght", async (req, res) => {
     let registrationId = req.body.registrationId;
     let updateRegistrationWeight =
       await db.registrations.putEditRegistrationWeight(weight, registrationId);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+//DELETE
+router.delete("/deleteSingleRegistration/:registrationId", async (req, res) => {
+  try {
+    let registrationId = req.params.registrationId;
+    let deleteSingleRegistration =
+      await db.registrations.deleteSingleRegistration(registrationId);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);

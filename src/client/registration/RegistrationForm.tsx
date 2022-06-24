@@ -1,10 +1,18 @@
 import moment from "moment";
 import * as React from "react";
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
-import { IAllEvents, IAllDivisionsByEvent, IAllTeams } from "./interfaces";
+import {
+  IAllEvents,
+  IAllDivisionsByEvent,
+  IAllTeams,
+  IRegistrations,
+  // ISingleRegistration,
+} from "./interfaces";
 
 const RegistrationForm = (props: IProps) => {
+  let history = useHistory();
   let [firstName, setFirstName] = useState<string>();
   let [lastName, setLastName] = useState<string>();
   let [email, setEmail] = useState<string>();
@@ -12,13 +20,17 @@ const RegistrationForm = (props: IProps) => {
   let [birthday, setBirthday] = useState<string>();
   let [teamId, setTeamId] = useState<string | number | null>();
   let [eventId, setEventId] = useState<string | number>();
-  let [divisionId, setDivisionId] = useState<string | number>();
+  let [divisionId, setDivisionId] = useState<string | number | null>();
   let [allTeams, setAllTeams] = useState<IAllTeams[]>();
   let [allEvents, setAllEvents] = useState<IAllEvents[]>();
   let [eventDateDropDown, setEventDateDropDown] = useState<string>();
   let [allDivisionsBasedOnEventId, setAllDivisionsBasedOnEventId] = useState<
     IAllDivisionsByEvent[] | null
   >();
+  let [eventNameForText, setEventNameForText] = React.useState<string>();
+  let [eventLocationForText, setEventLocationForText] =
+    React.useState<string>();
+  let [divisionNameForText, setDivisionNameForText] = React.useState<string>();
 
   useEffect(() => {
     fetch("/api/events/")
@@ -31,13 +43,48 @@ const RegistrationForm = (props: IProps) => {
 
   useEffect(() => {
     if (eventId) {
+      setDivisionId(null);
+      fetch(`/api/events/${eventId}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res[0]) {
+            setEventNameForText(res[0].name_of_event);
+            setEventLocationForText(res[0].location_of_event);
+          }
+        });
       fetch(`/api/divisions/divisionsByEventId/${eventId}`)
         .then((res) => res.json())
         .then((res) => setAllDivisionsBasedOnEventId(res));
+      fetch(`/api/registrations/getDateOfEventByEventId/${eventId}`)
+        .then((res) => res.json())
+        .then((res: any) => {
+          // console.log(res[0].date_of_event);
+          setEventDateDropDown(
+            moment(res[0].date_of_event).format("MMMM, DD, YYYY")
+          );
+        });
     } else {
       setAllDivisionsBasedOnEventId(null);
+      setDivisionId(null);
+      setEventDateDropDown("");
+      setEventNameForText("");
+      setEventLocationForText("");
     }
   }, [eventId]);
+
+  useEffect(() => {
+    if (divisionId) {
+      fetch(`/api/divisions/${divisionId}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res[0]) {
+            setDivisionNameForText(res[0].name_of_division);
+          }
+        });
+    } else {
+      setDivisionNameForText("");
+    }
+  }, [divisionId]);
 
   let checkRegistrationInfo = () => {
     if (
@@ -81,16 +128,67 @@ const RegistrationForm = (props: IProps) => {
         eventId,
         divisionTheySignedUpFor: divisionId,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        alert(`You have successfully registered for event`);
-        if (props.funcForRenderingFromEditAllWrestlers) {
-          props.funcForRenderingFromEditAllWrestlers();
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert(
+            `You have successfully registered for the event. If you provided a phone number you should recieve a text shortly.`
+          ); //put this before we parse json the res for the insert id and make sure status was 200ok and then put alert up .. deal with the text after that
+          history.push("/");
+          return res.json();
+        } else {
+          alert("Problems occured. Registration may not have been accepted");
         }
-      } else {
-        alert("Something went wrong. your registration has not been accepted");
-      }
-    });
+      })
+      .then((res) => {
+        if (res > 1) {
+          if (phoneNumber) {
+            //maybne another calsue here?
+            fetch(`/api/registrations/getSingleRegistrationInfo/${res}`)
+              .then((res) => res.json())
+              .then((res: IRegistrations[]) => {
+                if (res[0]) {
+                  fetch("/api/twilio/twilioEventRegistrationSuccessful", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      registrationPhoneNumber: res[0].phone_number,
+                      firstName: res[0].first_name,
+                      lastName: res[0].last_name,
+                      eventName: res[0].name_of_event,
+                      eventDate: moment(res[0].date_of_event).format(
+                        "MMMM, DD, YYYY"
+                      ),
+                      divisionName: res[0].division_signed_up_for_name,
+                      eventLocation: res[0].location_of_event,
+                    }),
+                  });
+                }
+              });
+            //this was the old way and it took the info from the states
+            // fetch("/api/twilio/twilioEventRegistrationSuccessful", {
+            //   method: "PUT",
+            //   headers: { "Content-Type": "application/json" },
+            //   body: JSON.stringify({
+            //     registrationPhoneNumber: phoneNumber,
+            //     firstName,
+            //     lastName,
+            //     eventName: eventNameForText,
+            //     eventDate: eventDateDropDown,
+            //     divisionName: divisionNameForText,
+            //     eventLocation: eventLocationForText,
+            //   }),
+            // });
+          }
+          if (props.funcForRenderingFromEditAllWrestlers) {
+            props.funcForRenderingFromEditAllWrestlers();
+          }
+        } else {
+          alert(
+            "Something went wrong. Your registration has not been accepted"
+          );
+        }
+      });
   };
 
   return (
@@ -107,28 +205,37 @@ const RegistrationForm = (props: IProps) => {
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Event:</label>
           <select
+            onChange={(e: any) => {
+              setEventId(e.target.value);
+              // console.log(e.target)
+              // setEventDateDropDown(
+              // console.log(e.target.id))
+              // ;
+            }}
             style={{
               width: "15rem",
             }}
           >
             <option
-              onClick={() => {
-                setEventId("");
-                setEventDateDropDown("");
-              }}
               value=""
+              id=""
+              // onClick={() => {
+              //   setEventId("");
+              //   setEventDateDropDown("");
+              // }}
             ></option>
             {allEvents?.map((event) => {
               return (
                 <option
                   key={event.id}
-                  onClick={() => {
-                    setEventId(event.id);
-                    setEventDateDropDown(
-                      moment(event.date_of_event).format("MMMM, DD, YYYY")
-                    );
-                  }}
-                  value=""
+                  // onClick={() => {
+                  // setEventId(event.id);
+                  // setEventDateDropDown(
+                  //   moment(event.date_of_event).format("MMMM, DD, YYYY")
+                  // );
+                  // }}
+                  id={event.date_of_event}
+                  value={event.id}
                 >
                   {event.name_of_event}
                 </option>
@@ -143,14 +250,23 @@ const RegistrationForm = (props: IProps) => {
         </div>
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Division:</label>
-          <select name="" id="">
-            <option onClick={() => setDivisionId("")} value=""></option>
+          <select
+            onChange={(e: any) => {
+              setDivisionId(e.target.value);
+            }}
+            name=""
+            id=""
+          >
+            <option
+              // onClick={() => setDivisionId("")}
+              value={""}
+            ></option>
             {allDivisionsBasedOnEventId?.map((division) => {
               return (
                 <option
-                  onClick={() => setDivisionId(division.id)}
+                  // onClick={() => setDivisionId(division.id)}
                   key={division.id}
-                  value=""
+                  value={division.id}
                 >
                   {division.name_of_division}
                 </option>
@@ -199,7 +315,7 @@ const RegistrationForm = (props: IProps) => {
             onChange={(e: any) => {
               setPhoneNumber(e.target.value);
             }}
-            type="text"
+            type="tel"
             maxLength={10}
             placeholder="5555555555"
           />
@@ -217,21 +333,27 @@ const RegistrationForm = (props: IProps) => {
         </div>
         <div className="col-12 d-flex justify-content-center flex-wrap  mt-2 mb-2">
           <label className="m-0">Team name:</label>
-          <select name="" id="">
+          <select
+            onChange={(e: any) => {
+              setTeamId(e.target.value);
+            }}
+            name=""
+            id=""
+          >
             <option
-              onClick={() => {
-                setTeamId(null);
-              }}
               value=""
+              // onClick={() => {
+              //   setTeamId(null);
+              // }}
             ></option>
             {allTeams?.map((team) => {
               return (
                 <option
                   key={team.id}
-                  onClick={() => {
-                    setTeamId(team.id);
-                  }}
-                  value=""
+                  // onClick={() => {
+                  //   setTeamId(team.id);
+                  // }}
+                  value={team.id}
                 >
                   {team.team_name}
                 </option>
