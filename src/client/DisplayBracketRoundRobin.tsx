@@ -5,11 +5,16 @@ import classNames from "classnames";
 import UpdateAllByes from "./UpdateAllByes";
 import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
 import "./PracticingWithFlexboxToDisplayTheBrackets.scss";
+import { IRegistrations } from "./registration/interfaces";
 
 export default function DisplayBracketRoundRobin(props: any) {
   const [bouts, setBouts] = React.useState([]);
   const [dispatchToMat, setDispatchToMat] = React.useState();
   const [modalShow, setModalShow] = React.useState<any>({});
+  const [
+    registrationInformationForThisDivision,
+    setRegistrationInformationForThisDivision,
+  ] = useState<IRegistrations[]>();
 
   let eventID = props.eventID;
   let divisionID = props.divisionID;
@@ -21,6 +26,18 @@ export default function DisplayBracketRoundRobin(props: any) {
         setBouts(results);
       });
   }, []);
+
+  React.useEffect(() => {
+    fetch(
+      `/api/registrations/getAllRegistrationsForDivision/${eventID}/${divisionID}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setRegistrationInformationForThisDivision(res);
+      });
+    if (eventID && divisionID && bouts) {
+    }
+  }, [bouts]);
 
   return false ? (
     <h1>Round Robin Bracket</h1>

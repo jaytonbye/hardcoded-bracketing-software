@@ -140,13 +140,11 @@ export default function AddCompetitorsComponent(props: IProps) {
   let handleSubmitWrestlerListForRoundRobinBracket = () => {
     labelBracketTypeInDatabase("round-robin", divisionID);
 
-    let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
+    // let formattedArrayOfWrestlersAndTeams = dataFormatter(wrestlerList);
 
-    console.log({ formattedArrayOfWrestlersAndTeams });
+    // console.log({ formattedArrayOfWrestlersAndTeams });
 
-    let roundRobinBrackets = roundRobinBuilder(
-      formattedArrayOfWrestlersAndTeams
-    );
+    let roundRobinBrackets = roundRobinBuilder(wrestlersNameTeamSeedArray);
     console.log(roundRobinBrackets);
 
     //creates individual matches out of the array
