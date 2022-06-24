@@ -189,7 +189,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
               {props.registrationInfo.last_name}
             </p>
             <input
-            id="submitWeightInput"
+              // id="submitWeightInput"
               style={{ width: "60px" }}
               type="text"
               // placeholder={weightTheyWeighedInAt}
@@ -204,7 +204,7 @@ const EditSingleRegistrationOrWrestler = (props: IProps) => {
                 Submit weight
               </button>
             )}
-            {props.registrationInfo.weight_they_weighed_in_at> 0 && (
+            {props.registrationInfo.weight_they_weighed_in_at > 0 && (
               <p>
                 wieghed-in: {props.registrationInfo.weight_they_weighed_in_at}
               </p>

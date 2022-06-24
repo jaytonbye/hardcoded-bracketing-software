@@ -1,11 +1,40 @@
 import { Query } from "./index";
 
 //GETS
+// added for twilio but usefull
+let getSingleRegistrationInfo = async (registrationId: string | number) => {
+  return Query(
+    `
+  select
+reg.*,
+e.name_of_event,
+e.location_of_event,
+e.date_of_event,
+(select t.team_name from teams t
+	where reg.team_id = t.id) as team_name,
+(select d.name_of_division from divisions d
+	where reg.division_they_signed_up_for_id = d.id)
+	as division_signed_up_for_name,
+(select d.name_of_division from divisions d
+	where reg.division_they_are_competing_at_id = d.id
+)
+as division_competing_at_name
+from registrations reg
+join events e on reg.event_id = e.id
+where reg.id = ?
+  `,
+    [registrationId]
+  );
+};
+//
+
 let getAllThatAreRegistered = async () => {
   return Query(`
   select
   reg.*,
   e.name_of_event,
+  e.location_of_event,
+  e.date_of_event,
   (select t.team_name from teams t
     where reg.team_id = t.id) as team_name,
   (select d.name_of_division from divisions d
@@ -169,6 +198,7 @@ let deleteSingleRegistration = async (registrationId: string | number) => {
 
 export default {
   //  GET
+  getSingleRegistrationInfo,
   getAllThatAreRegistered,
   getAllRegistrationsForEvent,
   getAllRegistrationsForDivision,

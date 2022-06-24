@@ -2,7 +2,13 @@ import moment from "moment";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
-import { IAllEvents, IAllDivisionsByEvent, IAllTeams } from "./interfaces";
+import {
+  IAllEvents,
+  IAllDivisionsByEvent,
+  IAllTeams,
+  IRegistrations,
+  // ISingleRegistration,
+} from "./interfaces";
 
 const RegistrationForm = (props: IProps) => {
   let [firstName, setFirstName] = useState<string>();
@@ -120,31 +126,58 @@ const RegistrationForm = (props: IProps) => {
         eventId,
         divisionTheySignedUpFor: divisionId,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        alert(`You have successfully registered for event`);
-        if (phoneNumber) {
-          fetch("/api/twilio/twilioEventRegistrationSuccessful", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              registrationPhoneNumber: phoneNumber,
-              firstName,
-              lastName,
-              eventName: eventNameForText,
-              eventDate: eventDateDropDown,
-              divisionName: divisionNameForText,
-              eventLocation: eventLocationForText,
-            }),
-          });
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res > 1) {
+          // console.log(res);
+          alert(`You have successfully registered for event`);
+          if (phoneNumber) {
+            fetch(`/api/registrations/getSingleRegistrationInfo/${res}`)
+              .then((res) => res.json())
+              .then((res: IRegistrations[]) => {
+                if (res[0]) {
+                  fetch("/api/twilio/twilioEventRegistrationSuccessful", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      registrationPhoneNumber: res[0].phone_number,
+                      firstName: res[0].first_name,
+                      lastName: res[0].last_name,
+                      eventName: res[0].name_of_event,
+                      eventDate: moment(res[0].date_of_event).format(
+                        "MMMM, DD, YYYY"
+                      ),
+                      divisionName: res[0].division_signed_up_for_name,
+                      eventLocation: res[0].location_of_event,
+                    }),
+                  });
+                }
+              });
+            //this was the old way and it took the info from the states
+            // fetch("/api/twilio/twilioEventRegistrationSuccessful", {
+            //   method: "PUT",
+            //   headers: { "Content-Type": "application/json" },
+            //   body: JSON.stringify({
+            //     registrationPhoneNumber: phoneNumber,
+            //     firstName,
+            //     lastName,
+            //     eventName: eventNameForText,
+            //     eventDate: eventDateDropDown,
+            //     divisionName: divisionNameForText,
+            //     eventLocation: eventLocationForText,
+            //   }),
+            // });
+          }
+          if (props.funcForRenderingFromEditAllWrestlers) {
+            props.funcForRenderingFromEditAllWrestlers();
+          }
+        } else {
+          alert(
+            "Something went wrong. your registration has not been accepted"
+          );
         }
-        if (props.funcForRenderingFromEditAllWrestlers) {
-          props.funcForRenderingFromEditAllWrestlers();
-        }
-      } else {
-        alert("Something went wrong. your registration has not been accepted");
-      }
-    });
+      });
   };
 
   return (
