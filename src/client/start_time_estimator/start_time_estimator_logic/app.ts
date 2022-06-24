@@ -155,7 +155,7 @@ console.log(
 );
 
 let allBracketSizes = [
-  5,
+  6,
   12,
   17,
   9,

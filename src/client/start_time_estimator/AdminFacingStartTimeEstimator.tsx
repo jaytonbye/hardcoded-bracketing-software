@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function AdminFacingStartTimeEstimator(props: any) {
-  let eventID = 32; //hardcoded
+  let eventID = props.eventID;
 
   const [startTimeOfEvent, setStartTimeOfEvent] = useState();
   const [endTimeOfEvent, setEndTimeOfEvent] = useState();
