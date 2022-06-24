@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // @ts-ignore
 import { dataFormatter } from "./bracketing_logic/dataFormatter";
@@ -18,11 +18,38 @@ import EditAllWrestlersOrAllInEvent from "./EditAllWrestlersOrAllInEvent";
 
 export default function AddCompetitorsComponent(props: IProps) {
   const [wrestlerList, setWrestlerList] = React.useState("");
+  const [allWrestlersInDivision, setAllWrestlersInDivision] = useState<any>();
+  const [
+    wrestlersNameTeamSeedArray,
+    setWrestlersNameTeamSeedArray,
+  ] = useState<any>();
 
   let token = sessionStorage.getItem("token");
   let userID = Number(sessionStorage.getItem("UID"));
   let eventID: string | number = props.eventID;
   let divisionID: string | number | any = props.divisionID;
+
+  useEffect(() => {
+    fetch(
+      `/api/registrations/getAllRegistrationsForDivision/${eventID}/${divisionID}`
+    )
+      .then((res) => res.json())
+      .then((res) => setAllWrestlersInDivision(res));
+  }, []);
+
+  useEffect(() => {
+    if (allWrestlersInDivision) {
+      let placeholderVariableName = [];
+      for (let x = 0; x < allWrestlersInDivision.length; x++) {
+        placeholderVariableName.push({
+          name: String(allWrestlersInDivision[x].id),
+          team: String(allWrestlersInDivision[x].team_id),
+          seed: x + 1,
+        });
+      }
+      setWrestlersNameTeamSeedArray(placeholderVariableName);
+    }
+  }, [allWrestlersInDivision]);
 
   let labelBracketTypeInDatabase = (
     bracketType: string,
@@ -57,8 +84,12 @@ export default function AddCompetitorsComponent(props: IProps) {
     labelBracketTypeInDatabase("double-elimination", divisionID);
 
     let formattedArrayOfWrestlersAndTeams = makeBracketHave32Competitors(
-      dataFormatter(wrestlerList)
+      wrestlersNameTeamSeedArray
     );
+
+    // makeBracketHave32Competitors(
+    //   dataFormatter(wrestlerList)
+    // );
     console.log({ formattedArrayOfWrestlersAndTeams });
 
     let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
