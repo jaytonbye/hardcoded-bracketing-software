@@ -15,7 +15,7 @@ export default function SingleMatPage(props: any) {
   let { eventID, matNumber } = useParams<any>();
 
   React.useEffect(() => {
-    fetch(`/api/bouts/dispatched/${eventID}&${matNumber}`)
+    fetch(`/api/bouts/dispatched/${eventID}/${matNumber}`)
       .then((res) => res.json())
       .then((results) => {
         setUpcomingBouts(results);

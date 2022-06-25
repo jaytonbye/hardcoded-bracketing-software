@@ -10,7 +10,7 @@ export default function SubmitResult(props: any) {
 
   //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
   let currentMat = useParams<any>().matNumber;
-  const history = useHistory()
+  const history = useHistory();
 
   const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);
   const [selectedWinner, setSelectedWinner] = React.useState();
@@ -40,7 +40,8 @@ export default function SubmitResult(props: any) {
     }
     let winner = selectedWinner;
     let areYouSureResultsAreCorrect = confirm(
-      `Are you sure ${JSON.parse(selectedWinner).name} from ${JSON.parse(selectedWinner).team
+      `Are you sure ${JSON.parse(selectedWinner).name} from ${
+        JSON.parse(selectedWinner).team
       } was the winner?`
     );
     if (areYouSureResultsAreCorrect) {
@@ -68,7 +69,7 @@ export default function SubmitResult(props: any) {
           // !props.boolUsedOnlyForReRenderingThisComponent === false
           //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
           //   : props.boolUsedOnlyForReRenderingThisComponent(false);
-          history.go(0)
+          history.go(0);
           // <Route path={"/"}/>
         } else {
           alert("It didn't submit the bout! Something is not working...");
@@ -114,7 +115,7 @@ export default function SubmitResult(props: any) {
         // !props.boolUsedOnlyForReRenderingThisComponent === false
         //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
         //   : props.boolUsedOnlyForReRenderingThisComponent(false);
-        history.go(0)
+        history.go(0);
         // window.location.reload();
         // <Route path={"/"} component={SingleMatPage}/>
       } else {
@@ -155,25 +156,29 @@ export default function SubmitResult(props: any) {
             <Form.Check
               type="radio"
               id="custom-switch"
-              label={<><strong>Name:</strong> {top_line_wrestler.name}{" "}
-                <strong>Team:</strong> {top_line_wrestler.team}</>}
+              label={
+                <>
+                  <strong>Name:</strong> {top_line_wrestler.name}{" "}
+                  <strong>Team:</strong> {top_line_wrestler.team}
+                </>
+              }
               value={JSON.stringify(top_line_wrestler)}
               checked={selectedWinner == JSON.stringify(top_line_wrestler)}
               onChange={onWinnerClicked}
-            >
-
-            </Form.Check>
+            ></Form.Check>
             <Form.Check
               type="radio"
               id="custom-switch-2"
-              label={<><strong>Name:</strong> {bottom_line_wrestler.name}{" "}
-                <strong>Team:</strong> {bottom_line_wrestler.team}</>}
+              label={
+                <>
+                  <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
+                  <strong>Team:</strong> {bottom_line_wrestler.team}
+                </>
+              }
               value={JSON.stringify(bottom_line_wrestler)}
               checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
               onChange={onWinnerClicked}
-            >
-
-            </Form.Check>
+            ></Form.Check>
             {/* <input
               className="form-check-input"
               type="radio"
@@ -196,7 +201,11 @@ export default function SubmitResult(props: any) {
           <div className=" col-sm-6 col-12">
             <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
               <label>Score: </label>
-              <input className="col-sm-2 col-12" type="text" onChange={onScoreChange} />
+              <input
+                className="col-sm-2 col-12"
+                type="text"
+                onChange={onScoreChange}
+              />
               <button
                 onClick={submitResult}
                 className="btn btn-sm btn-primary m-1"

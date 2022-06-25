@@ -22,7 +22,7 @@ router.get("/:id?", async (req, res) => {
 });
 
 router.get(
-  "/boutsByEventAndDivision/:eventID&:divisionID",
+  "/boutsByEventAndDivision/:eventID/:divisionID",
   async (req, res) => {
     let eventID = Number(req.params.eventID);
     let divisionID = Number(req.params.divisionID);
@@ -42,7 +42,7 @@ router.get(
   }
 );
 
-router.get("/dispatched/:eventID&:matNumber", async (req, res) => {
+router.get("/dispatched/:eventID/:matNumber", async (req, res) => {
   let eventID = Number(req.params.eventID);
   let matNumber = Number(req.params.matNumber);
   console.log(matNumber);

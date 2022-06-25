@@ -2,13 +2,11 @@ import { Query } from "./index";
 
 //GETS
 // added for twilio but usefull
-let getNameAndTeamNameOnly = async (
-  eventId: string,
-  divisionId: string
-) => {
+let getNameAndTeamNameOnly = async (eventId: string, divisionId: string) => {
   return Query(
     `
   select
+  reg.id,
   reg.first_name,
   reg.last_name, 
   (select t.team_name from teams t

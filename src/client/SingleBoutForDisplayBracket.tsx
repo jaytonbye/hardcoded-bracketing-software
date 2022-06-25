@@ -58,10 +58,10 @@ export default function SingleBoutForDisplayBracket(props: any) {
             className="display-4 font-weight-bold"
             style={{ fontSize: "1em" }}
           >
-            {JSON.parse(bout.top_line_wrestler).name}
+            {bout.topLineWrestlersActualName}
           </Card.Text>
           <Card.Text className="text-muted">
-            {JSON.parse(bout.top_line_wrestler).team}
+            {bout.topLineWrestlersActualTeamName}
           </Card.Text>
         </Card.Footer>
 
@@ -143,10 +143,10 @@ export default function SingleBoutForDisplayBracket(props: any) {
             className="display-4 font-weight-bold"
             style={{ fontSize: "1em" }}
           >
-            {JSON.parse(bout.bottom_line_wrestler).name}
+            {bout.bottomLineWrestlersActualName}
           </Card.Text>
           <Card.Text className="text-muted">
-            {JSON.parse(bout.bottom_line_wrestler).team}
+            {bout.bottomLineWrestlersActualTeamName}
           </Card.Text>
         </Card.Footer>
       </Card>
