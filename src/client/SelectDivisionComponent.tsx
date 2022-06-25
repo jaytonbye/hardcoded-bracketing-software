@@ -73,14 +73,14 @@ export default function SelectDivisionComponent(props: any) {
           divisionID={selectedDivisionId}
         />
       )}
-      {displayBracketList &&
+      {/* {displayBracketList &&
         selectedDivisionBracketType === "double-elimination" && (
           // <DisplayBracket eventID={props.eventID} divisionID={selectedDivisionId} />
           <DisplayBracket
             eventID={props.eventID}
             divisionID={selectedDivisionId}
           />
-        )}
+        )} */}
       {displayBracket && selectedDivisionBracketType === "round-robin" && (
         // <DisplayBracket eventID={props.eventID} divisionID={selectedDivisionId} />
         <DisplayBracketRoundRobin
@@ -88,13 +88,13 @@ export default function SelectDivisionComponent(props: any) {
           divisionID={selectedDivisionId}
         />
       )}
-      {displayBracketList && selectedDivisionBracketType === "round-robin" && (
+      {/* {displayBracketList && selectedDivisionBracketType === "round-robin" && (
         // <DisplayBracket eventID={props.eventID} divisionID={selectedDivisionId} />
         <DisplayBracket
           eventID={props.eventID}
           divisionID={selectedDivisionId}
         />
-      )}
+      )} */}
     </div>
   );
 }
