@@ -8,7 +8,25 @@ let addingActualNameAndActualTeamName = (
     theNewBoutsArray.push({
       ...bouts[x],
     });
+
+    //Harry is not happy that we did this, but it works. ~Spaghet
     for (let y = 0; y < registrationInformationForThisDivision.length; y++) {
+      if (JSON.parse(bouts[x].top_line_wrestler).name == "bye") {
+        theNewBoutsArray[x].topLineWrestlersActualName = "bye";
+        theNewBoutsArray[x].topLineWrestlersActualTeamName = "bye";
+      } else {
+        theNewBoutsArray[x].topLineWrestlersActualName = JSON.parse(
+          bouts[x].top_line_wrestler
+        ).name;
+      }
+      if (JSON.parse(bouts[x].bottom_line_wrestler).name == "bye") {
+        theNewBoutsArray[x].bottomLineWrestlersActualName = "bye";
+        theNewBoutsArray[x].bottomLineWrestlersActualTeamName = "bye";
+      } else {
+        theNewBoutsArray[x].bottomLineWrestlersActualName = JSON.parse(
+          bouts[x].bottom_line_wrestler
+        ).name;
+      }
       if (
         JSON.parse(bouts[x].bottom_line_wrestler).name ==
         registrationInformationForThisDivision[y].id
@@ -29,20 +47,10 @@ let addingActualNameAndActualTeamName = (
         theNewBoutsArray[x].topLineWrestlersActualTeamName =
           registrationInformationForThisDivision[y].team_name;
       }
-      if (JSON.parse(bouts[x].top_line_wrestler).name == "Bye") {
-        theNewBoutsArray[x].topLineWrestlersActualName = "Bye";
-        theNewBoutsArray[x].topLineWrestlersActualTeamName = "Bye";
-      }
-      if (JSON.parse(bouts[x].bottom_line_wrestler).name == "Bye") {
-        theNewBoutsArray[x].bottomLineWrestlersActualName = "Bye";
-        theNewBoutsArray[x].bottomLineWrestlersActualTeamName = "Bye";
-      }
     }
   }
-//   console.log({ theNewBoutsArray });
+  //   console.log({ theNewBoutsArray });
   return theNewBoutsArray;
 };
 
-export {
-  addingActualNameAndActualTeamName,
-};
+export { addingActualNameAndActualTeamName };

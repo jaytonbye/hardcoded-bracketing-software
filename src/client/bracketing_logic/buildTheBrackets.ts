@@ -1,11 +1,13 @@
 export let bracketBuilder = (
   formattedArrayOfWrestlersAndTeams: IArrayOfWrestlersAndTeams[]
 ) => {
-  let empty32ManDoubleEliminationBracket: IEmpty32ManDoubleEliminationBracket[] | any = [
+  let empty32ManDoubleEliminationBracket:
+    | IEmpty32ManDoubleEliminationBracket[]
+    | any = [
     {
       matchNumber: 1,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -14,8 +16,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 2,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -24,8 +26,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 3,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -34,8 +36,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 4,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -44,8 +46,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 5,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -54,8 +56,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 6,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -64,8 +66,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 7,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -74,8 +76,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 8,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -84,8 +86,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 9,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -94,8 +96,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 10,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -104,8 +106,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 11,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -114,8 +116,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 12,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -124,8 +126,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 13,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -134,8 +136,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 14,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -144,8 +146,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 15,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,
@@ -154,8 +156,8 @@ export let bracketBuilder = (
     },
     {
       matchNumber: 16,
-      topLineWrestler: { name: "Bye" },
-      bottomLineWrestler: { name: "Bye" },
+      topLineWrestler: { name: "bye" },
+      bottomLineWrestler: { name: "bye" },
       winner: null,
       loser: null,
       score: null,

@@ -7,7 +7,7 @@ import SingleBoutForDisplayBracket from "./SingleBoutForDisplayBracket";
 import "./PracticingWithFlexboxToDisplayTheBrackets.scss";
 import * as bracketingFunctions from "./services/BracketsFunctions";
 
-export default function DisplayBracket(props: any) {
+export default function DisplayBracketV2(props: any) {
   const [bouts, setBouts] = React.useState<any[]>([]);
   const [bouts2, setBouts2] = useState<any[]>([]);
   const [dispatchToMat, setDispatchToMat] = React.useState();
@@ -42,11 +42,10 @@ export default function DisplayBracket(props: any) {
 
   React.useEffect(() => {
     if (registrationInformationForThisDivision && bouts) {
-      let theNewBoutsArray =
-        bracketingFunctions.addingActualNameAndActualTeamName(
-          bouts,
-          registrationInformationForThisDivision
-        );
+      let theNewBoutsArray = bracketingFunctions.addingActualNameAndActualTeamName(
+        bouts,
+        registrationInformationForThisDivision
+      );
       setBouts2(theNewBoutsArray);
     }
   }, [registrationInformationForThisDivision]);
@@ -357,6 +356,6 @@ export default function DisplayBracket(props: any) {
       </>
     );
   } else {
-    return <p>Loading...  </p>;
+    return <p>Loading... </p>;
   }
 }
