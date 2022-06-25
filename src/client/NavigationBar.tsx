@@ -42,7 +42,19 @@ export default function NavigationBar() {
           <button className="btn btn-outline-primary" onClick={goToHome}>
             Events
           </button>
-
+          <button
+            style={{
+              backgroundColor: "blue",
+              color: "white",
+              borderColor: "black",
+            }}
+            className="btn btn-outline-primary"
+            onClick={goToRegisterForEvenetPage}
+          >
+            <u>
+              <strong>Register for an event</strong>
+            </u>
+          </button>
           <button className="btn btn-outline-primary" onClick={goToLogIn}>
             login for admin
           </button>
@@ -51,25 +63,8 @@ export default function NavigationBar() {
               Admin Panel
             </button>
           )}
-          <button className="btn btn-outline-success" onClick={logout}>
+          <button className="btn btn-outline-primary" onClick={logout}>
             Logout
-          </button>
-        </div>
-        <div className="d-flex justify-content-center col-12">
-          <button
-            style={{
-              backgroundColor: "yellow",
-              color: "black",
-              width: "100%",
-              borderRadius: "20px",
-              borderColor: "black",
-            }}
-            className="btn btn-outline-primary mt-2"
-            onClick={goToRegisterForEvenetPage}
-          >
-            <u>
-              <strong>Register for an event</strong>
-            </u>
           </button>
         </div>
       </nav>

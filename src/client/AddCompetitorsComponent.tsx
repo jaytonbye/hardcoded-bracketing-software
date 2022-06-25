@@ -14,7 +14,7 @@ import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 
 // @ts-ignore
 import { roundRobinBuilder } from "./bracketing_logic/roundRobinBuilder.ts";
-import EditAllWrestlersOrAllInEvent from "./EditAllWrestlersOrAllInEvent";
+import EditAllWrestlersOrAllInEventComponentStart from "./registration/EditAllWrestlersOrAllInEventComponentStart";
 
 export default function AddCompetitorsComponent(props: IProps) {
   const [wrestlerList, setWrestlerList] = React.useState("");
@@ -190,7 +190,7 @@ export default function AddCompetitorsComponent(props: IProps) {
     <>
       <div>
         {
-          <EditAllWrestlersOrAllInEvent
+          <EditAllWrestlersOrAllInEventComponentStart
             eventID={props.eventID}
             divisionID={props.divisionID}
           />

@@ -3,12 +3,12 @@ import {
   IRegistrations,
   IAllTeams,
   IAllEvents,
-} from "./registration/interfaces";
+} from "../registration/interfaces";
 import EditSingleRegistrationOrWrestler from "./EditSingleRegistrationOrWrestler";
 import { Button, ButtonToolbar } from "react-bootstrap";
-import RegistrationForm from "./registration/RegistrationForm";
+import RegistrationForm from "../registration/RegistrationForm";
 
-const EditAllWrestlersOrAllInEvent = (props: IProps) => {
+const EditAllWrestlersOrAllInEventComponentStart = (props: IProps) => {
   const [showRegisterForAdminForm, setShowRegisterForAdminForm] =
     React.useState<boolean>(false);
   const [
@@ -104,7 +104,7 @@ const EditAllWrestlersOrAllInEvent = (props: IProps) => {
   );
 };
 
-export default EditAllWrestlersOrAllInEvent;
+export default EditAllWrestlersOrAllInEventComponentStart;
 
 interface IProps {
   eventID?: number | string;

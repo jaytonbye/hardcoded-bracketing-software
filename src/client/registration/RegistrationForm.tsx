@@ -27,10 +27,10 @@ const RegistrationForm = (props: IProps) => {
   let [allDivisionsBasedOnEventId, setAllDivisionsBasedOnEventId] = useState<
     IAllDivisionsByEvent[] | null
   >();
-  let [eventNameForText, setEventNameForText] = React.useState<string>();
-  let [eventLocationForText, setEventLocationForText] =
-    React.useState<string>();
-  let [divisionNameForText, setDivisionNameForText] = React.useState<string>();
+  // let [eventNameForText, setEventNameForText] = React.useState<string>();
+  // let [eventLocationForText, setEventLocationForText] =
+  //   React.useState<string>();
+  // let [divisionNameForText, setDivisionNameForText] = React.useState<string>();
 
   useEffect(() => {
     fetch("/api/events/")
@@ -46,12 +46,12 @@ const RegistrationForm = (props: IProps) => {
       setDivisionId(null);
       fetch(`/api/events/${eventId}`)
         .then((res) => res.json())
-        .then((res) => {
-          if (res[0]) {
-            setEventNameForText(res[0].name_of_event);
-            setEventLocationForText(res[0].location_of_event);
-          }
-        });
+        // .then((res) => {
+        //   if (res[0]) {
+        //     setEventNameForText(res[0].name_of_event);
+        //     setEventLocationForText(res[0].location_of_event);
+        //   }
+        // });
       fetch(`/api/divisions/divisionsByEventId/${eventId}`)
         .then((res) => res.json())
         .then((res) => setAllDivisionsBasedOnEventId(res));
@@ -67,24 +67,24 @@ const RegistrationForm = (props: IProps) => {
       setAllDivisionsBasedOnEventId(null);
       setDivisionId(null);
       setEventDateDropDown("");
-      setEventNameForText("");
-      setEventLocationForText("");
+      // setEventNameForText("");
+      // setEventLocationForText("");
     }
   }, [eventId]);
 
-  useEffect(() => {
-    if (divisionId) {
-      fetch(`/api/divisions/${divisionId}`)
-        .then((res) => res.json())
-        .then((res) => {
-          if (res[0]) {
-            setDivisionNameForText(res[0].name_of_division);
-          }
-        });
-    } else {
-      setDivisionNameForText("");
-    }
-  }, [divisionId]);
+  // useEffect(() => {
+  //   if (divisionId) {
+  //     fetch(`/api/divisions/${divisionId}`)
+  //       .then((res) => res.json())
+  //       // .then((res) => {
+  //       //   if (res[0]) {
+  //       //     setDivisionNameForText(res[0].name_of_division);
+  //       //   }
+  //       // });
+  //   } else {
+  //     setDivisionNameForText("");
+  //   }
+  // }, [divisionId]);
 
   let checkRegistrationInfo = () => {
     if (
@@ -121,10 +121,10 @@ const RegistrationForm = (props: IProps) => {
       body: JSON.stringify({
         firstName,
         lastName,
-        phoneNumber,
+        phoneNumber: phoneNumber === "" ? null : phoneNumber,
         email,
         birthday,
-        teamId,
+        teamId: teamId === "" ? null : teamId,
         eventId,
         divisionTheySignedUpFor: divisionId,
       }),

@@ -4,7 +4,7 @@ import AddDivisionComponent from "./AddDivisionComponent";
 import EditDivisionsComponent from "./EditDivisionsComponent";
 import { useParams } from "react-router-dom";
 import AddStaffComponent from "./AddStaffComponent";
-import EditAllWrestlersOrAllInEvent from "./EditAllWrestlersOrAllInEvent";
+import EditAllWrestlersOrAllInEventComponentStart from "./registration/EditAllWrestlersOrAllInEventComponentStart";
 // import EditAllWrestlersInEvent from "./EditAllWrestlersInEvent";
 import AdminFacingStartTimeEstimator from "./start_time_estimator/AdminFacingStartTimeEstimator";
 
@@ -101,7 +101,7 @@ export default function Admin() {
       )}
       {showEditDivisions && <EditDivisionsComponent eventID={eventID} />}
       {showEditAllWrestlersInEvent && (
-        <EditAllWrestlersOrAllInEvent eventID={eventID} />
+        <EditAllWrestlersOrAllInEventComponentStart eventID={eventID} />
       )}
     </>
   );

@@ -5,7 +5,7 @@ import {
   IAllEvents,
   IAllTeams,
   IRegistrations,
-} from "./registration/interfaces";
+} from "./interfaces";
 
 //not scrollable if zoomed in or on mobile fix this or undo all the styles use width and height on divcheck for number lengths and shit
 const EditSingleRegistrationOrWrestler = (props: IProps) => {
