@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import CustomerFacingStartTimeEstimator from "./CustomerFacingStartTimeEstimator";
 
 export default function AdminFacingStartTimeEstimator(props: any) {
+  let token = sessionStorage.getItem("token");
+  let userID = 3; //hardcoded //Number(sessionStorage.getItem("UID"));
   let eventID = props.eventID;
 
   const [startTimeOfEvent, setStartTimeOfEvent] = useState();
@@ -37,9 +40,6 @@ export default function AdminFacingStartTimeEstimator(props: any) {
   };
 
   let handleButtonClick = () => {
-    let token = sessionStorage.getItem("token");
-    let userID = 3; //hardcoded //Number(sessionStorage.getItem("UID"));
-    let eventID = 32; //hardcoded //props.eventID;
     const requestOptions = {
       method: "POST",
       headers: {
@@ -90,6 +90,7 @@ export default function AdminFacingStartTimeEstimator(props: any) {
       <button onClick={handleButtonClick} className="btn btn-primary ml-2 mt-2">
         Submit
       </button>
+      <CustomerFacingStartTimeEstimator eventID={eventID} />
     </>
   );
 }

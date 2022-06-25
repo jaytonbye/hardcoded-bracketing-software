@@ -84,4 +84,21 @@ router.delete("/:id", hasValidEventAdministratorToken, async (req, res) => {
   }
 });
 
+router.get(
+  "/findTheNumberOfCompetitorsInEachDivisionOfAnEvent/:id?",
+  async (req, res) => {
+    let eventID = Number(req.params.id);
+    try {
+      res.json(
+        await db.divisions.findTheNumberOfCompetitorsInEachDivisionOfAnEvent(
+          eventID
+        )
+      );
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(500);
+    }
+  }
+);
+
 export default router;

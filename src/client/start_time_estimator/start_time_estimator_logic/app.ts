@@ -2,7 +2,7 @@
 //I have decide to user tournament-round and bracket-round.
 
 //This function takes in a number (the number of competitors in single bracket) and returns an array of the number of matches there will be in each round of the bracket.
-let determineNumberOfMatchesInEachBracketRound = (
+let determineNumberOfMatchesInEachBracketRoundForDoubleElimination = (
   bracketSize: number
 ): Array<number> => {
   let numberOfRoundsRequired: number = Math.ceil(Math.log2(bracketSize));
@@ -44,10 +44,11 @@ let arrayOfBracketsWhereEachBracketIsAnArrayOfTheNumberOfMatchesRequiredThatBrac
 
   for (let x = 0; x < arrayOfBracketSizes.length; x++) {
     finalArray.push(
-      determineNumberOfMatchesInEachBracketRound(arrayOfBracketSizes[x])
+      determineNumberOfMatchesInEachBracketRoundForDoubleElimination(
+        arrayOfBracketSizes[x]
+      )
     );
   }
-
   return finalArray;
 };
 
@@ -68,14 +69,14 @@ let optimalRoundSpacingFunction = (
     numberOfMatchesPerBracketRound < 999;
     numberOfMatchesPerBracketRound++
   ) {
-    console.log({ numberOfMatchesPerBracketRound });
+    // console.log({ numberOfMatchesPerBracketRound });
     let totalNumberOfMatchesThisTournamentRoundCounter: number = 0;
     for (
       let weightClass = 0;
       weightClass < theArrayOfBracketsAsArraysOfRoundSizes.length;
       weightClass++
     ) {
-      console.log({ weightClass });
+      // console.log({ weightClass });
       //if there isn't a number, we put a 0 there. If we don't do this, it will break the accumulator
       if (
         !theArrayOfBracketsAsArraysOfRoundSizes[weightClass][
@@ -111,11 +112,11 @@ let optimalRoundSpacingFunction = (
       }
     }
     if (totalNumberOfMatchesThisTournamentRoundCounter === 0) {
-      console.log("breaking out of outer loop");
+      // console.log("breaking out of outer loop");
       break;
     }
   }
-  console.log({ theArrayOfBracketsAsArraysOfRoundSizes });
+  // console.log({ theArrayOfBracketsAsArraysOfRoundSizes });
   return theArrayOfBracketsAsArraysOfRoundSizes;
 };
 
@@ -138,65 +139,74 @@ let numberOfMatchesPerRound = (
     if (!totalMatchesTalliedThisRound) {
       break;
     }
-    // console.log({ round });
-    // console.log({ totalMatchesTalliedThisRound });
+
     arrayOfMatchesPerTournamentRounds.push(totalMatchesTalliedThisRound);
     totalMatchesTalliedThisRound = 0;
   }
   return arrayOfMatchesPerTournamentRounds;
 };
 
-console.log("optimal:");
+// console.log("optimal:");
 optimalRoundSpacingFunction(29, [16, 16, 16, 16, 16]);
 
-console.log("number of matches per tournament round");
-console.log(
-  numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
-);
+// console.log("number of matches per tournament round");
+// console.log(
+//   numberOfMatchesPerRound(optimalRoundSpacingFunction(9, [8, 16, 9, 11, 6]))
+// );
 
 let allBracketSizes = [
-  125,
-  200,
-  195,
-  199,
-  126,
-  156,
-  79,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
   63,
-  103,
-  192,
-  201,
-  122,
-  114,
-  125,
-  200,
-  195,
-  199,
-  126,
-  156,
-  79,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
   63,
-  103,
-  192,
-  201,
-  122,
-  114,
-  125,
-  200,
-  195,
-  199,
-  126,
-  156,
-  79,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
   63,
-  103,
-  192,
-  201,
-  122,
-  114,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
+  63,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
+  63,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
+  63,
+  121,
+  144,
+  87,
+  36,
+  62,
+  25,
+  63,
 ];
-let averageLengthOfAMatch = 8;
-let numberOfMatsAtEvent = 50;
+let averageLengthOfAMatch = 7;
+let numberOfMatsAtEvent = 80;
 let lengthOfEachTournamentRound = 60;
 let eventStartTimeInMinutes = 9 * 60;
 let lengthOfWeighins = 20;

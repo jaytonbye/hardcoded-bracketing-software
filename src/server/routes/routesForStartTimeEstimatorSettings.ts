@@ -8,7 +8,7 @@ router.get("/:id?", async (req, res) => {
   let id = Number(req.params.id);
   try {
     if (id) {
-      res.json(await db.startTimeEstimatorSettings.mostRecenetEstimator);
+      res.json(await db.startTimeEstimatorSettings.mostRecenetEstimator(id));
     } else {
       res.json(await db.startTimeEstimatorSettings.allEstimators());
     }

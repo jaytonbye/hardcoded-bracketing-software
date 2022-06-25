@@ -50,6 +50,21 @@ WHERE id=? and bracket_type is null;
   );
 };
 
+const findTheNumberOfCompetitorsInEachDivisionOfAnEvent = async (
+  eventID: number
+) => {
+  return Query(
+    `
+    SELECT COUNT(divisions.id) as "number_of_competitors_in_division", division_they_are_competing_at_id, divisions.name_of_division
+FROM registrations
+JOIN divisions on divisions.id = registrations.division_they_are_competing_at_id
+Where divisions.event_id=35
+GROUP BY division_they_are_competing_at_id;
+    `,
+    [eventID]
+  );
+};
+
 export default {
   allDivisions,
   allDivisionsForSingleEvent,
@@ -58,4 +73,5 @@ export default {
   deleteDivision,
   deleteCorrespondingBouts,
   updateDivisionWithItsBracketType,
+  findTheNumberOfCompetitorsInEachDivisionOfAnEvent,
 };
