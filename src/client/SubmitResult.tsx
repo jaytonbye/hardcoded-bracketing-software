@@ -60,7 +60,7 @@ export default function SubmitResult(props: any) {
           [props.bout],
           registrationInformationForThisDivision
         );
-      console.log(theNewBoutsArray);
+      setBouts2(theNewBoutsArray);
     }
   }, [registrationInformationForThisDivision, props.bout]);
 
