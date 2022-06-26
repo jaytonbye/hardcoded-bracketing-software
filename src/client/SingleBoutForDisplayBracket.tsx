@@ -3,10 +3,14 @@ import { Card, Button } from "react-bootstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import ModalForDisplayBrackets from "./ModalForDisplayBrackets";
+import { ISingleBoutInfoAfterPutThroughFuncforActualNames } from "./services/interfaces";
+import * as twilioFunctions from "./services/TwilioFunctions";
 import moment from "moment";
 
 export default function SingleBoutForDisplayBracket(props: any) {
-  const [dispatchToMat, setDispatchToMat] = React.useState();
+  const [dispatchToMat, setDispatchToMat] = React.useState<
+    undefined | number | any
+  >();
   const [modalShow, setModalShow] = React.useState<any>({});
 
   let token = sessionStorage.getItem("token");
@@ -14,7 +18,7 @@ export default function SingleBoutForDisplayBracket(props: any) {
   let index = props.index; //wtf is wc doing here?
   let bouts = props.bouts; //are we passing too much?
 
-  let bout = props.bout;
+  let bout: ISingleBoutInfoAfterPutThroughFuncforActualNames | any = props.bout;
 
   let onDispatchToMatChange = (e: any) => {
     setDispatchToMat(e.target.value);
@@ -38,6 +42,19 @@ export default function SingleBoutForDisplayBracket(props: any) {
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
       if (res.ok) {
         alert(`The match was dispatched without a catch`);
+        //twilio if match was dispatched succefully
+        twilioFunctions.dispatchedToMatMessage(
+          JSON.parse(bout.top_line_wrestler).name,
+          dispatchToMat,
+          bout.topLineWrestlersActualName,
+          bout.bottomLineWrestlersActualName
+        );
+        twilioFunctions.dispatchedToMatMessage(
+          JSON.parse(bout.bottom_line_wrestler).name,
+          dispatchToMat,
+          bout.topLineWrestlersActualName,
+          bout.bottomLineWrestlersActualName
+        );
       } else {
         alert("it didn't work! You likely don't have the security clearance!");
       }

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import SingleMatPage from "./SingleMatPage";
+import { ISingleBoutInfoAfterPutThroughFuncforActualNames } from "./services/interfaces";
 import * as bracketingFunctions from "./services/BracketsFunctions";
+import * as twilioFunctions from "./services/TwilioFunctions";
 
 export default function SubmitResult(props: any) {
   // console.log(!props.boolUsedOnlyForReRenderingThisComponent)
@@ -11,17 +13,23 @@ export default function SubmitResult(props: any) {
 
   //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
   let currentMat = useParams<any>().matNumber;
-  const history = useHistory();
   const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);
-  const [selectedWinner, setSelectedWinner] = React.useState();
+  const [selectedWinner, setSelectedWinner] = React.useState<any>();
+  const [winnerActualName, setWinnerActualName] = React.useState<
+    string | any
+  >();
+  const [loserActualName, setLoserActualName] = React.useState<string | any>();
+  const [loserToParse, setLoserToParse] = React.useState<any>();
   const [
     registrationInformationForThisDivision,
     setRegistrationInformationForThisDivision,
   ] = React.useState<any>();
-  const [bouts2, setBouts2] = React.useState<any[]>();
-
+  const [bouts2, setBouts2] = React.useState<
+    any[] | any | ISingleBoutInfoAfterPutThroughFuncforActualNames[]
+  >();
   let token = sessionStorage.getItem("token");
 
+  let bout = props.bout;
   let top_line_wrestler = JSON.parse(props.bout.top_line_wrestler);
   let bottom_line_wrestler = JSON.parse(props.bout.bottom_line_wrestler);
   let boutID = props.bout.id;
@@ -55,10 +63,11 @@ export default function SubmitResult(props: any) {
       // console.log("#####");
       // console.log(props.bout);
       // console.log(registrationInformationForThisDivision);
-      let theNewBoutsArray = bracketingFunctions.addingActualNameAndActualTeamName(
-        [props.bout],
-        registrationInformationForThisDivision
-      );
+      let theNewBoutsArray =
+        bracketingFunctions.addingActualNameAndActualTeamName(
+          [props.bout],
+          registrationInformationForThisDivision
+        );
       setBouts2(theNewBoutsArray);
     }
   }, [registrationInformationForThisDivision, props.bout]);
@@ -102,10 +111,22 @@ export default function SubmitResult(props: any) {
       fetch("/api/bouts/result", requestOptions).then((res) => {
         if (res.ok) {
           alert("Result Submitted");
+          //twilio
+          twilioFunctions.resultsMessage(
+            JSON.parse(selectedWinner).name,
+            winnerActualName,
+            loserActualName
+          );
+          twilioFunctions.resultsMessage(
+            JSON.parse(loserToParse).name,
+            winnerActualName,
+            loserActualName
+          );
+          props.rerenderFunc();
           // !props.boolUsedOnlyForReRenderingThisComponent === false
           //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
           //   : props.boolUsedOnlyForReRenderingThisComponent(false);
-          history.go(0);
+          // history.go(0);
           // <Route path={"/"}/>
         } else {
           alert("It didn't submit the bout! Something is not working...");
@@ -118,7 +139,6 @@ export default function SubmitResult(props: any) {
   let onScoreChange = (e: any) => {
     setScore(e.target.value);
   };
-
   let onDispatchChange = (e: any) => {
     setMatToDispatchTo(e.target.value);
   };
@@ -128,6 +148,18 @@ export default function SubmitResult(props: any) {
     }
     setSelectedWinner(e.target.value);
     console.log(e);
+    // console.log(e.target.value);
+    // console.log(JSON.stringify(top_line_wrestler));
+    if (e.target.value === JSON.stringify(top_line_wrestler)) {
+      setLoserToParse(JSON.stringify(bottom_line_wrestler));
+      setWinnerActualName(bouts2[0].topLineWrestlersActualName);
+      setLoserActualName(bouts2[0].bottomLineWrestlersActualName);
+    } else {
+      setLoserToParse(JSON.stringify(top_line_wrestler));
+      setWinnerActualName(bouts2[0].bottomLineWrestlersActualName);
+      setLoserActualName(bouts2[0].topLineWrestlersActualName);
+    }
+    // console.log(e.target.value)
   };
 
   let dispatchToMatFunction = (boutID: number, dispatchedToMat: number) => {
@@ -147,11 +179,24 @@ export default function SubmitResult(props: any) {
     fetch(`/api/bouts/dispatch`, requestOptions).then((res) => {
       if (res.ok) {
         alert(`The match was dispatched without a catch`);
+        twilioFunctions.dispatchedToMatMessage(
+          JSON.parse(bout.top_line_wrestler).name,
+          matToDispatchTo,
+          bouts2[0].topLineWrestlersActualName,
+          bouts2[0].bottomLineWrestlersActualName
+        );
+        twilioFunctions.dispatchedToMatMessage(
+          JSON.parse(bout.bottom_line_wrestler).name,
+          matToDispatchTo,
+          bouts2[0].topLineWrestlersActualName,
+          bouts2[0].bottomLineWrestlersActualName
+        );
+        props.rerenderFunc();
         // props.boolUsedOnlyForReRenderingThisComponent(!props.boolUsedOnlyForReRenderingThisComponent)
         // !props.boolUsedOnlyForReRenderingThisComponent === false
         //   ? props.boolUsedOnlyForReRenderingThisComponent(true)
         //   : props.boolUsedOnlyForReRenderingThisComponent(false);
-        history.go(0);
+        // history.go(0);
         // window.location.reload();
         // <Route path={"/"} component={SingleMatPage}/>
       } else {

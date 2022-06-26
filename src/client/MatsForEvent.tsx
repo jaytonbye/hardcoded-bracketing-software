@@ -21,7 +21,7 @@ export default function MatsForEvent(props: any) {
       .then((results) => {
         setMats(results);
       });
-  }, []);
+  }, [props.boolForReRendering]);
 
   // </Card.Header>
   //       <Card.Body>

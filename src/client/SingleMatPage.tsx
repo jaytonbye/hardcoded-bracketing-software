@@ -7,10 +7,10 @@ import MatsForEvent from "./MatsForEvent";
 
 export default function SingleMatPage(props: any) {
   const [upcomingBouts, setUpcomingBouts] = React.useState([]);
-  // const [
-  //   boolUsedOnlyForReRenderingThisComponent,
-  //   setBoolUsedOnlyForReRenderingThisComponent,
-  // ] = useState<boolean>(false);
+  const [
+    boolUsedOnlyForReRenderingThisComponent,
+    setBoolUsedOnlyForReRenderingThisComponent,
+  ] = useState<boolean>(false);
 
   let { eventID, matNumber } = useParams<any>();
 
@@ -20,8 +20,14 @@ export default function SingleMatPage(props: any) {
       .then((results) => {
         setUpcomingBouts(results);
       });
-  }, [matNumber]);
+  }, [matNumber, boolUsedOnlyForReRenderingThisComponent]);
   // boolUsedOnlyForReRenderingThisComponent
+
+  let rerenderFunc = () => {
+    setBoolUsedOnlyForReRenderingThisComponent(
+      !boolUsedOnlyForReRenderingThisComponent
+    );
+  };
 
   return (
     <>
@@ -47,6 +53,7 @@ export default function SingleMatPage(props: any) {
               <SubmitResult
                 bout={bout}
                 evenOdd={evenOdd}
+                rerenderFunc={rerenderFunc}
                 // boolUsedOnlyForReRenderingThisComponent={
                 //   setBoolUsedOnlyForReRenderingThisComponent
                 // }
@@ -54,7 +61,10 @@ export default function SingleMatPage(props: any) {
             </>
           );
         })}
-        <MatsForEvent eventID={eventID} />
+        <MatsForEvent
+          eventID={eventID}
+          boolForReRendering={boolUsedOnlyForReRenderingThisComponent}
+        />
       </div>
     </>
   );
