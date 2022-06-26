@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import SingleMatPage from "./SingleMatPage";
+import * as bracketingFunctions from "./services/BracketsFunctions";
 
 export default function SubmitResult(props: any) {
   // console.log(!props.boolUsedOnlyForReRenderingThisComponent)
@@ -11,9 +12,13 @@ export default function SubmitResult(props: any) {
   //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
   let currentMat = useParams<any>().matNumber;
   const history = useHistory();
-
   const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);
   const [selectedWinner, setSelectedWinner] = React.useState();
+  const [
+    registrationInformationForThisDivision,
+    setRegistrationInformationForThisDivision,
+  ] = React.useState<any>();
+  const [bouts2, setBouts2] = React.useState<any[]>();
 
   let token = sessionStorage.getItem("token");
 
@@ -24,6 +29,40 @@ export default function SubmitResult(props: any) {
   let eventID = props.bout.event_id;
   let divisionID = props.bout.division_id;
   let matchNumber = props.bout.match_number;
+
+  // React.useEffect(() => {
+  //   fetch(`/api/bouts/boutsByEventAndDivision/${eventID}/${divisionID}`)
+  //     .then((res) => res.json())
+  //     .then((results) => {
+  //       setBouts(results);
+  //     });
+  // }, []);
+
+  React.useEffect(() => {
+    if (props.bout) {
+      fetch(
+        `/api/registrations/getNameAndTeamNameOnly/${eventID}/${divisionID}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setRegistrationInformationForThisDivision(res);
+        });
+    }
+  }, [props.bout]);
+
+  React.useEffect(() => {
+    if (registrationInformationForThisDivision && props.bout) {
+      // console.log("#####");
+      // console.log(props.bout);
+      // console.log(registrationInformationForThisDivision);
+      let theNewBoutsArray =
+        bracketingFunctions.addingActualNameAndActualTeamName(
+          [props.bout],
+          registrationInformationForThisDivision
+        );
+      console.log(theNewBoutsArray);
+    }
+  }, [registrationInformationForThisDivision, props.bout]);
 
   let submitResult = () => {
     //This function will both submit the result (by updating the bout), but it will also update the 2 matches that are dependant upon these results.
