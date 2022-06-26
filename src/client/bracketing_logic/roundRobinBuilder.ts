@@ -9,7 +9,7 @@ export let roundRobinBuilder = (
 ) => {
   //makes the number of competitors even (adds a bye if necessary)
   if (arrayOfCompetitorsAndTeams.length % 2 === 1) {
-    arrayOfCompetitorsAndTeams.push({ name: "Bye", team: "Bye" });
+    arrayOfCompetitorsAndTeams.push({ name: "bye", team: "bye" });
   }
 
   //this function allows you to move an index to another index in an array.

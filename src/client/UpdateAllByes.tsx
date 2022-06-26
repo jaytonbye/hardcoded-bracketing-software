@@ -49,8 +49,8 @@ export default function UpdateAllByes(props: any) {
         console.log(results);
         for (let x = 0; x < results.length; x++) {
           if (
-            JSON.parse(results[x].top_line_wrestler).name === "bye" &&
-            JSON.parse(results[x].bottom_line_wrestler).name === "bye"
+            JSON.parse(results[x].top_line_wrestler).name == "bye" &&
+            JSON.parse(results[x].bottom_line_wrestler).name == "bye"
           ) {
             submitResult(
               results[x].id,

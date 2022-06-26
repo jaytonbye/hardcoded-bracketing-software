@@ -1,7 +1,9 @@
 export let bracketBuilder = (
   formattedArrayOfWrestlersAndTeams: IArrayOfWrestlersAndTeams[]
 ) => {
-  let empty32ManDoubleEliminationBracket: IEmpty32ManDoubleEliminationBracket[] = [
+  let empty32ManDoubleEliminationBracket:
+    | IEmpty32ManDoubleEliminationBracket[]
+    | any = [
     {
       matchNumber: 1,
       topLineWrestler: { name: "bye" },

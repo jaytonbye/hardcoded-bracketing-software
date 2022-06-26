@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import SingleMatPage from "./SingleMatPage";
+import * as bracketingFunctions from "./services/BracketsFunctions";
 
 export default function SubmitResult(props: any) {
   // console.log(!props.boolUsedOnlyForReRenderingThisComponent)
@@ -11,9 +12,13 @@ export default function SubmitResult(props: any) {
   //The purpose of current mat is so they don't accidentals dispatch a mat to no mans land.
   let currentMat = useParams<any>().matNumber;
   const history = useHistory();
-
   const [matToDispatchTo, setMatToDispatchTo] = React.useState(currentMat);
   const [selectedWinner, setSelectedWinner] = React.useState();
+  const [
+    registrationInformationForThisDivision,
+    setRegistrationInformationForThisDivision,
+  ] = React.useState<any>();
+  const [bouts2, setBouts2] = React.useState<any[]>();
 
   let token = sessionStorage.getItem("token");
 
@@ -24,6 +29,39 @@ export default function SubmitResult(props: any) {
   let eventID = props.bout.event_id;
   let divisionID = props.bout.division_id;
   let matchNumber = props.bout.match_number;
+
+  // React.useEffect(() => {
+  //   fetch(`/api/bouts/boutsByEventAndDivision/${eventID}/${divisionID}`)
+  //     .then((res) => res.json())
+  //     .then((results) => {
+  //       setBouts(results);
+  //     });
+  // }, []);
+
+  React.useEffect(() => {
+    if (props.bout) {
+      fetch(
+        `/api/registrations/getNameAndTeamNameOnly/${eventID}/${divisionID}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setRegistrationInformationForThisDivision(res);
+        });
+    }
+  }, [props.bout]);
+
+  React.useEffect(() => {
+    if (registrationInformationForThisDivision && props.bout) {
+      // console.log("#####");
+      // console.log(props.bout);
+      // console.log(registrationInformationForThisDivision);
+      let theNewBoutsArray = bracketingFunctions.addingActualNameAndActualTeamName(
+        [props.bout],
+        registrationInformationForThisDivision
+      );
+      setBouts2(theNewBoutsArray);
+    }
+  }, [registrationInformationForThisDivision, props.bout]);
 
   let submitResult = () => {
     //This function will both submit the result (by updating the bout), but it will also update the 2 matches that are dependant upon these results.
@@ -40,9 +78,7 @@ export default function SubmitResult(props: any) {
     }
     let winner = selectedWinner;
     let areYouSureResultsAreCorrect = confirm(
-      `Are you sure ${JSON.parse(selectedWinner).name} from ${
-        JSON.parse(selectedWinner).team
-      } was the winner?`
+      `Are you sure ${selectedWinner} was the winner?`
     );
     if (areYouSureResultsAreCorrect) {
       const requestOptions = {
@@ -128,58 +164,62 @@ export default function SubmitResult(props: any) {
   let odd = props.evenOdd % 2 !== 0;
 
   let theEvenOddReturn = even ? "lightgray" : "orange";
-
-  return (
-    <>
-      <div className="row mx-auto">
-        <div
-          className="p-2 my-1 row col-12  mx-auto"
-          style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}
-        >
-          <div className=" col-sm-6 col-12">
-            <p style={{ display: "inline", margin: "1px" }}>
-              Bout ID: {boutID}{" "}
-            </p>
-            <p style={{ display: "inline", margin: "1px" }}>
-              {" "}
-              Match Number: {matchNumber}{" "}
-            </p>
-            <p style={{ display: "inline", margin: "1px" }}>
-              {" "}
-              Division ID: {divisionID}{" "}
-            </p>
-            <br />
-            <h6 style={{ display: "inline", margin: "1px" }}>
-              {" "}
-              Select the winner:{" "}
-            </h6>
-            <Form.Check
-              type="radio"
-              id="custom-switch"
-              label={
-                <>
-                  <strong>Name:</strong> {top_line_wrestler.name}{" "}
-                  <strong>Team:</strong> {top_line_wrestler.team}
-                </>
-              }
-              value={JSON.stringify(top_line_wrestler)}
-              checked={selectedWinner == JSON.stringify(top_line_wrestler)}
-              onChange={onWinnerClicked}
-            ></Form.Check>
-            <Form.Check
-              type="radio"
-              id="custom-switch-2"
-              label={
-                <>
-                  <strong>Name:</strong> {bottom_line_wrestler.name}{" "}
-                  <strong>Team:</strong> {bottom_line_wrestler.team}
-                </>
-              }
-              value={JSON.stringify(bottom_line_wrestler)}
-              checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
-              onChange={onWinnerClicked}
-            ></Form.Check>
-            {/* <input
+  if (bouts2) {
+    return (
+      <>
+        <div className="row mx-auto">
+          <div
+            className="p-2 my-1 row col-12  mx-auto"
+            style={{ backgroundColor: theEvenOddReturn, borderRadius: "3px" }}
+          >
+            <div className=" col-sm-6 col-12">
+              <p style={{ display: "inline", margin: "1px" }}>
+                Bout ID: {boutID}{" "}
+              </p>
+              <p style={{ display: "inline", margin: "1px" }}>
+                {" "}
+                Match Number: {matchNumber}{" "}
+              </p>
+              <p style={{ display: "inline", margin: "1px" }}>
+                {" "}
+                Division ID: {divisionID}{" "}
+              </p>
+              <br />
+              <h6 style={{ display: "inline", margin: "1px" }}>
+                {" "}
+                Select the winner:{" "}
+              </h6>
+              <Form.Check
+                type="radio"
+                id="custom-switch"
+                label={
+                  <>
+                    <strong>Name:</strong>{" "}
+                    {bouts2[0].topLineWrestlersActualName}{" "}
+                    <strong>Team:</strong>{" "}
+                    {bouts2[0].topLineWrestlersActualTeamName}
+                  </>
+                }
+                value={JSON.stringify(top_line_wrestler)}
+                checked={selectedWinner == JSON.stringify(top_line_wrestler)}
+                onChange={onWinnerClicked}
+              ></Form.Check>
+              <Form.Check
+                type="radio"
+                id="custom-switch-2"
+                label={
+                  <>
+                    <strong>Name:</strong>{" "}
+                    {bouts2[0].bottomLineWrestlersActualName}{" "}
+                    <strong>Team:</strong>{" "}
+                    {bouts2[0].bottomLineWrestlersActualTeamName}
+                  </>
+                }
+                value={JSON.stringify(bottom_line_wrestler)}
+                checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
+                onChange={onWinnerClicked}
+              ></Form.Check>
+              {/* <input
               className="form-check-input"
               type="radio"
               value={JSON.stringify(top_line_wrestler)}
@@ -197,50 +237,53 @@ export default function SubmitResult(props: any) {
               checked={selectedWinner == JSON.stringify(bottom_line_wrestler)}
               onChange={onWinnerClicked}
             /> */}
-          </div>
-          <div className=" col-sm-6 col-12">
-            <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
-              <label>Score: </label>
-              <input
-                className="col-sm-2 col-12"
-                type="text"
-                onChange={onScoreChange}
-              />
-              <button
-                onClick={submitResult}
-                className="btn btn-sm btn-primary m-1"
-              >
-                Submit Result
-              </button>
             </div>
-            <br />
-            <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
-              <label>Move this bout to mat#: </label>
-              <input
-                className="col-sm-2 col-12"
-                type="number"
-                onChange={onDispatchChange}
-              />
-              <button
-                onClick={() => {
-                  let areYouSureYouWantToMoveMats = confirm(
-                    `Are your sure you want to move this bout to mat: ${matToDispatchTo}`
-                  );
-                  if (areYouSureYouWantToMoveMats) {
-                    dispatchToMatFunction(boutID, matToDispatchTo);
-                  } else {
-                    return;
-                  }
-                }}
-                className="btn btn-sm btn-primary m-1"
-              >
-                Dispatch to Mat
-              </button>
+            <div className=" col-sm-6 col-12">
+              <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
+                <label>Score: </label>
+                <input
+                  className="col-sm-2 col-12"
+                  type="text"
+                  onChange={onScoreChange}
+                />
+                <button
+                  onClick={submitResult}
+                  className="btn btn-sm btn-primary m-1"
+                >
+                  Submit Result
+                </button>
+              </div>
+              <br />
+              <div className="m-1 p-1 col-md-6" style={{ display: "inline" }}>
+                <label>Move this bout to mat#: </label>
+                <input
+                  className="col-sm-2 col-12"
+                  type="number"
+                  onChange={onDispatchChange}
+                />
+                <button
+                  onClick={() => {
+                    let areYouSureYouWantToMoveMats = confirm(
+                      `Are your sure you want to move this bout to mat: ${matToDispatchTo}`
+                    );
+                    if (areYouSureYouWantToMoveMats) {
+                      dispatchToMatFunction(boutID, matToDispatchTo);
+                    } else {
+                      return;
+                    }
+                  }}
+                  className="btn btn-sm btn-primary m-1"
+                >
+                  Dispatch to Mat
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <hr />
-    </>
-  );
+        <hr />
+      </>
+    );
+  } else {
+    return <p>Loading...</p>;
+  }
 }
