@@ -55,11 +55,10 @@ export default function SubmitResult(props: any) {
       // console.log("#####");
       // console.log(props.bout);
       // console.log(registrationInformationForThisDivision);
-      let theNewBoutsArray =
-        bracketingFunctions.addingActualNameAndActualTeamName(
-          [props.bout],
-          registrationInformationForThisDivision
-        );
+      let theNewBoutsArray = bracketingFunctions.addingActualNameAndActualTeamName(
+        [props.bout],
+        registrationInformationForThisDivision
+      );
       setBouts2(theNewBoutsArray);
     }
   }, [registrationInformationForThisDivision, props.bout]);
@@ -79,9 +78,7 @@ export default function SubmitResult(props: any) {
     }
     let winner = selectedWinner;
     let areYouSureResultsAreCorrect = confirm(
-      `Are you sure ${JSON.parse(selectedWinner).name} from ${
-        JSON.parse(selectedWinner).team
-      } was the winner?`
+      `Are you sure ${selectedWinner} was the winner?`
     );
     if (areYouSureResultsAreCorrect) {
       const requestOptions = {
