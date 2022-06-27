@@ -87,6 +87,7 @@ let dynamicallyBuildDoubleEliminationBrackets = (
   //This is where we will inject topLineWrestlerWillBe and bottomLineWrestlerWillBe into the championship matches.
   let initialCounterStartingatRound2 = 1;
   let reducesByHalf = numberOfCompetitors / 2;
+  let firstTimeThrough = true;
   for (
     let round = 2;
     round <= numberOfChampionshipAndWrestleBackRoundsRequired;
@@ -104,9 +105,13 @@ let dynamicallyBuildDoubleEliminationBrackets = (
         initialCounterStartingatRound2++;
       }
     }
-    initialCounterStartingatRound2 =
-      initialCounterStartingatRound2 + reducesByHalf;
-    reducesByHalf = reducesByHalf / 2;
+    if (firstTimeThrough) {
+      firstTimeThrough = false;
+    } else {
+      initialCounterStartingatRound2 =
+        initialCounterStartingatRound2 + reducesByHalf;
+      reducesByHalf = reducesByHalf / 2;
+    }
   }
 
   //Next we inject winnerWillGoTo and loserWillGoTo
@@ -115,141 +120,17 @@ let dynamicallyBuildDoubleEliminationBrackets = (
 
   //If we wanted to inject matches for 5th/6th and or 7th/8th, we would do it here:
 
+  // for (let x = 70; x < 125; x++) {
+  //   console.log(arrayOfBouts[x]);
+  // }
   //finished!
   console.log(arrayOfBouts);
+
+  console.log({ numberOfCompetitors });
   return arrayOfBouts;
 };
 
-dynamicallyBuildDoubleEliminationBrackets([
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-]);
+dynamicallyBuildDoubleEliminationBrackets([1, 2, 3, 4]);
 
 interface Ibout {
   matchNumber: number;
