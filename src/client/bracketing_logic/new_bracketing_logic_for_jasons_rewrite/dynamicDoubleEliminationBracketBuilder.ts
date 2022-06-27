@@ -129,57 +129,206 @@ let dynamicallyBuildDoubleEliminationBrackets = (
       initialCounterStartingatRound3++;
     }
   }
+  //injection complete
 
-  //Continuing to work on the loser side, we will now insert the winners of rounds 3,6,9, etc. into the bouts from round 4,7,10,etc.
+  //attempt 3 begins
+  let determineHowManyMatchesAreInTheRound = (round: number) => {
+    if (round > numberOfChampionshipAndWrestleBackRoundsRequired) {
+      return 0;
+    }
+    let currentNumberOfMatches = numberOfCompetitors / 2;
+    for (let x = 1; x <= round; x++) {
+      if (x % 3 === 2) {
+        currentNumberOfMatches = currentNumberOfMatches / 2;
+      }
+    }
+    return currentNumberOfMatches;
+  };
 
-  let initialCounterStartingatRound4 =
-    numberOfCompetitors / 2 + numberOfCompetitors / 4 + 1;
+  for (let x = 0; x < arrayOfBouts.length; x++) {
+    //every 3 rounds, starting at round 4
+    if (
+      arrayOfBouts[x].bracketRound % 3 === 1 &&
+      arrayOfBouts[x].bracketRound !== 1
+    ) {
+      arrayOfBouts[x].topLineWrestlerWillBe =
+        arrayOfBouts[x].matchNumber -
+        determineHowManyMatchesAreInTheRound(arrayOfBouts[x].bracketRound);
+    }
 
-  //this ridiculous for loop will start at round 4 (a wrestleback), and hit every wrestleback round (4,6,7,9,10,12, etc.)
+    //every 3 rounds, starting at round 5 (championship rounds)
+    if (
+      arrayOfBouts[x].bracketRound % 3 === 2 &&
+      arrayOfBouts[x].bracketRound !== 2
+    ) {
+      //Do nothing. I could probably use this if statement to handle matches on the front, it would untangle some spaghetti.
+    }
+
+    //every 3 rounds, starting at round 6
+    if (
+      arrayOfBouts[x].bracketRound % 3 === 0 &&
+      arrayOfBouts[x].bracketRound !== 3
+    ) {
+    }
+  }
+  //attempt 3 ends
+
+  //attempt two was a failure
+  // //attempt two at inserting all of the winners on the loser side (round 3 is already complete, so we start in round 4.)
+  // let initialCounterStartingatRound4 =
+  //   numberOfCompetitors / 2 + numberOfCompetitors / 4 + 1;
+  // let firstTimeInRound = true;
+  // for (let x = 0; x < arrayOfBouts.length; x++) {
+  //   for (
+  //     let round = 4;
+  //     round <= numberOfChampionshipAndWrestleBackRoundsRequired;
+  //     round++
+  //   ) {
+  //     //2of2wrestlebackround
+  //     if (round % 3 === 1) {
+  //       if (arrayOfBouts[x].bracketRound === round) {
+  //         if (firstTimeInRound) {
+  //           initialCounterStartingatRound4 = arrayOfBouts[x].matchNumber;
+  //           firstTimeInRound = false;
+  //         }
+  //         arrayOfBouts[
+  //           x
+  //         ].topLineWrestlerWillBe = initialCounterStartingatRound4;
+  //         initialCounterStartingatRound4++;
+  //       }
+  //     }
+  //     //championship round
+  //     if (round % 3 === 2) {
+  //       //nothing happens
+  //     }
+
+  //     //1of2wrestlebackround
+  //     if (round % 3 === 0) {
+  //       if (arrayOfBouts[x].bracketRound === round) {
+  //         arrayOfBouts[
+  //           x
+  //         ].topLineWrestlerWillBe = initialCounterStartingatRound4;
+  //         initialCounterStartingatRound4++;
+  //         arrayOfBouts[
+  //           x
+  //         ].bottomLineWrestlerWillBe = initialCounterStartingatRound4;
+  //         initialCounterStartingatRound4++;
+  //       }
+  //     }
+
+  //     //     //this block of code needs to run after round 6 completes.
+  //     // console.log("deep in it!");
+  //     // initialCounterStartingatRound4 =
+  //     //   initialCounterStartingatRound4 + reducesByHalf2;
+  //     // reducesByHalf2 = reducesByHalf2 / 2;
+  //   }
+  // }
+
+  //This code fucking sucked!
+  // //Continuing to work on the loser side, we will now insert the winners of rounds 3,6,9, etc. into the bouts from round 4,7,10,etc.
+
+  // let initialCounterStartingatRound4 =
+  //   numberOfCompetitors / 2 + numberOfCompetitors / 4 + 1;
+  // let reducesByHalf2 = numberOfCompetitors / 4;
+
+  // //this ridiculous for loop will start at round 4 (a wrestleback), and hit every wrestleback round (4,6,7,9,10,12, etc.)
+  // for (
+  //   let round = 4;
+  //   round <= numberOfChampionshipAndWrestleBackRoundsRequired;
+  //   round++
+  // ) {
+  //   for (let x = 0; x < arrayOfBouts.length; x++) {
+  //     //this if statement removes the championship rounds
+  //     if (round % 3 === 2) {
+  //       continue;
+  //     }
+  //     //if wrestlebackPart 1
+  //     if (round % 3 === 0) {
+  //       if (arrayOfBouts[x].bracketRound === round) {
+  //         arrayOfBouts[
+  //           x
+  //         ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
+  //         initialCounterStartingatRound4++;
+  //         arrayOfBouts[
+  //           x
+  //         ].bottomLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
+  //         initialCounterStartingatRound4++;
+  //       }
+  //     }
+  //     //this block of code needs to run after round 6 completes.
+  //     initialCounterStartingatRound4 =
+  //       initialCounterStartingatRound4 + reducesByHalf2;
+  //     reducesByHalf2 = reducesByHalf2 / 2;
+
+  //     //if wrestlebackPart 2
+  //     if (round % 3 === 1) {
+  //       if (arrayOfBouts[x].bracketRound === round) {
+  //         arrayOfBouts[
+  //           x
+  //         ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
+  //         initialCounterStartingatRound4++;
+  //       }
+  //     }
+  //   }
+  // }
+
+  //Here is the hard part (I think as I write this), moving the losers in the championship bracket to the correct spot in the wrestlebacks. It should be noted that this is the only part of this function that I would need to change if I decide I am unhappy with the layout of the wrestlebacks.
+  let lowestMatchNumberInThisChampionRound;
+  let highestMatchNumberInThisChampionRound;
   for (
-    let round = 4;
+    let round = 2;
     round <= numberOfChampionshipAndWrestleBackRoundsRequired;
     round++
   ) {
-    //this if statement removes the championship rounds
+    //championship round
     if (round % 3 === 2) {
-      continue;
-    }
-
-    for (let x = 0; x < arrayOfBouts.length; x++) {
-      //if wrestlebackPart 1
-      if (round % 3 === 0) {
+      for (let x = 0; x < arrayOfBouts.length; x++) {
         if (arrayOfBouts[x].bracketRound === round) {
-          arrayOfBouts[
-            x
-          ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
-          initialCounterStartingatRound4++;
-          arrayOfBouts[
-            x
-          ].bottomLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
-          initialCounterStartingatRound4++;
+          highestMatchNumberInThisChampionRound = arrayOfBouts[x].matchNumber;
         }
       }
-
-      //if wrestlebackPart 2
-      if (round % 3 === 1) {
+      for (let x = arrayOfBouts.length - 1; x >= 0; x--) {
         if (arrayOfBouts[x].bracketRound === round) {
+          lowestMatchNumberInThisChampionRound = arrayOfBouts[x].matchNumber;
+        }
+      }
+    }
+    //wrestleback part 1
+    if (round % 3 === 0) {
+    }
+    //wrestleback part 2
+    if (round % 3 === 1) {
+      for (let x = 0; x < arrayOfBouts.length; x++) {
+        //Descending
+        if (
+          arrayOfBouts[x].bracketRound % 6 === 4 &&
+          arrayOfBouts[x].bracketRound === round
+        ) {
           arrayOfBouts[
             x
-          ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
-          initialCounterStartingatRound4++;
+          ].bottomLineWrestlerWillBe = `loserOfMatch#${highestMatchNumberInThisChampionRound}`;
+          highestMatchNumberInThisChampionRound--;
+        }
+        //Ascending
+        if (
+          arrayOfBouts[x].bracketRound % 6 === 1 &&
+          arrayOfBouts[x].bracketRound === round
+        ) {
+          arrayOfBouts[
+            x
+          ].bottomLineWrestlerWillBe = `loserOfMatch#${lowestMatchNumberInThisChampionRound}`;
+          lowestMatchNumberInThisChampionRound++;
         }
       }
     }
   }
-
   //Next we inject winnerWillGoTo and loserWillGoTo
 
   //Lastly, we inject the wrestlerIDs
 
   //If we wanted to inject matches for 5th/6th and or 7th/8th, we would do it here:
 
-  // for (let x = 70; x < 125; x++) {
+  // for (let x = 180; x < 252; x++) {
   //   console.log(arrayOfBouts[x]);
   // }
   //finished!
@@ -190,22 +339,6 @@ let dynamicallyBuildDoubleEliminationBrackets = (
 };
 
 dynamicallyBuildDoubleEliminationBrackets([
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
   1,
   2,
   3,
