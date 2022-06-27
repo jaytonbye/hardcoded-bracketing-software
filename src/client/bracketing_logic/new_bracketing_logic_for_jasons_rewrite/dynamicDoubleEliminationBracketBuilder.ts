@@ -16,6 +16,7 @@ let sampleBout = {
   // boutNumberOfEntireEvent: 1 // We may potentially add this down the road.
 };
 
+// This spreadsheet was very useful when building this function: https://docs.google.com/spreadsheets/d/1qb4QT_dRZRUHD9vxDSk7seoSj_opbEFAlBPB3HS7hQE/edit?usp=sharing
 //This function will only work with powers of 2, starting at 4. Examples: 4,8,16,32,64, 128. I have not dealt with the edge cases of 1 and 2 yet.
 let dynamicallyBuildDoubleEliminationBrackets = (
   arrayOfIds: number[]
@@ -131,6 +132,47 @@ let dynamicallyBuildDoubleEliminationBrackets = (
 
   //Continuing to work on the loser side, we will now insert the winners of rounds 3,6,9, etc. into the bouts from round 4,7,10,etc.
 
+  let initialCounterStartingatRound4 =
+    numberOfCompetitors / 2 + numberOfCompetitors / 4 + 1;
+
+  //this ridiculous for loop will start at round 4 (a wrestleback), and hit every wrestleback round (4,6,7,9,10,12, etc.)
+  for (
+    let round = 4;
+    round <= numberOfChampionshipAndWrestleBackRoundsRequired;
+    round++
+  ) {
+    //this if statement removes the championship rounds
+    if (round % 3 === 2) {
+      continue;
+    }
+
+    for (let x = 0; x < arrayOfBouts.length; x++) {
+      //if wrestlebackPart 1
+      if (round % 3 === 0) {
+        if (arrayOfBouts[x].bracketRound === round) {
+          arrayOfBouts[
+            x
+          ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
+          initialCounterStartingatRound4++;
+          arrayOfBouts[
+            x
+          ].bottomLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
+          initialCounterStartingatRound4++;
+        }
+      }
+
+      //if wrestlebackPart 2
+      if (round % 3 === 1) {
+        if (arrayOfBouts[x].bracketRound === round) {
+          arrayOfBouts[
+            x
+          ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound4}`;
+          initialCounterStartingatRound4++;
+        }
+      }
+    }
+  }
+
   //Next we inject winnerWillGoTo and loserWillGoTo
 
   //Lastly, we inject the wrestlerIDs
@@ -148,6 +190,22 @@ let dynamicallyBuildDoubleEliminationBrackets = (
 };
 
 dynamicallyBuildDoubleEliminationBrackets([
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
   1,
   2,
   3,
