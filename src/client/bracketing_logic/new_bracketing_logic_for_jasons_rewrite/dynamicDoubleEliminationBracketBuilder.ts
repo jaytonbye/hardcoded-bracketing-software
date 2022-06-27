@@ -145,15 +145,18 @@ let dynamicallyBuildDoubleEliminationBrackets = (
     return currentNumberOfMatches;
   };
 
+  let firstTimeThroughWrestleBackA = true;
+  let topMatchNumberOfPreviousWB = 1;
   for (let x = 0; x < arrayOfBouts.length; x++) {
     //every 3 rounds, starting at round 4
     if (
       arrayOfBouts[x].bracketRound % 3 === 1 &&
       arrayOfBouts[x].bracketRound !== 1
     ) {
-      arrayOfBouts[x].topLineWrestlerWillBe =
+      arrayOfBouts[x].topLineWrestlerWillBe = `winnerOfMatch#${
         arrayOfBouts[x].matchNumber -
-        determineHowManyMatchesAreInTheRound(arrayOfBouts[x].bracketRound);
+        determineHowManyMatchesAreInTheRound(arrayOfBouts[x].bracketRound)
+      }`;
     }
 
     //every 3 rounds, starting at round 5 (championship rounds)
@@ -162,6 +165,20 @@ let dynamicallyBuildDoubleEliminationBrackets = (
       arrayOfBouts[x].bracketRound !== 2
     ) {
       //Do nothing. I could probably use this if statement to handle matches on the front, it would untangle some spaghetti.
+      if (arrayOfBouts[x].bracketRound > 6) firstTimeThroughWrestleBackA = true;
+    }
+
+    if (
+      arrayOfBouts[x].bracketRound % 3 === 0 &&
+      arrayOfBouts[x].bracketRound !== 3 &&
+      firstTimeThroughWrestleBackA
+    ) {
+      topMatchNumberOfPreviousWB =
+        arrayOfBouts[x].matchNumber -
+        determineHowManyMatchesAreInTheRound(arrayOfBouts[x].bracketRound - 1) -
+        determineHowManyMatchesAreInTheRound(arrayOfBouts[x].bracketRound - 2);
+      console.log({ topMatchNumberOfPreviousWB });
+      firstTimeThroughWrestleBackA = false;
     }
 
     //every 3 rounds, starting at round 6
@@ -169,6 +186,14 @@ let dynamicallyBuildDoubleEliminationBrackets = (
       arrayOfBouts[x].bracketRound % 3 === 0 &&
       arrayOfBouts[x].bracketRound !== 3
     ) {
+      arrayOfBouts[
+        x
+      ].topLineWrestlerWillBe = `winnerOfMatch#${topMatchNumberOfPreviousWB}`;
+      topMatchNumberOfPreviousWB++;
+      arrayOfBouts[
+        x
+      ].bottomLineWrestlerWillBe = `winnerOfMatch#${topMatchNumberOfPreviousWB}`;
+      topMatchNumberOfPreviousWB++;
     }
   }
   //attempt 3 ends
@@ -328,17 +353,129 @@ let dynamicallyBuildDoubleEliminationBrackets = (
 
   //If we wanted to inject matches for 5th/6th and or 7th/8th, we would do it here:
 
-  // for (let x = 180; x < 252; x++) {
-  //   console.log(arrayOfBouts[x]);
-  // }
+  for (let x = 150; x < 252; x++) {
+    console.log(arrayOfBouts[x]);
+  }
   //finished!
-  console.log(arrayOfBouts);
+  // console.log(arrayOfBouts);
 
   console.log({ numberOfCompetitors });
   return arrayOfBouts;
 };
 
 dynamicallyBuildDoubleEliminationBrackets([
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
   1,
   2,
   3,
