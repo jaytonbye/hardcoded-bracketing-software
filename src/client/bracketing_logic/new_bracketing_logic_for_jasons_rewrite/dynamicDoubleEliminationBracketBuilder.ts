@@ -93,15 +93,15 @@ let dynamicallyBuildDoubleEliminationBrackets = (
     round <= numberOfChampionshipAndWrestleBackRoundsRequired;
     round = round + 3
   ) {
-    console.log({ round });
     for (let x = 0; x < arrayOfBouts.length; x++) {
-      console.log({ x });
       if (arrayOfBouts[x].bracketRound === round) {
-        arrayOfBouts[x].topLineWrestlerWillBe = initialCounterStartingatRound2;
+        arrayOfBouts[
+          x
+        ].topLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound2}`;
         initialCounterStartingatRound2++;
         arrayOfBouts[
           x
-        ].bottomLineWrestlerWillBe = initialCounterStartingatRound2;
+        ].bottomLineWrestlerWillBe = `winnerOfMatch#${initialCounterStartingatRound2}`;
         initialCounterStartingatRound2++;
       }
     }
@@ -113,6 +113,23 @@ let dynamicallyBuildDoubleEliminationBrackets = (
       reducesByHalf = reducesByHalf / 2;
     }
   }
+
+  //Next we will inject all of the first round losers into the first round of wrestlebacks:
+  let initialCounterStartingatRound3 = 1;
+  for (let x = 0; x < arrayOfBouts.length; x++) {
+    if (arrayOfBouts[x].bracketRound === 3) {
+      arrayOfBouts[
+        x
+      ].topLineWrestlerWillBe = `loserOfMatch#${initialCounterStartingatRound3}`;
+      initialCounterStartingatRound3++;
+      arrayOfBouts[
+        x
+      ].bottomLineWrestlerWillBe = `loserOfMatch#${initialCounterStartingatRound3}`;
+      initialCounterStartingatRound3++;
+    }
+  }
+
+  //Continuing to work on the loser side, we will now insert the winners of rounds 3,6,9, etc. into the bouts from round 4,7,10,etc.
 
   //Next we inject winnerWillGoTo and loserWillGoTo
 
@@ -130,7 +147,24 @@ let dynamicallyBuildDoubleEliminationBrackets = (
   return arrayOfBouts;
 };
 
-dynamicallyBuildDoubleEliminationBrackets([1, 2, 3, 4]);
+dynamicallyBuildDoubleEliminationBrackets([
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+]);
 
 interface Ibout {
   matchNumber: number;
