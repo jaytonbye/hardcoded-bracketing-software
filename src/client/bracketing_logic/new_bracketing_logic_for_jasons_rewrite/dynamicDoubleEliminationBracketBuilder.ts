@@ -16,6 +16,7 @@ let sampleBout = {
   // boutNumberOfEntireEvent: 1 // We may potentially add this down the road.
 };
 
+//This function will only work with powers of 2, starting at 4. Examples: 4,8,16,32,64, 128. I have not dealt with the edge cases of 1 and 2 yet.
 let dynamicallyBuildDoubleEliminationBrackets = (
   arrayOfIds: number[]
 ): [Ibout] => {
@@ -45,10 +46,12 @@ let dynamicallyBuildDoubleEliminationBrackets = (
       isAChampionshipMatch: null,
     });
   }
+  //The brackets are now filled with match numbers.
 
-  //We will now label the bracketRounds
+  //We will now label the bracketRounds for each match.
+  //Note:
   // If there are 64 competitors, this is how many matches will be in each round:
-  // [32, 16, 16, 16, 8, 8, 8 , 4, 4, 4, 2, 2, 2, 1, 1 ]. It starts with a single championship round, then loops the following 3 rounds: championship round, wrestle back1 , wrestle back 2. It finishes by running the final and then the 3rd/4th plac match.
+  // [32, 16, 16, 16, 8, 8, 8 , 4, 4, 4, 2, 2, 2, 1, 1 ]. It starts with a single championship round, then loops the following 3 rounds: championship round, wrestle back1 , wrestle back 2. It finishes by running the final and then the 3rd/4th place match.
   let lowestMatchNumberInThisRound = 0;
   let highestMatchNumberInThisRound = numberOfCompetitors / 2;
   let lowHighDifferenceInTHisROund =
@@ -67,10 +70,6 @@ let dynamicallyBuildDoubleEliminationBrackets = (
       }
     }
 
-    console.log({ round });
-    console.log({ lowestMatchNumberInThisRound });
-    console.log({ highestMatchNumberInThisRound });
-
     //this if/else statement halves the number of matches in the currentRound, every 3 rounds.
     if ((round - 1) % 3 === 0) {
       lowestMatchNumberInThisRound =
@@ -85,14 +84,139 @@ let dynamicallyBuildDoubleEliminationBrackets = (
     }
   }
 
+  //This is where we will inject topLineWrestlerWillBe and bottomLineWrestlerWillBe into the championship matches.
+  let initialCounterStartingatRound2 = 1;
+  let reducesByHalf = numberOfCompetitors / 2;
+  for (
+    let round = 2;
+    round <= numberOfChampionshipAndWrestleBackRoundsRequired;
+    round = round + 3
+  ) {
+    console.log({ round });
+    for (let x = 0; x < arrayOfBouts.length; x++) {
+      console.log({ x });
+      if (arrayOfBouts[x].bracketRound === round) {
+        arrayOfBouts[x].topLineWrestlerWillBe = initialCounterStartingatRound2;
+        initialCounterStartingatRound2++;
+        arrayOfBouts[
+          x
+        ].bottomLineWrestlerWillBe = initialCounterStartingatRound2;
+        initialCounterStartingatRound2++;
+      }
+    }
+    initialCounterStartingatRound2 =
+      initialCounterStartingatRound2 + reducesByHalf;
+    reducesByHalf = reducesByHalf / 2;
+  }
+
+  //Next we inject winnerWillGoTo and loserWillGoTo
+
+  //Lastly, we inject the wrestlerIDs
+
+  //If we wanted to inject matches for 5th/6th and or 7th/8th, we would do it here:
+
   //finished!
   console.log(arrayOfBouts);
-  console.log({ numberOfCompetitors });
-  console.log({ numberOfMatchesInTheBracket });
   return arrayOfBouts;
 };
 
 dynamicallyBuildDoubleEliminationBrackets([
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
   1,
   2,
   3,
