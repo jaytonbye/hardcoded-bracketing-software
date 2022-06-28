@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function EditEventsComponent() {
-  const [events, setEvents] = React.useState([]);
+  const [events, setEvents] = React.useState<any>([]);
   const [deleteText, setDeleteText] = React.useState("");
 
   let onTextChange = (e: any) => {
@@ -59,7 +59,7 @@ export default function EditEventsComponent() {
           </tr>
         </thead>
         <tbody>
-          {events.map((event) => {
+          {events.map((event: any) => {
             return (
               <tr key={event.id}>
                 <td>

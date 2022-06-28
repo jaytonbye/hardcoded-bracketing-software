@@ -15,14 +15,15 @@ import { bracketBuilder } from "./bracketing_logic/buildTheBrackets";
 // @ts-ignore
 import { roundRobinBuilder } from "./bracketing_logic/roundRobinBuilder.ts";
 import EditAllWrestlersOrAllInEventComponentStart from "./registration/EditAllWrestlersOrAllInEventComponentStart";
+import TableWorkerEditWrestlerInfo from "./TableWorkerEditWrestlerInfo";
 
 export default function AddCompetitorsComponent(props: IProps) {
-  const [wrestlerList, setWrestlerList] = React.useState("");
+  const [wrestlerList, setWrestlerList] = React.useState(""); //I believe no longer being used
   const [allWrestlersInDivision, setAllWrestlersInDivision] = useState<any>();
-  const [
-    wrestlersNameTeamSeedArray,
-    setWrestlersNameTeamSeedArray,
-  ] = useState<any>();
+  const [wrestlersNameTeamSeedArray, setWrestlersNameTeamSeedArray] =
+    useState<any>();
+  const [boolForReRenderingThisComponent, setBoolForReRenderingThisComponent] =
+    React.useState(false);
 
   let token = sessionStorage.getItem("token");
   let userID = Number(sessionStorage.getItem("UID"));
@@ -30,16 +31,25 @@ export default function AddCompetitorsComponent(props: IProps) {
   let divisionID: string | number | any = props.divisionID;
 
   useEffect(() => {
-    fetch(
-      `/api/registrations/getAllRegistrationsForDivision/${eventID}/${divisionID}`
-    )
-      .then((res) => res.json())
-      .then((res) => setAllWrestlersInDivision(res));
-  }, []);
+    if (props.role === "admin") {
+      fetch(
+        `/api/registrations/getAllRegistrationsForDivision/${eventID}/${divisionID}`
+      )
+        .then((res) => res.json())
+        .then((res) => setAllWrestlersInDivision(res));
+    }
+    if (props.role === "tableWorker") {
+      fetch(
+        `/api/registrations/getAllRegistrationsForDivisionForTableWorker/${eventID}/${divisionID}`
+      )
+        .then((res) => res.json())
+        .then((res) => setAllWrestlersInDivision(res));
+    }
+  }, [props.role, boolForReRenderingThisComponent]);
 
   useEffect(() => {
     if (allWrestlersInDivision) {
-      let placeholderVariableName = [];
+      let placeholderVariableName: any = [];
       for (let x = 0; x < allWrestlersInDivision.length; x++) {
         placeholderVariableName.push({
           name: String(allWrestlersInDivision[x].id),
@@ -79,6 +89,9 @@ export default function AddCompetitorsComponent(props: IProps) {
   let onWrestlerListChange = (e: any) => {
     setWrestlerList(e.target.value);
   };
+  let reRenderThisComponent = () => {
+    setBoolForReRenderingThisComponent(!boolForReRenderingThisComponent);
+  };
 
   let handleSubmitWrestlerListFor32ManBracket = () => {
     labelBracketTypeInDatabase("double-elimination", divisionID);
@@ -92,9 +105,10 @@ export default function AddCompetitorsComponent(props: IProps) {
     // );
     console.log({ formattedArrayOfWrestlersAndTeams });
 
-    let seededArrayofWrestlersAndTeams = seedingFunctionForUnlimitedCompetitors2(
-      formattedArrayOfWrestlersAndTeams
-    );
+    let seededArrayofWrestlersAndTeams =
+      seedingFunctionForUnlimitedCompetitors2(
+        formattedArrayOfWrestlersAndTeams
+      );
     console.log({ seededArrayofWrestlersAndTeams });
 
     let brackets = bracketBuilder(seededArrayofWrestlersAndTeams);
@@ -188,16 +202,45 @@ export default function AddCompetitorsComponent(props: IProps) {
 
   return (
     <>
-      <div>
-        {
-          <EditAllWrestlersOrAllInEventComponentStart
-            eventID={props.eventID}
-            divisionID={props.divisionID}
-          />
-        }
+      <div className="d-flex justify-content-between">
+        <div>
+          {props.role === "tableWorker" &&
+            allWrestlersInDivision &&
+            allWrestlersInDivision.map((wrestler: any) => {
+              return (
+                <TableWorkerEditWrestlerInfo
+                  allWrestlersInDivision={wrestler}
+                  reRenderParent={reRenderThisComponent}
+                />
+              );
+            })}
+          {props.role === "admin" && (
+            <EditAllWrestlersOrAllInEventComponentStart
+              eventID={props.eventID}
+              divisionID={props.divisionID}
+            />
+          )}
+        </div>
+        {props.role === "admin" && (
+          <div>
+            <button
+              className="btn btn-primary ml-2"
+              onClick={() => handleSubmitWrestlerListFor32ManBracket()}
+            >
+              Click this button to make a 32 Bracket!
+            </button>
+            <p>or</p>
+            <button
+              className="btn btn-primary ml-2"
+              onClick={() => handleSubmitWrestlerListForRoundRobinBracket()}
+            >
+              Click this button to make a round-robin bracket!
+            </button>
+          </div>
+        )}
       </div>
       {/* ////////////////////////////////////// */}
-      <tr>
+      {/* <tr>
         <td colSpan={1}>
           <p>
             Copy and paste the full list of copmetitors and their teams into
@@ -252,7 +295,7 @@ export default function AddCompetitorsComponent(props: IProps) {
             Click this button to make a round-robin bracket!
           </button>
         </td>
-      </tr>
+      </tr> */}
     </>
   );
 }
@@ -260,4 +303,5 @@ export default function AddCompetitorsComponent(props: IProps) {
 interface IProps {
   divisionID: string | number;
   eventID: string | number;
+  role?: string;
 }

@@ -7,6 +7,9 @@ export default function EditDivisionsComponent(props: any) {
   const [deleteText, setDeleteText] = React.useState("");
   const [showInputCompetitorsComponent, setShowInputCompetitorsComponent] =
     React.useState<any>({});
+  const [eventName, setEventName] = React.useState<string>();
+  const [role, setRole] = React.useState<string>();
+  let UID = sessionStorage.getItem("UID");
 
   let onClickRevealInputCompetitorsComponent = (e: any) => {
     setShowInputCompetitorsComponent((prev: {}) => {
@@ -49,25 +52,39 @@ export default function EditDivisionsComponent(props: any) {
     }
   };
 
-  console.log(props.eventID);
   React.useEffect(() => {
     fetch(`/api/divisions/divisionsByEventId/${props.eventID}`)
       .then((res) => res.json())
       .then((results) => {
         setDivisions(results);
       });
-  }, []);
+    fetch(`/api/events/${props.eventID}`)
+      .then((res) => res.json())
+      .then((res) => setEventName(res[0].name_of_event));
+    fetch(`/api/users/${UID}`)
+      .then((res) => res.json())
+      .then((results) => {
+        setRole(results[0].role);
+      });
+  }, [props.eventID]);
+
+  React.useEffect(() => {}, []);
 
   return (
     <>
-      <h2>List of divisions:</h2>
+      <h2>All divisions: {eventName}</h2>
       <table className="table">
         <thead className="sticky-top">
           <tr className="bg-light">
             <th>Name of division</th>
             <th>Input Competitors</th>
-            <th>Delete this division?</th>
-            <th>Delete Button</th>
+
+            {role === "admin" && (
+              <>
+                <th>Delete this division?</th>
+                <th>Delete Button</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -83,25 +100,30 @@ export default function EditDivisionsComponent(props: any) {
                       className="btn btn-primary"
                       onClick={onClickRevealInputCompetitorsComponent}
                     >
-                      Add Competitors
+                      Edit Competitors
                     </button>
                   </td>
-                  <td>
-                    <input type="text" onChange={onTextChange} />
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeleteClick(division.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  {role === "admin" && (
+                    <>
+                      <td>
+                        <input type="text" onChange={onTextChange} />
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => handleDeleteClick(division.id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </>
+                  )}
                 </tr>
                 {showInputCompetitorsComponent[division.id] && (
                   <AddCompetitorsComponent
                     divisionID={division.id}
                     eventID={props.eventID}
+                    role={role}
                   />
                 )}
               </>

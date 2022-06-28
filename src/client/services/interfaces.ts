@@ -21,4 +21,30 @@ interface ISingleBoutInfoAfterPutThroughFuncforActualNames {
   winner: string | undefined | null | any;
 }
 
-export { ISingleBoutInfoAfterPutThroughFuncforActualNames };
+interface ITableWorkerInfoFromToken {
+  userId: number | string;
+  email: string;
+  role: string;
+  priviliges_for_event_ID: number | string;
+}
+
+interface IRegistrationInfoFromTableWorker {
+  id: number | string;
+  first_name: string;
+  last_name: string;
+  team_id: number | string;
+  event_id: number | string;
+  division_they_signed_up_for_id: number | string;
+  division_they_are_competing_at_id: number | string;
+  weight_they_weighed_in_at: number | string;
+  name_of_event: string;
+  team_name: string;
+  division_signed_up_for_name: string | number;
+  division_competing_at_name: string | number;
+}
+
+export {
+  ISingleBoutInfoAfterPutThroughFuncforActualNames,
+  ITableWorkerInfoFromToken,
+  IRegistrationInfoFromTableWorker,
+};

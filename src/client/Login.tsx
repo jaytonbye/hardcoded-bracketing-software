@@ -31,6 +31,7 @@ function Login() {
       password,
     })
       .then((data) => {
+        // console.log(data)
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("UID", data.UID);
 

@@ -31,6 +31,9 @@ export default function NavigationBar() {
   let goToRegisterForEvenetPage = () => {
     history.push("/registrations");
   };
+  let goToTableWorkerPage = () => {
+    history.push("/tableWorker");
+  };
   let goToLogIn = () => {
     history.push("/login");
   };
@@ -42,6 +45,14 @@ export default function NavigationBar() {
           <button className="btn btn-outline-primary" onClick={goToHome}>
             Events
           </button>
+          {userRole === "tableWorker" && (
+            <button
+              className="btn btn-outline-danger"
+              onClick={goToTableWorkerPage}
+            >
+              Staff
+            </button>
+          )}
           <button
             style={{
               backgroundColor: "blue",

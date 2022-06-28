@@ -73,6 +73,25 @@ router.get(
   }
 );
 
+router.get(
+  "/getAllRegistrationsForDivisionForTableWorker/:eventId/:divisionId",
+  async (req, res) => {
+    try {
+      let eventId = req.params.eventId;
+      let divisionId = req.params.divisionId;
+      let allRegistrationsForDivisionForTableWorker =
+        await db.registrations.getAllRegistrationsForDivisionForTableWorker(
+          eventId,
+          divisionId
+        );
+      res.json(allRegistrationsForDivisionForTableWorker);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  }
+);
+
 router.get("/getDateOfEventByEventId/:eventId", async (req, res) => {
   try {
     let eventId = req.params.eventId;
@@ -153,6 +172,22 @@ router.put("/updateRegistrationsWieght", async (req, res) => {
     let registrationId = req.body.registrationId;
     let updateRegistrationWeight =
       await db.registrations.putEditRegistrationWeight(weight, registrationId);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+router.put("/updateRegistrationsPhoneNumber", async (req, res) => {
+  try {
+    let phoneNumber = req.body.phoneNumber;
+    let registrationId = req.body.registrationId;
+    let updateRegistrationWeight =
+      await db.registrations.putEditRegistrationPhoneNumber(
+        phoneNumber,
+        registrationId
+      );
     res.sendStatus(200);
   } catch (error) {
     console.log(error);

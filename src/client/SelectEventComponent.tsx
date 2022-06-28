@@ -3,11 +3,12 @@ import { useHistory } from "react-router-dom";
 
 export default function EventsPage() {
   const [navigateToEvent, setNavigateToEvent] = React.useState();
-  const [allEvents, setAllEvents] = React.useState([]);
+  const [allEvents, setAllEvents] = React.useState<any>([]);
 
   const onEventChange = (event: any) => {
     setNavigateToEvent(event.target.value);
   };
+  
 
   let history = useHistory();
 
@@ -28,7 +29,7 @@ export default function EventsPage() {
       <h4>Select the event:</h4>
       <select onChange={onEventChange}>
         <option>Select an event</option>
-        {allEvents.map((event) => {
+        {allEvents.map((event: any) => {
           return (
             <option key={event.id} value={event.id}>
               {event.name_of_event}
